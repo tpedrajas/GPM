@@ -10,8 +10,6 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
         OnAboutDelegate = delegate { };
         OnCalculateIntersectionDelegate = delegate { };
         OnExistsIntersectionDelegate = delegate { };
-
-        //EnableCalculateIntersection = true;
     }
 
     #endregion
