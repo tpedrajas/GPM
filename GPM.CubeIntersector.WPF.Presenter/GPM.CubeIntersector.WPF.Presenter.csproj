@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>false</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GPM.CubeIntersector.Domain\GPM.CubeIntersector.Domain.csproj" />
+    <ProjectReference Include="..\GPM.WPF.ViewModel\GPM.WPF.ViewModel.csproj" />
+    <ProjectReference Include="..\GPM.WPF.View\GPM.WPF.View.csproj" />
+  </ItemGroup>
+
+</Project>
