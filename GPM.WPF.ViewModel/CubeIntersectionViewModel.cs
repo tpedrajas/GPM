@@ -64,6 +64,8 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     [ObservableProperty]
     private float? _HeightIntersection;
 
+    private bool _IsCleaning;
+
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
@@ -130,14 +132,19 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
 
     private bool IsEnableCalculateIntersection()
     {
-        bool canEnable = true;
+        bool canEnable = false;
 
-        canEnable &= float.TryParse(XPositionCube1, out _) && float.TryParse(YPositionCube1, out _) && float.TryParse(ZPositionCube1, out _);
-        canEnable &= float.TryParse(WidthCube1, out _) && float.TryParse(HeightCube1, out _) && float.TryParse(DepthCube1, out _);
-        canEnable &= float.TryParse(XPositionCube2, out _) && float.TryParse(YPositionCube2, out _) && float.TryParse(ZPositionCube2, out _);
-        canEnable &= float.TryParse(WidthCube2, out _) && float.TryParse(HeightCube2, out _) && float.TryParse(DepthCube2, out _);
+        if (!_IsCleaning)
+        {
+            canEnable = true;
 
-        EnableCalculateIntersection = canEnable;
+            canEnable &= float.TryParse(XPositionCube1, out _) && float.TryParse(YPositionCube1, out _) && float.TryParse(ZPositionCube1, out _);
+            canEnable &= float.TryParse(WidthCube1, out _) && float.TryParse(HeightCube1, out _) && float.TryParse(DepthCube1, out _);
+            canEnable &= float.TryParse(XPositionCube2, out _) && float.TryParse(YPositionCube2, out _) && float.TryParse(ZPositionCube2, out _);
+            canEnable &= float.TryParse(WidthCube2, out _) && float.TryParse(HeightCube2, out _) && float.TryParse(DepthCube2, out _);
+
+            EnableCalculateIntersection = canEnable;
+        }
 
         return canEnable;
     }
@@ -158,6 +165,8 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     [RelayCommand]
     private void OnCleanDataButtonClick()
     {
+        _IsCleaning = true;
+
         XPositionCube1 = null;
         XPositionCube2 = null;
         XPositionIntersection = null;
@@ -184,6 +193,8 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
 
         ExistsIntersection = false;
         EnableCalculateIntersection = false;
+
+        _IsCleaning = false;
     }
 
     #endregion
