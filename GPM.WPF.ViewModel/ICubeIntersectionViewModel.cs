@@ -1,4 +1,6 @@
-﻿namespace GPM.WPF.ViewModel;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GPM.WPF.ViewModel;
 
 public interface ICubeIntersectionViewModel : IWPFViewModel
 {
@@ -15,9 +17,10 @@ public interface ICubeIntersectionViewModel : IWPFViewModel
 
     #region
 
-    public float? DepthCube1 { get; set; }
+    [MaxLength(10)]
+    public string? DepthCube1 { get; set; }
 
-    public float? DepthCube2 { get; set; }
+    public string? DepthCube2 { get; set; }
 
     public float? DepthIntersection { get; set; }
 
@@ -25,33 +28,33 @@ public interface ICubeIntersectionViewModel : IWPFViewModel
 
     public bool ExistsIntersection { get; set; }
 
-    public float? HeightCube1 { get; set; }
+    public string? HeightCube1 { get; set; }
 
-    public float? HeightCube2 { get; set; }
+    public string? HeightCube2 { get; set; }
 
     public float? HeightIntersection { get; set; }
 
-    public float? WidthCube1 { get; set; }
+    public string? WidthCube1 { get; set; }
 
-    public float? WidthCube2 { get; set; }
+    public string? WidthCube2 { get; set; }
 
     public float? WidthIntersection { get; set; }
 
-    public float? XPositionCube1 { get; set; }
+    public string? XPositionCube1 { get; set; }
 
-    public float? XPositionCube2 { get; set; }
+    public string? XPositionCube2 { get; set; }
 
     public float? XPositionIntersection { get; set; }
 
-    public float? YPositionCube1 { get; set; }
+    public string? YPositionCube1 { get; set; }
 
-    public float? YPositionCube2 { get; set; }
+    public string? YPositionCube2 { get; set; }
 
     public float? YPositionIntersection { get; set; }
 
-    public float? ZPositionCube1 { get; set; }
+    public string? ZPositionCube1 { get; set; }
 
-    public float? ZPositionCube2 { get; set; }
+    public string? ZPositionCube2 { get; set; }
 
     public float? ZPositionIntersection { get; set; }
 

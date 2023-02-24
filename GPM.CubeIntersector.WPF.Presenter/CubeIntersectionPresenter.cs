@@ -1,6 +1,4 @@
-﻿
-
-namespace GPM.CubeIntersector.WPF.Presenter;
+﻿namespace GPM.CubeIntersector.WPF.Presenter;
 
 public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICubeIntersectionViewModel, IWPFServiceManager>, ICubeIntersectionPresenter
 {
@@ -31,10 +29,10 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
     private void OnCalculateIntersection(object? sender, EventArgs args)
     {
-        Cube cube1 = new(_ViewModel.XPositionCube1!.Value, _ViewModel.YPositionCube1!.Value, _ViewModel.ZPositionCube1!.Value,
-                         _ViewModel.WidthCube1!.Value, _ViewModel.HeightCube1!.Value, _ViewModel.DepthCube1!.Value);
-        Cube cube2 = new(_ViewModel.XPositionCube2!.Value, _ViewModel.YPositionCube2!.Value, _ViewModel.ZPositionCube2!.Value,
-                         _ViewModel.WidthCube2!.Value, _ViewModel.HeightCube2!.Value, _ViewModel.DepthCube2!.Value);
+        Cube cube1 = new(float.Parse(_ViewModel.XPositionCube1!), float.Parse(_ViewModel.YPositionCube1!), float.Parse(_ViewModel.ZPositionCube1!),
+                         float.Parse(_ViewModel.WidthCube1!), float.Parse(_ViewModel.HeightCube1!), float.Parse(_ViewModel.DepthCube1!));
+        Cube cube2 = new(float.Parse(_ViewModel.XPositionCube2!), float.Parse(_ViewModel.YPositionCube2!), float.Parse(_ViewModel.ZPositionCube2!),
+                         float.Parse(_ViewModel.WidthCube2!), float.Parse(_ViewModel.HeightCube2!), float.Parse(_ViewModel.DepthCube2!));
 
         Cube? cubeIntersection = CubeIntersectionLogic.GetCubeIntersect(cube1, cube2);
 
@@ -51,10 +49,10 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
     private void OnExistsIntersection(object? sender, EventArgs args)
     {
-        Cube cube1 = new(_ViewModel.XPositionCube1!.Value, _ViewModel.YPositionCube1!.Value, _ViewModel.ZPositionCube1!.Value,
-                         _ViewModel.WidthCube1!.Value, _ViewModel.HeightCube1!.Value, _ViewModel.DepthCube1!.Value);
-        Cube cube2 = new(_ViewModel.XPositionCube2!.Value, _ViewModel.YPositionCube2!.Value, _ViewModel.ZPositionCube2!.Value,
-                         _ViewModel.WidthCube2!.Value, _ViewModel.HeightCube2!.Value, _ViewModel.DepthCube2!.Value);
+        Cube cube1 = new(float.Parse(_ViewModel.XPositionCube1!), float.Parse(_ViewModel.YPositionCube1!), float.Parse(_ViewModel.ZPositionCube1!),
+                         float.Parse(_ViewModel.WidthCube1!), float.Parse(_ViewModel.HeightCube1!), float.Parse(_ViewModel.DepthCube1!));
+        Cube cube2 = new(float.Parse(_ViewModel.XPositionCube2!), float.Parse(_ViewModel.YPositionCube2!), float.Parse(_ViewModel.ZPositionCube2!),
+                         float.Parse(_ViewModel.WidthCube2!), float.Parse(_ViewModel.HeightCube2!), float.Parse(_ViewModel.DepthCube2!));
 
         bool existIntersection = CubeIntersectionLogic.ExistsCubeIntersect(cube1, cube2);
 

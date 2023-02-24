@@ -29,10 +29,14 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     #region fields
 
     [ObservableProperty]
-    private float? _DepthCube1;
+    [NotifyDataErrorInfo]
+    [NumberCulturedFormated]
+    private string? _DepthCube1;
 
     [ObservableProperty]
-    private float? _DepthCube2;
+    [NotifyDataErrorInfo]
+    [NumberCulturedFormated]
+    private string? _DepthCube2;
 
     [ObservableProperty]
     private float? _DepthIntersection;
@@ -44,46 +48,66 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     private bool _ExistsIntersection;
 
     [ObservableProperty]
-    private float? _HeightCube1;
+    [NotifyDataErrorInfo]
+    [NumberCulturedFormated]
+    private string? _HeightCube1;
 
     [ObservableProperty]
-    private float? _HeightCube2;
+    [NotifyDataErrorInfo]
+    [NumberCulturedFormated]
+    private string? _HeightCube2;
 
     [ObservableProperty]
     private float? _HeightIntersection;
 
     [ObservableProperty]
-    private float? _WidthCube1;
+    [NotifyDataErrorInfo]
+    [NumberCulturedFormated]
+    private string? _WidthCube1;
 
     [ObservableProperty]
-    private float? _WidthCube2;
+    [NotifyDataErrorInfo]
+    [NumberCulturedFormated]
+    private string? _WidthCube2;
 
     [ObservableProperty]
     private float? _WidthIntersection;
 
     [ObservableProperty]
-    private float? _XPositionCube1;
+    [NotifyDataErrorInfo]
+    [NumberCulturedFormated]
+    private string? _XPositionCube1;
 
     [ObservableProperty]
-    private float? _XPositionCube2;
+    [NotifyDataErrorInfo]
+    [NumberCulturedFormated]
+    private string? _XPositionCube2;
 
     [ObservableProperty]
     private float? _XPositionIntersection;
 
     [ObservableProperty]
-    private float? _YPositionCube1;
+    [NotifyDataErrorInfo]
+    [NumberCulturedFormated]
+    private string? _YPositionCube1;
 
     [ObservableProperty]
-    private float? _YPositionCube2;
+    [NotifyDataErrorInfo]
+    [NumberCulturedFormated]
+    private string? _YPositionCube2;
 
     [ObservableProperty]
     private float? _YPositionIntersection;
 
     [ObservableProperty]
-    private float? _ZPositionCube1;
+    [NotifyDataErrorInfo]
+    [NumberCulturedFormated]
+    private string? _ZPositionCube1;
 
     [ObservableProperty]
-    private float? _ZPositionCube2;
+    [NotifyDataErrorInfo]
+    [NumberCulturedFormated]
+    private string? _ZPositionCube2;
 
     [ObservableProperty]
     private float? _ZPositionIntersection;
@@ -91,6 +115,18 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     #endregion
 
     #region methods
+
+    private void CanEnableCalculateIntersection()
+    {
+        bool canEnable = true;
+
+        canEnable &= float.TryParse(XPositionCube1, out _) && float.TryParse(YPositionCube1, out _) && float.TryParse(ZPositionCube1, out _);
+        canEnable &= float.TryParse(WidthCube1, out _) && float.TryParse(HeightCube1, out _) && float.TryParse(DepthCube1, out _);
+        canEnable &= float.TryParse(XPositionCube2, out _) && float.TryParse(YPositionCube2, out _) && float.TryParse(ZPositionCube2, out _);
+        canEnable &= float.TryParse(WidthCube2, out _) && float.TryParse(HeightCube2, out _) && float.TryParse(DepthCube2, out _);
+
+        EnableCalculateIntersection = canEnable;
+    }
 
     [RelayCommand]
     private void OnAboutButtonClick()
@@ -105,7 +141,7 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
         OnCalculateIntersectionDelegate.DynamicInvoke(this, new EventArgs());
     }
 
-    [RelayCommand]
+    [RelayCommand()]
     private void OnCleanDataButtonClick()
     {
         XPositionCube1 = null;

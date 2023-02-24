@@ -1,6 +1,6 @@
 ﻿namespace GPM.Product.WPF.ViewModel;
 
-public class WPFViewModel : ObservableObject, IWPFViewModel
+public class WPFViewModel : ObservableValidator, IWPFViewModel
 {
 
 }

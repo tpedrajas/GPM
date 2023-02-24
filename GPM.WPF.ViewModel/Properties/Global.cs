@@ -13,6 +13,8 @@ global using CommunityToolkit.Mvvm.Input;
 
 #region usings from Support Layer
 
+global using GPM.Product.Common.Validation;
+
 global using GPM.Product.WPF.ViewModel;
 
 #endregion
