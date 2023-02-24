@@ -12,8 +12,10 @@ global using Microsoft.Extensions.DependencyInjection;
 
 #region usings from Presentation Layer
 
-global using GPM.WPF.View;
-global using GPM.WPF.ViewModel;
+global using GPM.CubeIntersector.WPF.Presenter.Facade;
+
+global using GPM.WPF.View.Facade;
+global using GPM.WPF.ViewModel.Facade;
 
 #endregion
 
