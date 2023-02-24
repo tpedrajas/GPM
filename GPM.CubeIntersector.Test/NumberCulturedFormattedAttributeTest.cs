@@ -1,7 +1,7 @@
 ﻿namespace GPM.CubeIntersector.Test;
 
 [TestClass]
-public class NumberCulturedFormatedAttributeTest
+public class NumberCulturedFormattedAttributeTest
 {
 
     #region IsValid tests

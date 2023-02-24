@@ -1,17 +1,17 @@
 ﻿namespace GPM.Product.Common.Validation;
 
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
-public class NumberCulturedFormatedAttribute : ValidationAttribute
+public class NumberCulturedFormattedAttribute : ValidationAttribute
 {
 
     #region constructors / deconstructors / destructors
 
-    public NumberCulturedFormatedAttribute()
+    public NumberCulturedFormattedAttribute()
     {
 
     }
 
-    public NumberCulturedFormatedAttribute(string errorMessage)
+    public NumberCulturedFormattedAttribute(string errorMessage)
     {
         ErrorMessage = errorMessage;
     }

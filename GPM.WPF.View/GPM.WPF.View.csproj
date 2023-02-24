@@ -15,17 +15,35 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Localization\Locale.Designer.cs">
+    <Compile Update="Localization\AboutViewLocale.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Locale.resx</DependentUpon>
+      <DependentUpon>AboutViewLocale.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localization\CubeIntersectionViewLocale.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CubeIntersectionViewLocale.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localization\CommonLocale.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CommonLocale.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Localization\Locale.resx">
+    <EmbeddedResource Update="Localization\AboutViewLocale.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Locale.Designer.cs</LastGenOutput>
+      <LastGenOutput>AboutViewLocale.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\CubeIntersectionViewLocale.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CubeIntersectionViewLocale.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\CommonLocale.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommonLocale.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
