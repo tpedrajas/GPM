@@ -136,10 +136,10 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
         {
             canEnable = true;
 
-            canEnable &= float.TryParse(XPositionCube1, out _) && float.TryParse(YPositionCube1, out _) && float.TryParse(ZPositionCube1, out _);
-            canEnable &= float.TryParse(WidthCube1, out _) && float.TryParse(HeightCube1, out _) && float.TryParse(DepthCube1, out _);
-            canEnable &= float.TryParse(XPositionCube2, out _) && float.TryParse(YPositionCube2, out _) && float.TryParse(ZPositionCube2, out _);
-            canEnable &= float.TryParse(WidthCube2, out _) && float.TryParse(HeightCube2, out _) && float.TryParse(DepthCube2, out _);
+            canEnable &= Numeric.AreFloat(new string?[] { XPositionCube1, YPositionCube1, ZPositionCube1 });
+            canEnable &= Numeric.AreFloat(new string?[] { WidthCube1, HeightCube1, DepthCube1 });
+            canEnable &= Numeric.AreFloat(new string?[] { XPositionCube2, YPositionCube2, ZPositionCube2 });
+            canEnable &= Numeric.AreFloat(new string?[] { WidthCube2, HeightCube2, DepthCube2 });
 
             EnableCalculateIntersection = canEnable;
         }
