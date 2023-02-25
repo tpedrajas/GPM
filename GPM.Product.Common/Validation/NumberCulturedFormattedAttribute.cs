@@ -6,7 +6,7 @@ public class NumberCulturedFormattedAttribute : ValidationAttribute
 
     #region constructors / deconstructors / destructors
 
-    public NumberCulturedFormattedAttribute() : this(int.MaxValue, string.Empty)
+    public NumberCulturedFormattedAttribute() : this(int.MaxValue, null)
     {
 
     }
@@ -16,15 +16,19 @@ public class NumberCulturedFormattedAttribute : ValidationAttribute
         
     }
 
-    public NumberCulturedFormattedAttribute(int maxPrecission) : this(maxPrecission, string.Empty)
+    public NumberCulturedFormattedAttribute(int maxPrecission) : this(maxPrecission, null)
     {
 
     }
 
-    public NumberCulturedFormattedAttribute(int maxPrecission, string errorMessage)
+    public NumberCulturedFormattedAttribute(int maxPrecission, string? errorMessage)
     {
         _MaxPrecission = maxPrecission;
-        ErrorMessage = errorMessage;
+
+        if (errorMessage is not null)
+        {
+            ErrorMessage = errorMessage;
+        }
     }
 
     #endregion
