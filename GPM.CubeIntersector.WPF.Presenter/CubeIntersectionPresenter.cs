@@ -78,31 +78,18 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
     {
         _IsCleaning = true;
 
-        _ViewModel.XPositionCube1 = string.Empty;
-        _ViewModel.YPositionCube1 = string.Empty;
-        _ViewModel.ZPositionCube1 = string.Empty;
-        _ViewModel.WidthCube1 = string.Empty;
-        _ViewModel.HeightCube1 = string.Empty;
-        _ViewModel.DepthCube1 = string.Empty;
+        Array.Fill(new string?[] { _ViewModel.XPositionCube1, _ViewModel.YPositionCube1, _ViewModel.ZPositionCube1 }, string.Empty);
+        Array.Fill(new string?[] { _ViewModel.WidthCube1, _ViewModel.HeightCube1, _ViewModel.DepthCube1 }, string.Empty);
 
-        _ViewModel.XPositionCube2 = string.Empty;
-        _ViewModel.YPositionCube2 = string.Empty;
-        _ViewModel.ZPositionCube2 = string.Empty;
-        _ViewModel.WidthCube2 = string.Empty;
-        _ViewModel.HeightCube2 = string.Empty;
-        _ViewModel.DepthCube2 = string.Empty;
+        Array.Fill(new string?[] { _ViewModel.XPositionCube2, _ViewModel.YPositionCube2, _ViewModel.ZPositionCube2 }, string.Empty);
+        Array.Fill(new string?[] { _ViewModel.WidthCube2, _ViewModel.HeightCube2, _ViewModel.DepthCube2 }, string.Empty);
 
         if (!init)
         {
-            _ViewModel.XPositionIntersection = null;
-            _ViewModel.YPositionIntersection = null;
-            _ViewModel.ZPositionIntersection = null;
-            _ViewModel.WidthIntersection = null;
-            _ViewModel.HeightIntersection = null;
-            _ViewModel.DepthIntersection = null;
+            Array.Fill(new float?[] { _ViewModel.XPositionIntersection, _ViewModel.YPositionIntersection, _ViewModel.ZPositionIntersection }, null);
+            Array.Fill(new float?[] { _ViewModel.WidthIntersection, _ViewModel.HeightIntersection, _ViewModel.DepthIntersection }, null);
 
-            _ViewModel.ExistsIntersection = false;
-            _ViewModel.EnableCalculateIntersection = false;
+            Array.Fill(new bool[] { _ViewModel.ExistsIntersection, _ViewModel.EnableCalculateIntersection }, false);
         }
 
         _IsCleaning = false;

@@ -5,11 +5,6 @@ public class AboutPresenter : WPFPresenter<IAboutView, IAboutViewModel, IWPFServ
 
     #region constructors / deconstructors / destructors
 
-    static AboutPresenter()
-    {
-        
-    }
-
     public AboutPresenter(IAboutView view, IAboutViewModel viewModel, IWPFServiceManager serviceManager) : base(view, viewModel, serviceManager)
     {
         
