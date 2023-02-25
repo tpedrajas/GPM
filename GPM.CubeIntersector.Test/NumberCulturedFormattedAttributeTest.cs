@@ -9,7 +9,7 @@ public class NumberCulturedFormattedAttributeTest
     [TestMethod]
     public void IsValid_Test01()
     {
-        NumberCulturedFormattedAttribute attribute = new();
+        NumberCulturedFormattedAttribute attribute = new(3);
         string checkedValue = "1,23";
 
         bool result = attribute.IsValid(checkedValue);
@@ -84,7 +84,7 @@ public class NumberCulturedFormattedAttributeTest
 
         bool result = attribute.IsValid(checkedValue);
 
-        Assert.IsTrue(result);
+        Assert.IsFalse(result);
     }
 
     [TestMethod]
@@ -173,6 +173,72 @@ public class NumberCulturedFormattedAttributeTest
         bool result = attribute.IsValid(checkedValue);
 
         Assert.IsFalse(result);
+    }
+
+    [TestMethod]
+    public void IsValid_Test16()
+    {
+        NumberCulturedFormattedAttribute attribute = new(2);
+        string checkedValue = "1,001";
+
+        bool result = attribute.IsValid(checkedValue);
+
+        Assert.IsFalse(result);
+    }
+
+    [TestMethod]
+    public void IsValid_Test17()
+    {
+        NumberCulturedFormattedAttribute attribute = new(2);
+        string checkedValue = "1,10";
+
+        bool result = attribute.IsValid(checkedValue);
+
+        Assert.IsFalse(result);
+    }
+
+    [TestMethod]
+    public void IsValid_Test18()
+    {
+        NumberCulturedFormattedAttribute attribute = new(2);
+        string checkedValue = "1,09";
+
+        bool result = attribute.IsValid(checkedValue);
+
+        Assert.IsTrue(result);
+    }
+
+    [TestMethod]
+    public void IsValid_Test19()
+    {
+        NumberCulturedFormattedAttribute attribute = new(2);
+        string checkedValue = "01,09";
+
+        bool result = attribute.IsValid(checkedValue);
+
+        Assert.IsFalse(result);
+    }
+
+    [TestMethod]
+    public void IsValid_Test20()
+    {
+        NumberCulturedFormattedAttribute attribute = new(3);
+        string checkedValue = "20,9";
+
+        bool result = attribute.IsValid(checkedValue);
+
+        Assert.IsTrue(result);
+    }
+
+    [TestMethod]
+    public void IsValid_Test21()
+    {
+        NumberCulturedFormattedAttribute attribute = new(3);
+        string checkedValue = "20,09";
+
+        bool result = attribute.IsValid(checkedValue);
+
+        Assert.IsTrue(result);
     }
 
     #endregion

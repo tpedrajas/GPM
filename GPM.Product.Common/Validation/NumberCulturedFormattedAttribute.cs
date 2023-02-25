@@ -6,15 +6,32 @@ public class NumberCulturedFormattedAttribute : ValidationAttribute
 
     #region constructors / deconstructors / destructors
 
-    public NumberCulturedFormattedAttribute()
+    public NumberCulturedFormattedAttribute() : this(int.MaxValue, string.Empty)
     {
 
     }
 
-    public NumberCulturedFormattedAttribute(string errorMessage)
+    public NumberCulturedFormattedAttribute(string errorMessage) : this(int.MaxValue, errorMessage)
     {
+        
+    }
+
+    public NumberCulturedFormattedAttribute(int maxPrecission) : this(maxPrecission, string.Empty)
+    {
+
+    }
+
+    public NumberCulturedFormattedAttribute(int maxPrecission, string errorMessage)
+    {
+        _MaxPrecission = maxPrecission;
         ErrorMessage = errorMessage;
     }
+
+    #endregion
+
+    #region fields
+
+    private readonly int _MaxPrecission;
 
     #endregion
 
@@ -22,10 +39,28 @@ public class NumberCulturedFormattedAttribute : ValidationAttribute
 
     public override bool IsValid(object? value)
     {
-        string pattern = @"^-?([1-9][0-9]*|0)(\" + Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator + "[0-9]{1,})?$";
-        Regex regex = new(pattern);
+        NumberFormatInfo numberFormatInfo;
+        StringBuilder pattern;
 
-        return regex.IsMatch(value?.ToString() ?? "");
+        string? stringValue = Convert.ToString(value);
+        bool isValid = false;
+
+        if (!string.IsNullOrEmpty(stringValue))
+        {
+            numberFormatInfo = Thread.CurrentThread.CurrentCulture.NumberFormat;
+            pattern = new($"^{numberFormatInfo.NegativeSign}?([1-9][0-9]*|0)", 3);
+
+            if (_MaxPrecission > 0)
+            {
+                pattern.Append($@"(\{numberFormatInfo.NumberDecimalSeparator}[0-9]{{0,{Convert.ToString(_MaxPrecission - 1)}}}[1-9])?");
+            }
+
+            pattern.Append('$');
+
+            isValid = Regex.IsMatch(stringValue, pattern.ToString());
+        }
+
+        return isValid;
     }
 
     #endregion
