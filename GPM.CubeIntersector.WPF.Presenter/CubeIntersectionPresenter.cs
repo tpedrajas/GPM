@@ -1,33 +1,58 @@
-﻿namespace GPM.CubeIntersector.WPF.Presenter;
+﻿using GPM.Product.Common.Validation;
+
+namespace GPM.CubeIntersector.WPF.Presenter;
 
 public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICubeIntersectionViewModel, IWPFServiceManager>, ICubeIntersectionPresenter
 {
 
     #region constructors / deconstructors / destructors
 
-    static CubeIntersectionPresenter()
-    {
-        
-    }
-
     public CubeIntersectionPresenter(ICubeIntersectionView view, ICubeIntersectionViewModel viewModel, IWPFServiceManager serviceManager) : base(view, viewModel, serviceManager)
     {
+        viewModel.IsEnableCalculateIntersectionDelegate += IsEnableCalculateIntersection;
         viewModel.OnAboutDelegate += OnAbout;
         viewModel.OnCalculateIntersectionDelegate += OnCalculateIntersection;
+        viewModel.OnCleanDataDelegate += OnCleanData;
         viewModel.OnExistsIntersectionDelegate += OnExistsIntersection;
     }
 
     #endregion
 
+    #region fields
+
+
+    private bool _IsCleaning;
+
+    #endregion
+
     #region methods
 
-    private void OnAbout(object? sender, EventArgs args)
+    private bool IsEnableCalculateIntersection()
+    {
+        bool canEnable = false;
+
+        if (!_IsCleaning)
+        {
+            canEnable = true;
+
+            canEnable &= Numeric.AreFloat(new string?[] { _ViewModel.XPositionCube1, _ViewModel.YPositionCube1, _ViewModel.ZPositionCube1 });
+            canEnable &= Numeric.AreFloat(new string?[] { _ViewModel.WidthCube1, _ViewModel.HeightCube1, _ViewModel.DepthCube1 });
+            canEnable &= Numeric.AreFloat(new string?[] { _ViewModel.XPositionCube2, _ViewModel.YPositionCube2, _ViewModel.ZPositionCube2 });
+            canEnable &= Numeric.AreFloat(new string?[] { _ViewModel.WidthCube2, _ViewModel.HeightCube2, _ViewModel.DepthCube2 });
+
+            _ViewModel.EnableCalculateIntersection = canEnable;
+        }
+
+        return canEnable;
+    }
+
+    private void OnAbout()
     {
         IWPFPresentationManager presentationManager = _ServiceManager.ServiceProvider.GetRequiredService<IWPFPresentationManager>();
         presentationManager.LoadPresenter<IAboutPresenter>(true, false);
     }
 
-    private void OnCalculateIntersection(object? sender, EventArgs args)
+    private void OnCalculateIntersection()
     {
         Cube cube1 = new(float.Parse(_ViewModel.XPositionCube1!), float.Parse(_ViewModel.YPositionCube1!), float.Parse(_ViewModel.ZPositionCube1!),
                          float.Parse(_ViewModel.WidthCube1!), float.Parse(_ViewModel.HeightCube1!), float.Parse(_ViewModel.DepthCube1!));
@@ -47,7 +72,41 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
         }
     }
 
-    private void OnExistsIntersection(object? sender, EventArgs args)
+    private void OnCleanData()
+    {
+        _IsCleaning = true;
+
+        _ViewModel.XPositionCube1 = null;
+        _ViewModel.XPositionCube2 = null;
+        _ViewModel.XPositionIntersection = null;
+
+        _ViewModel.YPositionCube1 = null;
+        _ViewModel.YPositionCube2 = null;
+        _ViewModel.YPositionIntersection = null;
+
+        _ViewModel.ZPositionCube1 = null;
+        _ViewModel.ZPositionCube2 = null;
+        _ViewModel.ZPositionIntersection = null;
+
+        _ViewModel.WidthCube1 = null;
+        _ViewModel.WidthCube2 = null;
+        _ViewModel.WidthIntersection = null;
+
+        _ViewModel.HeightCube1 = null;
+        _ViewModel.HeightCube2 = null;
+        _ViewModel.HeightIntersection = null;
+
+        _ViewModel.DepthCube1 = null;
+        _ViewModel.DepthCube2 = null;
+        _ViewModel.DepthIntersection = null;
+
+        _ViewModel.ExistsIntersection = false;
+        _ViewModel.EnableCalculateIntersection = false;
+
+        _IsCleaning = false;
+    }
+
+    private void OnExistsIntersection()
     {
         Cube cube1 = new(float.Parse(_ViewModel.XPositionCube1!), float.Parse(_ViewModel.YPositionCube1!), float.Parse(_ViewModel.ZPositionCube1!),
                          float.Parse(_ViewModel.WidthCube1!), float.Parse(_ViewModel.HeightCube1!), float.Parse(_ViewModel.DepthCube1!));
@@ -57,6 +116,17 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
         bool existIntersection = CubeIntersectionLogic.ExistsCubeIntersect(cube1, cube2);
 
         _ViewModel.ExistsIntersection = existIntersection;
+    }
+
+    protected override void OnViewClosed(object? sender, EventArgs args)
+    {
+        _ViewModel.IsEnableCalculateIntersectionDelegate -= IsEnableCalculateIntersection;
+        _ViewModel.OnAboutDelegate -= OnAbout;
+        _ViewModel.OnCalculateIntersectionDelegate -= OnCalculateIntersection;
+        _ViewModel.OnCleanDataDelegate -= OnCleanData;
+        _ViewModel.OnExistsIntersectionDelegate -= OnExistsIntersection;
+
+        base.OnViewClosed(sender, args);
     }
 
     #endregion

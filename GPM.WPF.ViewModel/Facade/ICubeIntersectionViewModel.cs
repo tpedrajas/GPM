@@ -5,11 +5,15 @@ public interface ICubeIntersectionViewModel : IWPFViewModel
 
     #region events
 
-    public event EventHandler OnAboutDelegate;
+    public event Func<bool>? IsEnableCalculateIntersectionDelegate;
 
-    public event EventHandler OnCalculateIntersectionDelegate;
+    public event Action? OnAboutDelegate;
 
-    public event EventHandler OnExistsIntersectionDelegate;
+    public event Action? OnCalculateIntersectionDelegate;
+
+    public event Action? OnCleanDataDelegate;
+
+    public event Action? OnExistsIntersectionDelegate;
 
     #endregion
 

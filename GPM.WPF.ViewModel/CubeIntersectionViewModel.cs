@@ -7,20 +7,22 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
 
     public CubeIntersectionViewModel()
     {
-        OnAboutDelegate = delegate { };
-        OnCalculateIntersectionDelegate = delegate { };
-        OnExistsIntersectionDelegate = delegate { };
+
     }
 
     #endregion
 
     #region delegates
 
-    public event EventHandler OnAboutDelegate;
+    public event Func<bool>? IsEnableCalculateIntersectionDelegate;
 
-    public event EventHandler OnCalculateIntersectionDelegate;
+    public event Action? OnAboutDelegate;
 
-    public event EventHandler OnExistsIntersectionDelegate;
+    public event Action? OnCalculateIntersectionDelegate;
+
+    public event Action? OnCleanDataDelegate;
+
+    public event Action? OnExistsIntersectionDelegate;
 
     #endregion
 
@@ -61,8 +63,6 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
 
     [ObservableProperty]
     private float? _HeightIntersection;
-
-    private bool _IsCleaning;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
@@ -130,69 +130,26 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
 
     private bool IsEnableCalculateIntersection()
     {
-        bool canEnable = false;
-
-        if (!_IsCleaning)
-        {
-            canEnable = true;
-
-            canEnable &= Numeric.AreFloat(new string?[] { XPositionCube1, YPositionCube1, ZPositionCube1 });
-            canEnable &= Numeric.AreFloat(new string?[] { WidthCube1, HeightCube1, DepthCube1 });
-            canEnable &= Numeric.AreFloat(new string?[] { XPositionCube2, YPositionCube2, ZPositionCube2 });
-            canEnable &= Numeric.AreFloat(new string?[] { WidthCube2, HeightCube2, DepthCube2 });
-
-            EnableCalculateIntersection = canEnable;
-        }
-
-        return canEnable;
+        return IsEnableCalculateIntersectionDelegate!.Invoke();
     }
 
     [RelayCommand]
     private void OnAboutButtonClick()
     {
-        OnAboutDelegate.DynamicInvoke(this, new EventArgs());
+        OnAboutDelegate!.Invoke();
     }
 
     [RelayCommand(CanExecute = nameof(IsEnableCalculateIntersection))]
     private void OnCalculateIntersectionButtonClick()
     {
-        OnExistsIntersectionDelegate.DynamicInvoke(this, new EventArgs());
-        OnCalculateIntersectionDelegate.DynamicInvoke(this, new EventArgs());
+        OnExistsIntersectionDelegate!.Invoke();
+        OnCalculateIntersectionDelegate!.Invoke();
     }
 
     [RelayCommand]
     private void OnCleanDataButtonClick()
     {
-        _IsCleaning = true;
-
-        XPositionCube1 = null;
-        XPositionCube2 = null;
-        XPositionIntersection = null;
-
-        YPositionCube1 = null;
-        YPositionCube2 = null;
-        YPositionIntersection = null;
-
-        ZPositionCube1 = null;
-        ZPositionCube2 = null;
-        ZPositionIntersection = null;
-
-        WidthCube1 = null;
-        WidthCube2 = null;
-        WidthIntersection = null;
-
-        HeightCube1 = null;
-        HeightCube2 = null;
-        HeightIntersection = null;
-
-        DepthCube1 = null;
-        DepthCube2 = null;
-        DepthIntersection = null;
-
-        ExistsIntersection = false;
-        EnableCalculateIntersection = false;
-
-        _IsCleaning = false;
+        OnCleanDataDelegate!.Invoke();
     }
 
     #endregion
