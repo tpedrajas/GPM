@@ -30,10 +30,10 @@ public class WPFPresenter<VT, VMT, SM> : AbstractPresenter<VT, SM>, IWPFPresente
 
     protected override void OnViewClosed(object? sender, EventArgs args)
     {
-        base.OnViewClosed(sender, args);
-
         IWPFPresentationManager presentationManager = _ServiceManager.ServiceProvider.GetRequiredService<IWPFPresentationManager>();
         presentationManager.UnloadPresenter(this);
+
+        base.OnViewClosed(sender, args);
     }
 
     public override void ShowView(bool isDialog)
