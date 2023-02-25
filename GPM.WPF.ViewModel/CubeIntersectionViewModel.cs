@@ -3,15 +3,6 @@
 public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersectionViewModel
 {
 
-    #region constructors / deconstructors / destructors
-
-    public CubeIntersectionViewModel()
-    {
-
-    }
-
-    #endregion
-
     #region delegates
 
     public event Func<bool>? IsEnableCalculateIntersectionDelegate;
@@ -20,7 +11,7 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
 
     public event Action? OnCalculateIntersectionDelegate;
 
-    public event Action? OnCleanDataDelegate;
+    public event Action<bool>? OnCleanDataDelegate;
 
     public event Action? OnExistsIntersectionDelegate;
 
@@ -149,7 +140,7 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     [RelayCommand]
     private void OnCleanDataButtonClick()
     {
-        OnCleanDataDelegate!.Invoke();
+        OnCleanDataDelegate!.Invoke(false);
     }
 
     #endregion

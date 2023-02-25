@@ -11,7 +11,7 @@ public interface ICubeIntersectionViewModel : IWPFViewModel
 
     public event Action? OnCalculateIntersectionDelegate;
 
-    public event Action? OnCleanDataDelegate;
+    public event Action<bool>? OnCleanDataDelegate;
 
     public event Action? OnExistsIntersectionDelegate;
 

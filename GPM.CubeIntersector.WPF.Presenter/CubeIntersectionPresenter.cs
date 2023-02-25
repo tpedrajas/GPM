@@ -14,6 +14,8 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
         viewModel.OnCalculateIntersectionDelegate += OnCalculateIntersection;
         viewModel.OnCleanDataDelegate += OnCleanData;
         viewModel.OnExistsIntersectionDelegate += OnExistsIntersection;
+
+        viewModel.CleanDataButtonClickCommand.Execute(true);
     }
 
     #endregion
@@ -72,36 +74,36 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
         }
     }
 
-    private void OnCleanData()
+    private void OnCleanData(bool init)
     {
         _IsCleaning = true;
 
-        _ViewModel.XPositionCube1 = null;
-        _ViewModel.XPositionCube2 = null;
-        _ViewModel.XPositionIntersection = null;
+        _ViewModel.XPositionCube1 = string.Empty;
+        _ViewModel.YPositionCube1 = string.Empty;
+        _ViewModel.ZPositionCube1 = string.Empty;
+        _ViewModel.WidthCube1 = string.Empty;
+        _ViewModel.HeightCube1 = string.Empty;
+        _ViewModel.DepthCube1 = string.Empty;
 
-        _ViewModel.YPositionCube1 = null;
-        _ViewModel.YPositionCube2 = null;
-        _ViewModel.YPositionIntersection = null;
+        _ViewModel.XPositionCube2 = string.Empty;
+        _ViewModel.YPositionCube2 = string.Empty;
+        _ViewModel.ZPositionCube2 = string.Empty;
+        _ViewModel.WidthCube2 = string.Empty;
+        _ViewModel.HeightCube2 = string.Empty;
+        _ViewModel.DepthCube2 = string.Empty;
 
-        _ViewModel.ZPositionCube1 = null;
-        _ViewModel.ZPositionCube2 = null;
-        _ViewModel.ZPositionIntersection = null;
+        if (!init)
+        {
+            _ViewModel.XPositionIntersection = null;
+            _ViewModel.YPositionIntersection = null;
+            _ViewModel.ZPositionIntersection = null;
+            _ViewModel.WidthIntersection = null;
+            _ViewModel.HeightIntersection = null;
+            _ViewModel.DepthIntersection = null;
 
-        _ViewModel.WidthCube1 = null;
-        _ViewModel.WidthCube2 = null;
-        _ViewModel.WidthIntersection = null;
-
-        _ViewModel.HeightCube1 = null;
-        _ViewModel.HeightCube2 = null;
-        _ViewModel.HeightIntersection = null;
-
-        _ViewModel.DepthCube1 = null;
-        _ViewModel.DepthCube2 = null;
-        _ViewModel.DepthIntersection = null;
-
-        _ViewModel.ExistsIntersection = false;
-        _ViewModel.EnableCalculateIntersection = false;
+            _ViewModel.ExistsIntersection = false;
+            _ViewModel.EnableCalculateIntersection = false;
+        }
 
         _IsCleaning = false;
     }
