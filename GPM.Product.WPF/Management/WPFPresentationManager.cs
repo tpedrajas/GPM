@@ -27,7 +27,7 @@ public sealed class WPFPresentationManager : AbstractPresentationManager<IWPFPre
     public override void LoadPresenter<PT>(bool isDialog, bool isMain = false)
     {
         TryLoadPresenter(out PT? presenter);
-        ExceptionManager.ThrowIfNull<InvalidOperationException>(presenter, "Test");
+        ExceptionManager.ThrowIfNull<InvalidOperationException>(presenter);
 
         InitializePresenter(presenter!, isDialog, isMain);
     }
