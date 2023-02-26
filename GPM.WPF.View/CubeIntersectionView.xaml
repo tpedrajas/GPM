@@ -14,20 +14,20 @@
                     <Label Content="{x:Static i18n:CommonLocale.Position}" HorizontalAlignment="Center" FontWeight="Bold" Margin="10" />
                     <WrapPanel HorizontalAlignment="Center">
                         <Label Content="{x:Static i18n:CommonLocale.AxisPositionX}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="XPositionCube1Text" Text="{Binding Path=XPositionCube1, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="80" VerticalContentAlignment="Center"  />
+                        <TextBox Name="XPositionCube1Text" Text="{Binding Path=XPositionCube1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"  />
                         <Label Content="{x:Static i18n:CommonLocale.AxisPositionY}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="YPositionCube1Text" Text="{Binding Path=YPositionCube1, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="80" VerticalContentAlignment="Center" />
+                        <TextBox Name="YPositionCube1Text" Text="{Binding Path=YPositionCube1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                         <Label Content="{x:Static i18n:CommonLocale.AxisPositionZ}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="ZPositionCube1Text" Text="{Binding Path=ZPositionCube1, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="80" VerticalContentAlignment="Center" />
+                        <TextBox Name="ZPositionCube1Text" Text="{Binding Path=ZPositionCube1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                     </WrapPanel>
                     <Label Content="{x:Static i18n:CommonLocale.Dimensions}" HorizontalAlignment="Center" FontWeight="Bold" Margin="10" />
                     <WrapPanel HorizontalAlignment="Center">
                         <Label Content="{x:Static i18n:CommonLocale.Width}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="WidthCube1Text" Text="{Binding Path=WidthCube1, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="80" VerticalContentAlignment="Center" />
+                        <TextBox Name="WidthCube1Text" Text="{Binding Path=WidthCube1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                         <Label Content="{x:Static i18n:CommonLocale.Height}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="HeightCube1Text" Text="{Binding Path=HeightCube1, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="80" VerticalContentAlignment="Center" />
+                        <TextBox Name="HeightCube1Text" Text="{Binding Path=HeightCube1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                         <Label Content="{x:Static i18n:CommonLocale.Depth}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="DepthCube1Text" Text="{Binding Path=DepthCube1, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="80" VerticalContentAlignment="Center" />
+                        <TextBox Name="DepthCube1Text" Text="{Binding Path=DepthCube1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                     </WrapPanel>
                 </StackPanel>
             </GroupBox>
@@ -37,20 +37,20 @@
                     <Label Content="{x:Static i18n:CommonLocale.Position}" HorizontalAlignment="Center" FontWeight="Bold" Margin="10" />
                     <WrapPanel HorizontalAlignment="Center">
                         <Label Content="{x:Static i18n:CommonLocale.AxisPositionX}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="XPositionCube2Text" Text="{Binding Path=XPositionCube2, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="80" VerticalContentAlignment="Center" />
+                        <TextBox Name="XPositionCube2Text" Text="{Binding Path=XPositionCube2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                         <Label Content="{x:Static i18n:CommonLocale.AxisPositionY}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="YPositionCube2Text" Text="{Binding Path=YPositionCube2, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="80" VerticalContentAlignment="Center" />
+                        <TextBox Name="YPositionCube2Text" Text="{Binding Path=YPositionCube2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                         <Label Content="{x:Static i18n:CommonLocale.AxisPositionZ}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="ZPositionCube2Text" Text="{Binding Path=ZPositionCube2, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="80" VerticalContentAlignment="Center" />
+                        <TextBox Name="ZPositionCube2Text" Text="{Binding Path=ZPositionCube2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                     </WrapPanel>
                     <Label Content="{x:Static i18n:CommonLocale.Dimensions}" HorizontalAlignment="Center" FontWeight="Bold" Margin="10" />
                     <WrapPanel HorizontalAlignment="Center">
                         <Label Content="{x:Static i18n:CommonLocale.Width}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="WidthCube2Text" Text="{Binding Path=WidthCube2, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="80" VerticalContentAlignment="Center" />
+                        <TextBox Name="WidthCube2Text" Text="{Binding Path=WidthCube2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                         <Label Content="{x:Static i18n:CommonLocale.Height}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="HeightCube2Text" Text="{Binding Path=HeightCube2, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="80" VerticalContentAlignment="Center" />
+                        <TextBox Name="HeightCube2Text" Text="{Binding Path=HeightCube2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                         <Label Content="{x:Static i18n:CommonLocale.Depth}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="DepthCube2Text" Text="{Binding Path=DepthCube2, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" Width="80" VerticalContentAlignment="Center" />
+                        <TextBox Name="DepthCube2Text" Text="{Binding Path=DepthCube2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                     </WrapPanel>
                 </StackPanel>
             </GroupBox>
@@ -61,20 +61,20 @@
                     <Label Content="{x:Static i18n:CommonLocale.Position}" HorizontalAlignment="Center" FontWeight="Bold" Margin="10" />
                     <WrapPanel HorizontalAlignment="Center">
                         <Label Content="{x:Static i18n:CommonLocale.AxisPositionX}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="XPositionIntersectionText" Text="{Binding Path=XPositionIntersection, StringFormat=N2}" Width="80" VerticalContentAlignment="Center" IsEnabled="false" />
+                        <TextBox Name="XPositionIntersectionText" Text="{Binding Path=XPositionIntersection, StringFormat=N2}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
                         <Label Content="{x:Static i18n:CommonLocale.AxisPositionY}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="YPositionIntersectionText" Text="{Binding Path=YPositionIntersection, StringFormat=N2}" Width="80" VerticalContentAlignment="Center" IsEnabled="false" />
+                        <TextBox Name="YPositionIntersectionText" Text="{Binding Path=YPositionIntersection, StringFormat=N2}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
                         <Label Content="{x:Static i18n:CommonLocale.AxisPositionZ}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="ZPositionIntersectionText" Text="{Binding Path=ZPositionIntersection, StringFormat=N2}" Width="80" VerticalContentAlignment="Center" IsEnabled="false" />
+                        <TextBox Name="ZPositionIntersectionText" Text="{Binding Path=ZPositionIntersection, StringFormat=N2}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
                     </WrapPanel>
                     <Label Content="{x:Static i18n:CommonLocale.Dimensions}" HorizontalAlignment="Center" FontWeight="Bold" Margin="10" />
                     <WrapPanel HorizontalAlignment="Center">
                         <Label Content="{x:Static i18n:CommonLocale.Width}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="WidthIntersectionText" Text="{Binding Path=WidthIntersection, StringFormat=N2}" Width="80" VerticalContentAlignment="Center" IsEnabled="false" />
+                        <TextBox Name="WidthIntersectionText" Text="{Binding Path=WidthIntersection, StringFormat=N2}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
                         <Label Content="{x:Static i18n:CommonLocale.Height}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="HeightIntersectionText" Text="{Binding Path=HeightIntersection, StringFormat=N2}" Width="80" VerticalContentAlignment="Center" IsEnabled="false" />
+                        <TextBox Name="HeightIntersectionText" Text="{Binding Path=HeightIntersection, StringFormat=N2}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
                         <Label Content="{x:Static i18n:CommonLocale.Depth}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="DepthIntersectionText" Text="{Binding Path=DepthIntersection, StringFormat=N2}" Width="80" VerticalContentAlignment="Center" IsEnabled="false" />
+                        <TextBox Name="DepthIntersectionText" Text="{Binding Path=DepthIntersection, StringFormat=N2}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
                     </WrapPanel>
                 </StackPanel>
             </GroupBox>

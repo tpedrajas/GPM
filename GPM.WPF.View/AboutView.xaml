@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GPM.WPF.View"
+        xmlns:i18n="clr-namespace:GPM.WPF.View.Localization"
         mc:Ignorable="d"
-        Title="AboutView" Height="117" Width="334">
+        Title="{x:Static i18n:AboutViewLocale.Title}" Height="117" Width="334">
     <Grid>
-        <Label Content="Programa creado por Tomás Alberto Pedrajas Ferrer" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top"/>
+        <Label Content="{x:Static i18n:AboutViewLocale.Message}" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
