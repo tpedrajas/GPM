@@ -61,20 +61,20 @@
                     <Label Content="{x:Static i18n:CommonLocale.Position}" HorizontalAlignment="Center" FontWeight="Bold" Margin="10" />
                     <WrapPanel HorizontalAlignment="Center">
                         <Label Content="{x:Static i18n:CommonLocale.AxisPositionX}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="XPositionIntersectionText" Text="{Binding Path=XPositionIntersection, StringFormat=N2}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
+                        <TextBox Name="XPositionIntersectionText" Text="{Binding Path=XPositionIntersection, StringFormat={}{0:0.##}}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
                         <Label Content="{x:Static i18n:CommonLocale.AxisPositionY}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="YPositionIntersectionText" Text="{Binding Path=YPositionIntersection, StringFormat=N2}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
+                        <TextBox Name="YPositionIntersectionText" Text="{Binding Path=YPositionIntersection, StringFormat={}{0:0.##}}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
                         <Label Content="{x:Static i18n:CommonLocale.AxisPositionZ}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="ZPositionIntersectionText" Text="{Binding Path=ZPositionIntersection, StringFormat=N2}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
+                        <TextBox Name="ZPositionIntersectionText" Text="{Binding Path=ZPositionIntersection, StringFormat={}{0:0.##}}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
                     </WrapPanel>
                     <Label Content="{x:Static i18n:CommonLocale.Dimensions}" HorizontalAlignment="Center" FontWeight="Bold" Margin="10" />
                     <WrapPanel HorizontalAlignment="Center">
                         <Label Content="{x:Static i18n:CommonLocale.Width}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="WidthIntersectionText" Text="{Binding Path=WidthIntersection, StringFormat=N2}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
+                        <TextBox Name="WidthIntersectionText" Text="{Binding Path=WidthIntersection, StringFormat={}{0:0.##}}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
                         <Label Content="{x:Static i18n:CommonLocale.Height}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="HeightIntersectionText" Text="{Binding Path=HeightIntersection, StringFormat=N2}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
+                        <TextBox Name="HeightIntersectionText" Text="{Binding Path=HeightIntersection, StringFormat={}{0:0.##}}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
                         <Label Content="{x:Static i18n:CommonLocale.Depth}" Width="120" HorizontalContentAlignment="Right" />
-                        <TextBox Name="DepthIntersectionText" Text="{Binding Path=DepthIntersection, StringFormat=N2}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
+                        <TextBox Name="DepthIntersectionText" Text="{Binding Path=DepthIntersection, StringFormat={}{0:0.##}}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" IsEnabled="false" />
                     </WrapPanel>
                 </StackPanel>
             </GroupBox>

@@ -127,20 +127,20 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     [RelayCommand]
     private void OnAboutButtonClick()
     {
-        AboutButtonClick!.Invoke();
+        AboutButtonClick.Invoke();
     }
 
     [RelayCommand(CanExecute = nameof(IsEnableCalculateIntersectionButton))]
     private void OnCalculateIntersectionButtonClick()
     {
-        ExistsIntersectionValidating!.Invoke();
+        ExistsIntersectionValidating.Invoke();
         CalculateIntersectionButtonClick.Invoke();
     }
 
     [RelayCommand]
     private void OnCleanDataButtonClick()
     {
-        CleanDataButtonClick!.Invoke(false);
+        CleanDataButtonClick.Invoke(false);
     }
 
     #endregion
