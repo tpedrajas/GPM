@@ -28,6 +28,8 @@ global using GPM.WPF.Model;
 
 #region usings from Support Layer
 
+global using GPM.Product.Common.Validation;
+
 global using GPM.Product.WPF.Management;
 global using GPM.Product.WPF.Presenter;
 

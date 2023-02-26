@@ -19,9 +19,9 @@ public abstract class AbstractPresenter<VT, SM> : IPresenter<VT, SM> where VT : 
 
     #region fields
 
-    protected SM _ServiceManager;
+    protected readonly SM _ServiceManager;
 
-    protected VT _View;
+    protected readonly VT _View;
 
     #endregion
 

@@ -5,10 +5,10 @@ public class Cube : IEquatable<Cube>
 
     #region constuctors / deconstructors / destructors
 
-    public Cube(Vector3 position, Vector3 dimension)
+    public Cube(Vector3 position, Vector3 size)
     {
         Position = position;
-        Dimension = dimension;
+        Size = size;
     }
 
     public Cube(float x, float y, float z, float width, float height, float depth) : this(new Vector3(x, y, z), new Vector3(width, height, depth))
@@ -16,11 +16,16 @@ public class Cube : IEquatable<Cube>
         
     }
 
+    public Cube(float[] position, float[] size) : this(new Vector3(position[0], position[1], position[2]), new Vector3(size[0], size[1], size[2]))
+    {
+
+    }
+
     #endregion
 
     #region properties
 
-    public Vector3 Dimension { get; set; }
+    public Vector3 Size { get; set; }
 
     public Vector3 Position { get; set; }
 
@@ -35,7 +40,7 @@ public class Cube : IEquatable<Cube>
         if (isEqual)
         {
             isEqual &= Position.Equals(other!.Position);
-            isEqual &= Dimension.Equals(other!.Dimension);
+            isEqual &= Size.Equals(other!.Size);
         }
 
         return isEqual;
@@ -53,7 +58,7 @@ public class Cube : IEquatable<Cube>
 
     public override int GetHashCode()
     {
-        return Position.GetHashCode() ^ Dimension.GetHashCode();
+        return Position.GetHashCode() ^ Size.GetHashCode();
     }
 
     #endregion

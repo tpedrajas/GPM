@@ -1,6 +1,4 @@
-﻿using GPM.Product.Common.Validation;
-
-namespace GPM.CubeIntersector.WPF.Presenter;
+﻿namespace GPM.CubeIntersector.WPF.Presenter;
 
 public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICubeIntersectionViewModel, IWPFServiceManager>, ICubeIntersectionPresenter
 {
@@ -9,13 +7,11 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
     public CubeIntersectionPresenter(ICubeIntersectionView view, ICubeIntersectionViewModel viewModel, IWPFServiceManager serviceManager) : base(view, viewModel, serviceManager)
     {
-        viewModel.IsEnableCalculateIntersectionDelegate += IsEnableCalculateIntersection;
-        viewModel.OnAboutDelegate += OnAbout;
-        viewModel.OnCalculateIntersectionDelegate += OnCalculateIntersection;
-        viewModel.OnCleanDataDelegate += OnCleanData;
-        viewModel.OnExistsIntersectionDelegate += OnExistsIntersection;
-
-        viewModel.CleanDataButtonClickCommand.Execute(true);
+        _ViewModel.AboutButtonClick += OnAboutButtonClick;
+        _ViewModel.CalculateIntersectionButtonClick += OnCalculateIntersectionButtonClick;
+        _ViewModel.CleanDataButtonClick += OnCleanDataButtonClick;
+        _ViewModel.EnableCalculateIntersectionButtonValidating += OnEnableCalculateIntersectionButtonValidating;
+        _ViewModel.ExistsIntersectionValidating += OnExistsIntersectionValidating;
     }
 
     #endregion
@@ -29,37 +25,18 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
     #region methods
 
-    private bool IsEnableCalculateIntersection()
-    {
-        bool canEnable = false;
-
-        if (!_IsCleaning)
-        {
-            canEnable = true;
-
-            canEnable &= Numeric.AreFloat(new string?[] { _ViewModel.XPositionCube1, _ViewModel.YPositionCube1, _ViewModel.ZPositionCube1 });
-            canEnable &= Numeric.AreFloat(new string?[] { _ViewModel.WidthCube1, _ViewModel.HeightCube1, _ViewModel.DepthCube1 });
-            canEnable &= Numeric.AreFloat(new string?[] { _ViewModel.XPositionCube2, _ViewModel.YPositionCube2, _ViewModel.ZPositionCube2 });
-            canEnable &= Numeric.AreFloat(new string?[] { _ViewModel.WidthCube2, _ViewModel.HeightCube2, _ViewModel.DepthCube2 });
-
-            _ViewModel.EnableCalculateIntersection = canEnable;
-        }
-
-        return canEnable;
-    }
-
-    private void OnAbout()
+    private void OnAboutButtonClick()
     {
         IWPFPresentationManager presentationManager = _ServiceManager.ServiceProvider.GetRequiredService<IWPFPresentationManager>();
         presentationManager.LoadPresenter<IAboutPresenter>(true, false);
     }
 
-    private void OnCalculateIntersection()
+    private void OnCalculateIntersectionButtonClick()
     {
-        Cube cube1 = new(float.Parse(_ViewModel.XPositionCube1!), float.Parse(_ViewModel.YPositionCube1!), float.Parse(_ViewModel.ZPositionCube1!),
-                         float.Parse(_ViewModel.WidthCube1!), float.Parse(_ViewModel.HeightCube1!), float.Parse(_ViewModel.DepthCube1!));
-        Cube cube2 = new(float.Parse(_ViewModel.XPositionCube2!), float.Parse(_ViewModel.YPositionCube2!), float.Parse(_ViewModel.ZPositionCube2!),
-                         float.Parse(_ViewModel.WidthCube2!), float.Parse(_ViewModel.HeightCube2!), float.Parse(_ViewModel.DepthCube2!));
+        Cube cube1 = new(Array.ConvertAll(new string[] { _ViewModel.XPositionCube1, _ViewModel.YPositionCube1, _ViewModel.ZPositionCube1 }, float.Parse),
+                         Array.ConvertAll(new string[] { _ViewModel.WidthCube1, _ViewModel.HeightCube1, _ViewModel.DepthCube1 }, float.Parse));
+        Cube cube2 = new(Array.ConvertAll(new string[] { _ViewModel.XPositionCube2, _ViewModel.YPositionCube2, _ViewModel.ZPositionCube2 }, float.Parse),
+                         Array.ConvertAll(new string[] { _ViewModel.WidthCube2, _ViewModel.HeightCube2, _ViewModel.DepthCube2 }, float.Parse));
 
         Cube? cubeIntersection = CubeIntersectionLogic.GetCubeIntersect(cube1, cube2);
 
@@ -68,13 +45,13 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
             _ViewModel.XPositionIntersection = cubeIntersection.Position.X;
             _ViewModel.YPositionIntersection = cubeIntersection.Position.Y;
             _ViewModel.ZPositionIntersection = cubeIntersection.Position.Z;
-            _ViewModel.WidthIntersection = cubeIntersection.Dimension.X;
-            _ViewModel.HeightIntersection = cubeIntersection.Dimension.Y;
-            _ViewModel.DepthIntersection = cubeIntersection.Dimension.Z;
+            _ViewModel.WidthIntersection = cubeIntersection.Size.X;
+            _ViewModel.HeightIntersection = cubeIntersection.Size.Y;
+            _ViewModel.DepthIntersection = cubeIntersection.Size.Z;
         }
     }
 
-    private void OnCleanData(bool init)
+    private void OnCleanDataButtonClick(bool init)
     {
         _IsCleaning = true;
 
@@ -95,27 +72,51 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
         _IsCleaning = false;
     }
 
-    private void OnExistsIntersection()
+    private bool OnEnableCalculateIntersectionButtonValidating()
     {
-        Cube cube1 = new(float.Parse(_ViewModel.XPositionCube1!), float.Parse(_ViewModel.YPositionCube1!), float.Parse(_ViewModel.ZPositionCube1!),
-                         float.Parse(_ViewModel.WidthCube1!), float.Parse(_ViewModel.HeightCube1!), float.Parse(_ViewModel.DepthCube1!));
-        Cube cube2 = new(float.Parse(_ViewModel.XPositionCube2!), float.Parse(_ViewModel.YPositionCube2!), float.Parse(_ViewModel.ZPositionCube2!),
-                         float.Parse(_ViewModel.WidthCube2!), float.Parse(_ViewModel.HeightCube2!), float.Parse(_ViewModel.DepthCube2!));
+        bool canEnable = false;
+
+        if (!_IsCleaning)
+        {
+            canEnable = true;
+
+            canEnable &= Numeric.AreFloat(_ViewModel.XPositionCube1, _ViewModel.YPositionCube1, _ViewModel.ZPositionCube1);
+            canEnable &= Numeric.AreFloat(_ViewModel.WidthCube1, _ViewModel.HeightCube1, _ViewModel.DepthCube1);
+            canEnable &= Numeric.AreFloat(_ViewModel.XPositionCube2, _ViewModel.YPositionCube2, _ViewModel.ZPositionCube2);
+            canEnable &= Numeric.AreFloat(_ViewModel.WidthCube2, _ViewModel.HeightCube2, _ViewModel.DepthCube2);
+
+            _ViewModel.EnableCalculateIntersection = canEnable;
+        }
+
+        return canEnable;
+    }
+
+    private void OnExistsIntersectionValidating()
+    {
+        Cube cube1 = new(Array.ConvertAll(new string[] { _ViewModel.XPositionCube1, _ViewModel.YPositionCube1, _ViewModel.ZPositionCube1 }, float.Parse),
+                         Array.ConvertAll(new string[] { _ViewModel.WidthCube1, _ViewModel.HeightCube1, _ViewModel.DepthCube1 }, float.Parse));
+        Cube cube2 = new(Array.ConvertAll(new string[] { _ViewModel.XPositionCube2, _ViewModel.YPositionCube2, _ViewModel.ZPositionCube2 }, float.Parse),
+                         Array.ConvertAll(new string[] { _ViewModel.WidthCube2, _ViewModel.HeightCube2, _ViewModel.DepthCube2 }, float.Parse));
 
         bool existIntersection = CubeIntersectionLogic.ExistsCubeIntersect(cube1, cube2);
 
         _ViewModel.ExistsIntersection = existIntersection;
     }
 
-    protected override void OnViewClosed(object? sender, EventArgs args)
+    protected override void OnViewClosed(object? sender, EventArgs e)
     {
-        _ViewModel.IsEnableCalculateIntersectionDelegate -= IsEnableCalculateIntersection;
-        _ViewModel.OnAboutDelegate -= OnAbout;
-        _ViewModel.OnCalculateIntersectionDelegate -= OnCalculateIntersection;
-        _ViewModel.OnCleanDataDelegate -= OnCleanData;
-        _ViewModel.OnExistsIntersectionDelegate -= OnExistsIntersection;
+        _ViewModel.AboutButtonClick -= OnAboutButtonClick;
+        _ViewModel.CalculateIntersectionButtonClick -= OnCalculateIntersectionButtonClick;
+        _ViewModel.CleanDataButtonClick -= OnCleanDataButtonClick;
+        _ViewModel.EnableCalculateIntersectionButtonValidating -= OnEnableCalculateIntersectionButtonValidating;
+        _ViewModel.ExistsIntersectionValidating -= OnExistsIntersectionValidating;
 
-        base.OnViewClosed(sender, args);
+        base.OnViewClosed(sender, e);
+    }
+
+    protected override void OnViewModelLinked(object? sender, EventArgs e)
+    {
+        _ViewModel.Validate();
     }
 
     #endregion

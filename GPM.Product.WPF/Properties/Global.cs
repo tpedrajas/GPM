@@ -1,6 +1,7 @@
 ﻿#region usings from .NET Core
 
 global using System;
+global using System.ComponentModel;
 global using System.Threading;
 global using System.Windows;
 global using System.Windows.Markup;

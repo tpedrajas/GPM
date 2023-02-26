@@ -9,9 +9,9 @@ public static class CubeIntersectionLogic
     {
         bool existsIntersect = true;
 
-        existsIntersect &= Math.Abs(cube2.Position.X - cube1.Position.X) <= (cube1.Dimension.X + cube2.Dimension.X) / 2;
-        existsIntersect &= Math.Abs(cube2.Position.Y - cube1.Position.Y) <= (cube1.Dimension.Y + cube2.Dimension.Y) / 2;
-        existsIntersect &= Math.Abs(cube2.Position.Z - cube1.Position.Z) <= (cube1.Dimension.Z + cube2.Dimension.Z) / 2;
+        existsIntersect &= Math.Abs(cube2.Position.X - cube1.Position.X) <= (cube1.Size.X + cube2.Size.X) / 2;
+        existsIntersect &= Math.Abs(cube2.Position.Y - cube1.Position.Y) <= (cube1.Size.Y + cube2.Size.Y) / 2;
+        existsIntersect &= Math.Abs(cube2.Position.Z - cube1.Position.Z) <= (cube1.Size.Z + cube2.Size.Z) / 2;
 
         return existsIntersect;
     }
@@ -60,9 +60,9 @@ public static class CubeIntersectionLogic
 
         if (ExistsCubeIntersect(cube1, cube2))
         {
-            width = GetAxisCubeIntersect(cube1.Position.X, cube1.Dimension.X, cube2.Position.X, cube2.Dimension.X);
-            height = GetAxisCubeIntersect(cube1.Position.Y, cube1.Dimension.Y, cube2.Position.Y, cube2.Dimension.Y);
-            depth = GetAxisCubeIntersect(cube1.Position.Z, cube1.Dimension.Z, cube2.Position.Z, cube2.Dimension.Z);
+            width = GetAxisCubeIntersect(cube1.Position.X, cube1.Size.X, cube2.Position.X, cube2.Size.X);
+            height = GetAxisCubeIntersect(cube1.Position.Y, cube1.Size.Y, cube2.Position.Y, cube2.Size.Y);
+            depth = GetAxisCubeIntersect(cube1.Position.Z, cube1.Size.Z, cube2.Position.Z, cube2.Size.Z);
 
             intersectCubeResult = new Cube((cube1.Position + cube2.Position) / 2, new Vector3(width, height, depth));
         }

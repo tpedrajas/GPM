@@ -5,7 +5,7 @@ public static class Numeric
 
     #region methods
 
-    public static bool AreFloat(string?[] input)
+    public static bool AreFloat(params string?[] input)
     {
         bool areFloat = true;
 

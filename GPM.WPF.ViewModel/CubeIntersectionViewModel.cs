@@ -5,15 +5,15 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
 
     #region delegates
 
-    public event Func<bool>? IsEnableCalculateIntersectionDelegate;
+    public event Action AboutButtonClick = () => { };
 
-    public event Action? OnAboutDelegate;
+    public event Action CalculateIntersectionButtonClick = () => { };
 
-    public event Action? OnCalculateIntersectionDelegate;
+    public event Action<bool> CleanDataButtonClick = (bool init) => { };
 
-    public event Action<bool>? OnCleanDataDelegate;
+    public event Func<bool> EnableCalculateIntersectionButtonValidating = () => { return true; };
 
-    public event Action? OnExistsIntersectionDelegate;
+    public event Action ExistsIntersectionValidating = () => { };
 
     #endregion
 
@@ -23,13 +23,13 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string? _DepthCube1;
+    private string _DepthCube1 = string.Empty;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string? _DepthCube2;
+    private string _DepthCube2 = string.Empty;
 
     [ObservableProperty]
     private float? _DepthIntersection;
@@ -44,13 +44,13 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string? _HeightCube1;
+    private string _HeightCube1 = string.Empty;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted]
-    private string? _HeightCube2;
+    private string _HeightCube2 = string.Empty;
 
     [ObservableProperty]
     private float? _HeightIntersection;
@@ -59,13 +59,13 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string? _WidthCube1;
+    private string _WidthCube1 = string.Empty;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string? _WidthCube2;
+    private string _WidthCube2 = string.Empty;
 
     [ObservableProperty]
     private float? _WidthIntersection;
@@ -74,13 +74,13 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string? _XPositionCube1;
+    private string _XPositionCube1 = string.Empty;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string? _XPositionCube2;
+    private string _XPositionCube2 = string.Empty;
 
     [ObservableProperty]
     private float? _XPositionIntersection;
@@ -89,13 +89,13 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string? _YPositionCube1;
+    private string _YPositionCube1 = string.Empty;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string? _YPositionCube2;
+    private string _YPositionCube2 = string.Empty;
 
     [ObservableProperty]
     private float? _YPositionIntersection;
@@ -104,13 +104,13 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string? _ZPositionCube1;
+    private string _ZPositionCube1 = string.Empty;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string? _ZPositionCube2;
+    private string _ZPositionCube2 = string.Empty;
 
     [ObservableProperty]
     private float? _ZPositionIntersection;
@@ -119,28 +119,28 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
 
     #region methods
 
-    private bool IsEnableCalculateIntersection()
+    private bool IsEnableCalculateIntersectionButton()
     {
-        return IsEnableCalculateIntersectionDelegate!.Invoke();
+        return EnableCalculateIntersectionButtonValidating.Invoke();
     }
 
     [RelayCommand]
     private void OnAboutButtonClick()
     {
-        OnAboutDelegate!.Invoke();
+        AboutButtonClick!.Invoke();
     }
 
-    [RelayCommand(CanExecute = nameof(IsEnableCalculateIntersection))]
+    [RelayCommand(CanExecute = nameof(IsEnableCalculateIntersectionButton))]
     private void OnCalculateIntersectionButtonClick()
     {
-        OnExistsIntersectionDelegate!.Invoke();
-        OnCalculateIntersectionDelegate!.Invoke();
+        ExistsIntersectionValidating!.Invoke();
+        CalculateIntersectionButtonClick.Invoke();
     }
 
     [RelayCommand]
     private void OnCleanDataButtonClick()
     {
-        OnCleanDataDelegate!.Invoke(false);
+        CleanDataButtonClick!.Invoke(false);
     }
 
     #endregion
