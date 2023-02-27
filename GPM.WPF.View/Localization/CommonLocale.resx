@@ -135,6 +135,9 @@
   <data name="Dimensions" xml:space="preserve">
     <value>????</value>
   </data>
+  <data name="ErrorNumber2DecimalsFormat" xml:space="preserve">
+    <value>????</value>
+  </data>
   <data name="Height" xml:space="preserve">
     <value>????</value>
   </data>

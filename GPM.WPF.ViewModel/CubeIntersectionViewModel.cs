@@ -49,7 +49,7 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
-    [NumberCulturedFormatted]
+    [NumberCulturedFormatted(2)]
     private string _HeightCube2 = string.Empty;
 
     [ObservableProperty]

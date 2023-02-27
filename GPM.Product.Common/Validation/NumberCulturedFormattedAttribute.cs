@@ -16,7 +16,7 @@ public class NumberCulturedFormattedAttribute : ValidationAttribute
         
     }
 
-    public NumberCulturedFormattedAttribute(int maxPrecission) : this(maxPrecission, null)
+    public NumberCulturedFormattedAttribute(int maxPrecission) : this(maxPrecission, string.Format($"ErrorNumber{maxPrecission}DecimalsFormat"))
     {
 
     }
