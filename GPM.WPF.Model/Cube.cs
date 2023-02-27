@@ -1,6 +1,6 @@
 ﻿namespace GPM.WPF.Model;
 
-public class Cube : IEquatable<Cube>
+public struct Cube
 {
 
     #region constuctors / deconstructors / destructors
@@ -28,38 +28,6 @@ public class Cube : IEquatable<Cube>
     public Vector3 Size { get; set; }
 
     public Vector3 Position { get; set; }
-
-    #endregion
-
-    #region methods
-
-    public bool Equals(Cube? other)
-    {
-        bool isEqual = other is not null;
-
-        if (isEqual)
-        {
-            isEqual &= Position.Equals(other!.Position);
-            isEqual &= Size.Equals(other!.Size);
-        }
-
-        return isEqual;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return obj switch
-        {
-            null => false,
-            Cube value => Equals(value),
-            _ => false
-        };
-    }
-
-    public override int GetHashCode()
-    {
-        return Position.GetHashCode() ^ Size.GetHashCode();
-    }
 
     #endregion
 
