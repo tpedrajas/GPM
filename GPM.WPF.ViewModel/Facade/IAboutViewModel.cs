@@ -1,4 +1,4 @@
-﻿namespace GPM.WPF.ViewModel.Facade;
+﻿namespace GPM.WPF.ViewModel;
 
 public interface IAboutViewModel : IWPFViewModel
 {

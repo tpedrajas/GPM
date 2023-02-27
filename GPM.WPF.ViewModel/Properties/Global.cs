@@ -12,12 +12,6 @@ global using CommunityToolkit.Mvvm.Input;
 
 #endregion
 
-#region usings from Presentation Layer
-
-global using GPM.WPF.ViewModel.Facade;
-
-#endregion
-
 #region usings from Support Layer
 
 global using GPM.Product.Common.Validation;

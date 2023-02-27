@@ -1,4 +1,4 @@
-﻿namespace GPM.WPF.View.Facade;
+﻿namespace GPM.WPF.View;
 
 public interface IAboutView : IWPFView
 {

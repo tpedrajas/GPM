@@ -1,4 +1,4 @@
-﻿namespace GPM.CubeIntersector.WPF.Presenter.Facade;
+﻿namespace GPM.CubeIntersector.WPF.Presenter;
 
 public interface ICubeIntersectionPresenter : IWPFPresenter<ICubeIntersectionView, ICubeIntersectionViewModel, IWPFServiceManager>
 {
