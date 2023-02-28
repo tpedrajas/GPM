@@ -9,6 +9,7 @@ global using System.Globalization;
 #region usings from Business Logic Layer
 
 global using GPM.CubeIntersector.Domain;
+
 global using GPM.WPF.Model;
 
 #endregion

@@ -1,6 +1,4 @@
-﻿using GPM.CubeIntersector.Domain;
-
-namespace GPM.CubeIntersector.WebAPI.Controllers;
+﻿namespace GPM.CubeIntersector.WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -18,7 +16,7 @@ public class CubeController : ControllerBase
     }
 
     [HttpPost("SetCube/{id}")]
-    public async void SetCube(string id, CubeDTO cube)
+    public async void SetCube(string id, [FromBody] CubeDTO cube)
     {
         await Task.Run(() => CubeLogic.SetCube(id, cube)).ConfigureAwait(false);
     }

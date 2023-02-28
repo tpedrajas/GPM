@@ -224,7 +224,13 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
         _ViewModel.CalculateIntersectionButtonClick -= OnCalculateIntersectionButtonClick;
         _ViewModel.CleanDataButtonClick -= OnCleanDataButtonClick;
         _ViewModel.EnableCalculateIntersectionButtonValidating -= OnEnableCalculateIntersectionButtonValidating;
+        _ViewModel.EnableInformationCube1ButtonsValidating -= OnEnableInformationCube1ButtonsValidating;
+        _ViewModel.EnableInformationCube2ButtonsValidating -= OnEnableInformationCube2ButtonsValidating;
         _ViewModel.ExistsIntersectionValidating -= OnExistsIntersectionValidating;
+        _ViewModel.LoadInformationCube1Click -= OnLoadInformationCube1Click;
+        _ViewModel.LoadInformationCube2Click -= OnLoadInformationCube2Click;
+        _ViewModel.SaveInformationCube1Click -= OnSaveInformationCube1Click;
+        _ViewModel.SaveInformationCube2Click -= OnSaveInformationCube2Click;
 
         base.OnViewClosed(sender, e);
     }
