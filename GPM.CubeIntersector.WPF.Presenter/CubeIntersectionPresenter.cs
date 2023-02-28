@@ -66,6 +66,8 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
     private static CubeDTO? LoadInformationCube(string id)
     {
+        // The WebAPI project must be executed at first
+
         using HttpClient client = new();
         client.BaseAddress = new Uri("https://localhost:44390/");
 
