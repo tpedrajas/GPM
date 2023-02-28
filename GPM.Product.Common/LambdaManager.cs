@@ -3,18 +3,9 @@
 public static class LambdaExpressionManager
 {
 
-    #region constructors / deconstructors / destructors
-
-    static LambdaExpressionManager()
-    {
-        _LambdaExceptionMessageDictionary = new Dictionary<(Type, string?), Delegate>();
-    }
-
-    #endregion
-
     #region fields
 
-    private static readonly Dictionary<(Type, string?), Delegate> _LambdaExceptionMessageDictionary;
+    private static readonly Dictionary<(Type, string?), Delegate> _LambdaExceptionMessageDictionary = new();
 
     #endregion fields
 

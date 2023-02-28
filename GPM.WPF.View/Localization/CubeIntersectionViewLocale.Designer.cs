@@ -81,6 +81,24 @@ namespace GPM.WPF.View.Localization {
         /// <summary>
         ///   Busca una cadena traducida similar a ????.
         /// </summary>
+        public static string Cube1Id {
+            get {
+                return ResourceManager.GetString("Cube1Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ????.
+        /// </summary>
+        public static string Cube2Id {
+            get {
+                return ResourceManager.GetString("Cube2Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ????.
+        /// </summary>
         public static string ExistsIntersection {
             get {
                 return ResourceManager.GetString("ExistsIntersection", resourceCulture);

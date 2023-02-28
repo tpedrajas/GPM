@@ -123,6 +123,12 @@
   <data name="CleanData" xml:space="preserve">
     <value>Limpiar datos</value>
   </data>
+  <data name="Cube1Id" xml:space="preserve">
+    <value>Id Cubo 1:</value>
+  </data>
+  <data name="Cube2Id" xml:space="preserve">
+    <value>Id Cubo 2:</value>
+  </data>
   <data name="ExistsIntersection" xml:space="preserve">
     <value>Existe intersección</value>
   </data>

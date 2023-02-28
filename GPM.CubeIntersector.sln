@@ -33,6 +33,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPM.WPF.Model", "GPM.WPF.Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPM.CubeIntersector.Test", "GPM.CubeIntersector.Test\GPM.CubeIntersector.Test.csproj", "{E2E76403-9444-403D-8C07-1E0653EDCAE8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service Layer", "Service Layer", "{F5818BE5-537B-40CB-8484-56FD6904083F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPM.CubeIntersector.WebAPI", "GPM.CubeIntersector.WebAPI\GPM.CubeIntersector.WebAPI.csproj", "{488C78FF-1AE2-474B-8F2C-D52E7F8EF624}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Access Layer", "Data Access Layer", "{C69146C5-9EE3-48F1-BB74-16514EC6FA0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +85,10 @@ Global
 		{E2E76403-9444-403D-8C07-1E0653EDCAE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2E76403-9444-403D-8C07-1E0653EDCAE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2E76403-9444-403D-8C07-1E0653EDCAE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{488C78FF-1AE2-474B-8F2C-D52E7F8EF624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{488C78FF-1AE2-474B-8F2C-D52E7F8EF624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{488C78FF-1AE2-474B-8F2C-D52E7F8EF624}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{488C78FF-1AE2-474B-8F2C-D52E7F8EF624}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +104,7 @@ Global
 		{52232E6C-2DAE-4458-8727-E4557DC4BEB6} = {1D389ED8-2611-4CA3-8004-B1FB48D70967}
 		{D3928FE9-0D40-49B0-8A07-E284C61160B7} = {64FBF871-CD4C-4206-9B10-47E30C1A6479}
 		{E2E76403-9444-403D-8C07-1E0653EDCAE8} = {6DA269DC-8009-49B3-8A56-F55F1389CB67}
+		{488C78FF-1AE2-474B-8F2C-D52E7F8EF624} = {F5818BE5-537B-40CB-8484-56FD6904083F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F467FA8D-EB0B-4969-B318-B12225805795}

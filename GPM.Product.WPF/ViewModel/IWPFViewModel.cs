@@ -9,6 +9,12 @@ public interface IWPFViewModel
 
     #endregion
 
+    #region properties
+
+    public bool HasErrors { get; }
+
+    #endregion
+
     #region methods
 
     public void Validate();

@@ -141,8 +141,14 @@
   <data name="Height" xml:space="preserve">
     <value>Height:</value>
   </data>
+  <data name="LoadInformation" xml:space="preserve">
+    <value>Load Information</value>
+  </data>
   <data name="Position" xml:space="preserve">
     <value>Position</value>
+  </data>
+  <data name="SaveInformation" xml:space="preserve">
+    <value>Save Information</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>Width:</value>

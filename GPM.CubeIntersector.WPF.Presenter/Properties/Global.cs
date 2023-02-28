@@ -1,6 +1,8 @@
 ﻿#region usings from .NET Core
 
 global using System;
+global using System.Net.Http;
+global using System.Net.Http.Json;
 
 #endregion
 
@@ -20,13 +22,13 @@ global using GPM.WPF.ViewModel;
 #region usings from Business Logic Layer
 
 global using GPM.CubeIntersector.Domain;
+
 global using GPM.WPF.Model;
+global using GPM.WPF.Model.DTO;
 
 #endregion
 
 #region usings from Support Layer
-
-global using GPM.Product.Common.Validation;
 
 global using GPM.Product.WPF.Management;
 global using GPM.Product.WPF.Presenter;

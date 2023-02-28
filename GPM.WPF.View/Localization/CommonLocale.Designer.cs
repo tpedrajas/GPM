@@ -135,9 +135,27 @@ namespace GPM.WPF.View.Localization {
         /// <summary>
         ///   Busca una cadena traducida similar a ????.
         /// </summary>
+        public static string LoadInformation {
+            get {
+                return ResourceManager.GetString("LoadInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ????.
+        /// </summary>
         public static string Position {
             get {
                 return ResourceManager.GetString("Position", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ????.
+        /// </summary>
+        public static string SaveInformation {
+            get {
+                return ResourceManager.GetString("SaveInformation", resourceCulture);
             }
         }
         

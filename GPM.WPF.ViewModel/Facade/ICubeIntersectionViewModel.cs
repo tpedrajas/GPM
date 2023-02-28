@@ -9,11 +9,23 @@ public interface ICubeIntersectionViewModel : IWPFViewModel
 
     public event Action CalculateIntersectionButtonClick;
 
-    public event Action<bool> CleanDataButtonClick;
+    public event Action CleanDataButtonClick;
 
     public event Func<bool> EnableCalculateIntersectionButtonValidating;
 
+    public event Func<bool> EnableInformationCube1ButtonsValidating;
+
+    public event Func<bool> EnableInformationCube2ButtonsValidating;
+
     public event Action ExistsIntersectionValidating;
+
+    public event Action LoadInformationCube1Click;
+
+    public event Action LoadInformationCube2Click;
+
+    public event Action SaveInformationCube1Click;
+
+    public event Action SaveInformationCube2Click;
 
     #endregion
 
@@ -26,7 +38,11 @@ public interface ICubeIntersectionViewModel : IWPFViewModel
 
     public float? DepthIntersection { get; set; }
 
-    public bool EnableCalculateIntersection { get; set; }
+    public bool EnableCalculateIntersectionButton { get; set; }
+
+    public bool EnableInformationCube1Buttons { get; set; }
+
+    public bool EnableInformationCube2Buttons { get; set; }
 
     public bool ExistsIntersection { get; set; }
 
@@ -35,6 +51,10 @@ public interface ICubeIntersectionViewModel : IWPFViewModel
     public string HeightCube2 { get; set; }
 
     public float? HeightIntersection { get; set; }
+
+    public string IdCube1 { get; set; }
+
+    public string IdCube2 { get; set; }
 
     public string WidthCube1 { get; set; }
 
@@ -69,6 +89,14 @@ public interface ICubeIntersectionViewModel : IWPFViewModel
     public IRelayCommand CalculateIntersectionButtonClickCommand { get; }
 
     public IRelayCommand CleanDataButtonClickCommand { get; }
+
+    public IRelayCommand LoadInformationCube1ClickCommand { get; }
+
+    public IRelayCommand LoadInformationCube2ClickCommand { get; }
+
+    public IRelayCommand SaveInformationCube1ClickCommand { get; }
+
+    public IRelayCommand SaveInformationCube2ClickCommand { get; }
 
     #endregion
 
