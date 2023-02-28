@@ -13,9 +13,13 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
 
     public event Func<bool> EnableCalculateIntersectionButtonValidating = () => { return true; };
 
-    public event Func<bool> EnableInformationCube1ButtonsValidating = () => { return true; };
+    public event Func<bool> EnableLoadInformationCube1ButtonValidating = () => { return true; };
 
-    public event Func<bool> EnableInformationCube2ButtonsValidating = () => { return true; };
+    public event Func<bool> EnableLoadInformationCube2ButtonValidating = () => { return true; };
+
+    public event Func<bool> EnableSaveInformationCube1ButtonValidating = () => { return true; };
+
+    public event Func<bool> EnableSaveInformationCube2ButtonValidating = () => { return true; };
 
     public event Action ExistsIntersectionValidating = () => { };
 
@@ -32,12 +36,14 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     #region fields
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
     private string _DepthCube1 = string.Empty;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
@@ -50,21 +56,29 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     private bool _EnableCalculateIntersectionButton;
 
     [ObservableProperty]
-    private bool _EnableInformationCube1Buttons;
+    private bool _EnableLoadInformationCube1Button;
 
     [ObservableProperty]
-    private bool _EnableInformationCube2Buttons;
+    private bool _EnableLoadInformationCube2Button;
+
+    [ObservableProperty]
+    private bool _EnableSaveInformationCube1Button;
+
+    [ObservableProperty]
+    private bool _EnableSaveInformationCube2Button;
 
     [ObservableProperty]
     private bool _ExistsIntersection;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
     private string _HeightCube1 = string.Empty;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
@@ -75,19 +89,23 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(LoadInformationCube1ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
     private string _IdCube1 = string.Empty;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(LoadInformationCube2ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
     private string _IdCube2 = string.Empty;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
     private string _WidthCube1 = string.Empty;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
@@ -97,12 +115,14 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     private float? _WidthIntersection;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
     private string _XPositionCube1 = string.Empty;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
@@ -112,12 +132,14 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     private float? _XPositionIntersection;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
     private string _YPositionCube1 = string.Empty;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
@@ -127,12 +149,14 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
     private float? _YPositionIntersection;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
     private string _ZPositionCube1 = string.Empty;
 
     [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
@@ -150,14 +174,24 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
         return EnableCalculateIntersectionButtonValidating.Invoke();
     }
 
-    private bool IsEnabledInformationCube1Buttons()
+    private bool IsEnabledLoadInformationCube1Button()
     {
-        return EnableInformationCube1ButtonsValidating.Invoke();
+        return EnableLoadInformationCube1ButtonValidating.Invoke();
     }
 
-    private bool IsEnabledInformationCube2Buttons()
+    private bool IsEnabledLoadInformationCube2Button()
     {
-        return EnableInformationCube2ButtonsValidating.Invoke();
+        return EnableLoadInformationCube2ButtonValidating.Invoke();
+    }
+
+    private bool IsEnabledSaveInformationCube1Button()
+    {
+        return EnableSaveInformationCube1ButtonValidating.Invoke();
+    }
+
+    private bool IsEnabledSaveInformationCube2Button()
+    {
+        return EnableSaveInformationCube2ButtonValidating.Invoke();
     }
 
     [RelayCommand]
@@ -179,25 +213,25 @@ public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersection
         CleanDataButtonClick.Invoke();
     }
 
-    [RelayCommand(CanExecute = nameof(IsEnabledInformationCube1Buttons))]
+    [RelayCommand(CanExecute = nameof(IsEnabledLoadInformationCube1Button))]
     private void OnLoadInformationCube1Click()
     {
         LoadInformationCube1Click.Invoke();
     }
 
-    [RelayCommand(CanExecute = nameof(IsEnabledInformationCube2Buttons))]
+    [RelayCommand(CanExecute = nameof(IsEnabledLoadInformationCube2Button))]
     private void OnLoadInformationCube2Click()
     {
         LoadInformationCube2Click.Invoke();
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsEnabledSaveInformationCube1Button))]
     private void OnSaveInformationCube1Click()
     {
         SaveInformationCube1Click.Invoke();
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsEnabledSaveInformationCube2Button))]
     private void OnSaveInformationCube2Click()
     {
         SaveInformationCube2Click.Invoke();

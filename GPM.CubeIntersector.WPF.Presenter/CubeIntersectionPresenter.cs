@@ -11,8 +11,10 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
         _ViewModel.CalculateIntersectionButtonClick += OnCalculateIntersectionButtonClick;
         _ViewModel.CleanDataButtonClick += OnCleanDataButtonClick;
         _ViewModel.EnableCalculateIntersectionButtonValidating += OnEnableCalculateIntersectionButtonValidating;
-        _ViewModel.EnableInformationCube1ButtonsValidating += OnEnableInformationCube1ButtonsValidating;
-        _ViewModel.EnableInformationCube2ButtonsValidating += OnEnableInformationCube2ButtonsValidating;
+        _ViewModel.EnableLoadInformationCube1ButtonValidating += OnEnableLoadInformationCube1ButtonValidating;
+        _ViewModel.EnableLoadInformationCube2ButtonValidating += OnEnableLoadInformationCube2ButtonValidating;
+        _ViewModel.EnableSaveInformationCube1ButtonValidating += OnEnableSaveInformationCube1ButtonValidating;
+        _ViewModel.EnableSaveInformationCube2ButtonValidating += OnEnableSaveInformationCube2ButtonValidating;
         _ViewModel.ExistsIntersectionValidating += OnExistsIntersectionValidating;
         _ViewModel.LoadInformationCube1Click += OnLoadInformationCube1Click;
         _ViewModel.LoadInformationCube2Click += OnLoadInformationCube2Click;
@@ -30,30 +32,41 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
     #region methods
 
-    private void CleanInformationCube1()
+    private void CleanInformation(bool cleanInformationCube1, bool cleanInformationCube2)
     {
-        _ViewModel.XPositionCube1 = string.Empty;
-        _ViewModel.YPositionCube1 = string.Empty;
-        _ViewModel.ZPositionCube1 = string.Empty;
+        _IsCleaning = true;
 
-        _ViewModel.WidthCube1 = string.Empty;
-        _ViewModel.HeightCube1 = string.Empty;
-        _ViewModel.DepthCube1 = string.Empty;
-    }
+        if (cleanInformationCube1 || cleanInformationCube2)
+        {
+            if (cleanInformationCube1)
+            {
+                _ViewModel.XPositionCube1 = string.Empty;
+                _ViewModel.YPositionCube1 = string.Empty;
+                _ViewModel.ZPositionCube1 = string.Empty;
 
-    private void CleanInformationCube2()
-    {
-        _ViewModel.XPositionCube2 = string.Empty;
-        _ViewModel.YPositionCube2 = string.Empty;
-        _ViewModel.ZPositionCube2 = string.Empty;
+                _ViewModel.WidthCube1 = string.Empty;
+                _ViewModel.HeightCube1 = string.Empty;
+                _ViewModel.DepthCube1 = string.Empty;
 
-        _ViewModel.WidthCube2 = string.Empty;
-        _ViewModel.HeightCube2 = string.Empty;
-        _ViewModel.DepthCube2 = string.Empty;
-    }
+                _ViewModel.EnableSaveInformationCube1Button = false;
+            }
 
-    private void CleanInformationIntersectionCube()
-    {
+            if (cleanInformationCube2)
+            {
+                _ViewModel.XPositionCube2 = string.Empty;
+                _ViewModel.YPositionCube2 = string.Empty;
+                _ViewModel.ZPositionCube2 = string.Empty;
+
+                _ViewModel.WidthCube2 = string.Empty;
+                _ViewModel.HeightCube2 = string.Empty;
+                _ViewModel.DepthCube2 = string.Empty;
+
+                _ViewModel.EnableSaveInformationCube2Button = false;
+            }
+
+            _ViewModel.EnableCalculateIntersectionButton = false;
+        }
+
         _ViewModel.XPositionIntersection = null;
         _ViewModel.YPositionIntersection = null;
         _ViewModel.ZPositionIntersection = null;
@@ -61,6 +74,11 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
         _ViewModel.WidthIntersection = null;
         _ViewModel.HeightIntersection = null;
         _ViewModel.DepthIntersection = null;
+
+        _ViewModel.ExistsIntersection = false;
+        
+
+        _IsCleaning = false;
     }
 
     private Cube GetInformationCube1()
@@ -123,7 +141,7 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
         if (cubeIntersection is null)
         {
-            CleanInformationIntersectionCube();
+            CleanInformation(false, false);
         }
         else
         {
@@ -138,16 +156,7 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
     private void OnCleanDataButtonClick()
     {
-        _IsCleaning = true;
-
-        CleanInformationCube1();
-        CleanInformationCube2();
-        CleanInformationIntersectionCube();
-
-        _ViewModel.ExistsIntersection = false;
-        _ViewModel.EnableCalculateIntersectionButton = false;
-
-        _IsCleaning = false;
+        CleanInformation(true, true);
     }
 
     private bool OnEnableCalculateIntersectionButtonValidating()
@@ -157,24 +166,71 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
         if (!_IsCleaning)
         {
             canEnable = !_ViewModel.HasErrors;
+
             _ViewModel.EnableCalculateIntersectionButton = canEnable;
         }
 
         return canEnable;
     }
 
-    private bool OnEnableInformationCube1ButtonsValidating()
+    private bool OnEnableLoadInformationCube1ButtonValidating()
     {
         bool canEnable = !string.IsNullOrEmpty(_ViewModel.IdCube1);
-        _ViewModel.EnableInformationCube1Buttons = canEnable;
+
+        _ViewModel.EnableLoadInformationCube1Button = canEnable;
 
         return canEnable;
     }
 
-    private bool OnEnableInformationCube2ButtonsValidating()
+    private bool OnEnableLoadInformationCube2ButtonValidating()
     {
         bool canEnable = !string.IsNullOrEmpty(_ViewModel.IdCube2);
-        _ViewModel.EnableInformationCube2Buttons = canEnable;
+
+        _ViewModel.EnableLoadInformationCube2Button = canEnable;
+
+        return canEnable;
+    }
+
+    private bool OnEnableSaveInformationCube1ButtonValidating()
+    {
+        bool canEnable = false;
+
+        if (!_IsCleaning)
+        {
+            canEnable = !string.IsNullOrEmpty(_ViewModel.IdCube1);
+
+            canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.XPositionCube1)).Any();
+            canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.YPositionCube1)).Any();
+            canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.ZPositionCube1)).Any();
+
+            canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.WidthCube1)).Any();
+            canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.HeightCube1)).Any();
+            canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.DepthCube1)).Any();
+
+            _ViewModel.EnableSaveInformationCube1Button = canEnable;
+        }
+
+        return canEnable;
+    }
+
+    private bool OnEnableSaveInformationCube2ButtonValidating()
+    {
+        bool canEnable = false;
+
+        if (_IsCleaning)
+        {
+            canEnable = !string.IsNullOrEmpty(_ViewModel.IdCube2);
+
+            canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.XPositionCube2)).Any();
+            canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.YPositionCube2)).Any();
+            canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.ZPositionCube2)).Any();
+
+            canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.WidthCube2)).Any();
+            canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.HeightCube2)).Any();
+            canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.DepthCube2)).Any();
+
+            _ViewModel.EnableSaveInformationCube2Button = canEnable;
+        }
 
         return canEnable;
     }
@@ -195,7 +251,7 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
         if (cube is null)
         {
-            CleanInformationCube1();
+            CleanInformation(true, false);
         }
         else
         {
@@ -214,7 +270,7 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
         if (cube is null)
         {
-            CleanInformationCube2();
+            CleanInformation(false, true);
         }
         else
         {
@@ -243,8 +299,10 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
         _ViewModel.CalculateIntersectionButtonClick -= OnCalculateIntersectionButtonClick;
         _ViewModel.CleanDataButtonClick -= OnCleanDataButtonClick;
         _ViewModel.EnableCalculateIntersectionButtonValidating -= OnEnableCalculateIntersectionButtonValidating;
-        _ViewModel.EnableInformationCube1ButtonsValidating -= OnEnableInformationCube1ButtonsValidating;
-        _ViewModel.EnableInformationCube2ButtonsValidating -= OnEnableInformationCube2ButtonsValidating;
+        _ViewModel.EnableLoadInformationCube1ButtonValidating -= OnEnableLoadInformationCube1ButtonValidating;
+        _ViewModel.EnableLoadInformationCube2ButtonValidating -= OnEnableLoadInformationCube2ButtonValidating;
+        _ViewModel.EnableSaveInformationCube1ButtonValidating -= OnEnableSaveInformationCube1ButtonValidating;
+        _ViewModel.EnableSaveInformationCube2ButtonValidating -= OnEnableSaveInformationCube2ButtonValidating;
         _ViewModel.ExistsIntersectionValidating -= OnExistsIntersectionValidating;
         _ViewModel.LoadInformationCube1Click -= OnLoadInformationCube1Click;
         _ViewModel.LoadInformationCube2Click -= OnLoadInformationCube2Click;

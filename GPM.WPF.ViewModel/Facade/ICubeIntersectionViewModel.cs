@@ -13,9 +13,13 @@ public interface ICubeIntersectionViewModel : IWPFViewModel
 
     public event Func<bool> EnableCalculateIntersectionButtonValidating;
 
-    public event Func<bool> EnableInformationCube1ButtonsValidating;
+    public event Func<bool> EnableLoadInformationCube1ButtonValidating;
 
-    public event Func<bool> EnableInformationCube2ButtonsValidating;
+    public event Func<bool> EnableLoadInformationCube2ButtonValidating;
+
+    public event Func<bool> EnableSaveInformationCube1ButtonValidating;
+
+    public event Func<bool> EnableSaveInformationCube2ButtonValidating;
 
     public event Action ExistsIntersectionValidating;
 
@@ -40,9 +44,13 @@ public interface ICubeIntersectionViewModel : IWPFViewModel
 
     public bool EnableCalculateIntersectionButton { get; set; }
 
-    public bool EnableInformationCube1Buttons { get; set; }
+    public bool EnableLoadInformationCube1Button { get; set; }
 
-    public bool EnableInformationCube2Buttons { get; set; }
+    public bool EnableLoadInformationCube2Button { get; set; }
+
+    public bool EnableSaveInformationCube1Button { get; set; }
+
+    public bool EnableSaveInformationCube2Button { get; set; }
 
     public bool ExistsIntersection { get; set; }
 

@@ -17,6 +17,8 @@ public interface IWPFViewModel
 
     #region methods
 
+    public IEnumerable<ValidationResult> GetErrors(string? propertyName = null);
+
     public void Validate();
 
     #endregion

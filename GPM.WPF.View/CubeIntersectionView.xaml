@@ -50,8 +50,8 @@
                         <Label Content="{x:Static i18n:CubeIntersectionViewLocale.Cube1Id}" />
                         <TextBox Name="IdCube1Text" Text="{Binding Path=IdCube1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Width="80" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
                     </WrapPanel>
-                    <Button Name="SaveInformationCube1Button" Command="{Binding SaveInformationCube1ClickCommand}" IsEnabled="{Binding Path=EnableInformationCube1Buttons}" Content="{x:Static i18n:CommonLocale.SaveInformation}" Margin="0,20,0,0" Width="140" Height="30" />
-                    <Button Name="LoadInformationCube1Button" Command="{Binding LoadInformationCube1ClickCommand}" IsEnabled="{Binding Path=EnableInformationCube1Buttons}" Content="{x:Static i18n:CommonLocale.LoadInformation}" Margin="0,20,0,0" Width="140" Height="30" />
+                    <Button Name="SaveInformationCube1Button" Command="{Binding SaveInformationCube1ClickCommand}" IsEnabled="{Binding Path=EnableSaveInformationCube1Button}" Content="{x:Static i18n:CommonLocale.SaveInformation}" Margin="0,20,0,0" Width="140" Height="30" />
+                    <Button Name="LoadInformationCube1Button" Command="{Binding LoadInformationCube1ClickCommand}" IsEnabled="{Binding Path=EnableLoadInformationCube1Button}" Content="{x:Static i18n:CommonLocale.LoadInformation}" Margin="0,20,0,0" Width="140" Height="30" />
                 </StackPanel>
             </WrapPanel>
             <WrapPanel>
@@ -82,8 +82,8 @@
                         <Label Content="{x:Static i18n:CubeIntersectionViewLocale.Cube2Id}" />
                         <TextBox Name="IdCube2Text" Text="{Binding Path=IdCube2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Width="80" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" />
                     </WrapPanel>
-                    <Button Name="SaveInformationCube2Button" Command="{Binding SaveInformationCube2ClickCommand}" IsEnabled="{Binding Path=EnableInformationCube2Buttons}" Content="{x:Static i18n:CommonLocale.SaveInformation}" Margin="0,20,0,0" Width="140" Height="30" />
-                    <Button Name="LoadInformationCube2Button" Command="{Binding LoadInformationCube2ClickCommand}" IsEnabled="{Binding Path=EnableInformationCube2Buttons}" Content="{x:Static i18n:CommonLocale.LoadInformation}" Margin="0,20,0,0" Width="140" Height="30" />
+                    <Button Name="SaveInformationCube2Button" Command="{Binding SaveInformationCube2ClickCommand}" IsEnabled="{Binding Path=EnableSaveInformationCube2Button}" Content="{x:Static i18n:CommonLocale.SaveInformation}" Margin="0,20,0,0" Width="140" Height="30" />
+                    <Button Name="LoadInformationCube2Button" Command="{Binding LoadInformationCube2ClickCommand}" IsEnabled="{Binding Path=EnableLoadInformationCube2Button}" Content="{x:Static i18n:CommonLocale.LoadInformation}" Margin="0,20,0,0" Width="140" Height="30" />
                 </StackPanel>
             </WrapPanel>
 
