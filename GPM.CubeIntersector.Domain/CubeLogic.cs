@@ -10,10 +10,10 @@ public static class CubeLogic
         switch (id)
         {
             case "test1":
-                resultCube = new CubeDTO(1, 1, 1, 1, 1, 1);
+                resultCube = new CubeDTO(0, 1, 2, 3, 4, 5);
                 break;
             case "test2":
-                resultCube = new CubeDTO(0, 0, 0, 1, 1, 1);
+                resultCube = new CubeDTO(6, 7, 8, 9, 0, 1);
                 break;
             default:
                 resultCube = null;

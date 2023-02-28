@@ -9,26 +9,18 @@ public static class CubeIntersectionLogic
     {
         bool existsIntersect = true;
 
-        existsIntersect &= Math.Abs(cube2.Position.X - cube1.Position.X) <= (cube1.Size.X + cube2.Size.X) / 2;
-        existsIntersect &= Math.Abs(cube2.Position.Y - cube1.Position.Y) <= (cube1.Size.Y + cube2.Size.Y) / 2;
-        existsIntersect &= Math.Abs(cube2.Position.Z - cube1.Position.Z) <= (cube1.Size.Z + cube2.Size.Z) / 2;
+        existsIntersect &= Math.Abs(cube2.X - cube1.X) <= (cube1.Width + cube2.Width) / 2;
+        existsIntersect &= Math.Abs(cube2.Y - cube1.Y) <= (cube1.Height + cube2.Height) / 2;
+        existsIntersect &= Math.Abs(cube2.Z - cube1.Z) <= (cube1.Depth + cube2.Depth) / 2;
 
         return existsIntersect;
     }
 
-    public static bool ExistsCubeIntersect(Vector3 positionCube1, Vector3 dimensionCube1, Vector3 positionCube2, Vector3 dimensionCube2)
+    public static bool ExistsCubeIntersect(float xCube1, float yCube1, float zCube1, float widthCube1, float heightCube1, float depthCube1,
+                                           float xCube2, float yCube2, float zCube2, float widthCube2, float heightCube2, float depthCube2)
     {
-        Cube cube1 = new(positionCube1, dimensionCube1);
-        Cube cube2 = new(positionCube2, dimensionCube2);
-
-        return ExistsCubeIntersect(cube1, cube2);
-    }
-
-    public static bool ExistsCubeIntersect(float xPositionCube1, float yPositionCube1, float zPositionCube1, float widthCube1, float heightCube1, float depthCube1,
-                                           float xPositionCube2, float yPositionCube2, float zPositionCube2, float widthCube2, float heightCube2, float depthCube2)
-    {
-        Cube cube1 = new(xPositionCube1, yPositionCube1, zPositionCube1, widthCube1, heightCube1, depthCube1);
-        Cube cube2 = new(xPositionCube2, yPositionCube2, zPositionCube2, widthCube2, heightCube2, depthCube2);
+        Cube cube1 = new(xCube1, yCube1, zCube1, widthCube1, heightCube1, depthCube1);
+        Cube cube2 = new(xCube2, yCube2, zCube2, widthCube2, heightCube2, depthCube2);
 
         return ExistsCubeIntersect(cube1, cube2);
     }
@@ -56,33 +48,29 @@ public static class CubeIntersectionLogic
     public static Cube? GetCubeIntersect(Cube cube1, Cube cube2)
     {
         Cube? intersectCubeResult = null;
-        float width, height, depth;
+        float x, y, z, width, height, depth;
 
         if (ExistsCubeIntersect(cube1, cube2))
         {
-            width = GetAxisCubeIntersect(cube1.Position.X, cube1.Size.X, cube2.Position.X, cube2.Size.X);
-            height = GetAxisCubeIntersect(cube1.Position.Y, cube1.Size.Y, cube2.Position.Y, cube2.Size.Y);
-            depth = GetAxisCubeIntersect(cube1.Position.Z, cube1.Size.Z, cube2.Position.Z, cube2.Size.Z);
+            x = (cube1.X + cube2.X) / 2;
+            y = (cube1.Y + cube2.Y) / 2;
+            z = (cube1.Z + cube2.Z) / 2;
 
-            intersectCubeResult = new Cube((cube1.Position + cube2.Position) / 2, new Vector3(width, height, depth));
+            width = GetAxisCubeIntersect(cube1.X, cube1.Width, cube2.X, cube2.Width);
+            height = GetAxisCubeIntersect(cube1.Y, cube1.Height, cube2.Y, cube2.Height);
+            depth = GetAxisCubeIntersect(cube1.Z, cube1.Depth, cube2.Z, cube2.Depth);
+
+            intersectCubeResult = new Cube( x, y, z, width, height, depth);
         }
 
         return intersectCubeResult;
     }
 
-    public static Cube? GetCubeIntersect(Vector3 positionCube1, Vector3 dimensionCube1, Vector3 positionCube2, Vector3 dimensionCube2)
+    public static Cube? GetCubeIntersect(float xCube1, float yCube1, float zCube1, float widthCube1, float heightCube1, float depthCube1,
+                                         float xCube2, float yCube2, float zCube2, float widthCube2, float heightCube2, float depthCube2)
     {
-        Cube cube1 = new(positionCube1, dimensionCube1);
-        Cube cube2 = new(positionCube2, dimensionCube2);
-
-        return GetCubeIntersect(cube1, cube2);
-    }
-
-    public static Cube? GetCubeIntersect(float xPositionCube1, float yPositionCube1, float zPositionCube1, float widthCube1, float heightCube1, float depthCube1,
-                                         float xPositionCube2, float yPositionCube2, float zPositionCube2, float widthCube2, float heightCube2, float depthCube2)
-    {
-        Cube cube1 = new(xPositionCube1, yPositionCube1, zPositionCube1, widthCube1, heightCube1, depthCube1);
-        Cube cube2 = new(xPositionCube2, yPositionCube2, zPositionCube2, widthCube2, heightCube2, depthCube2);
+        Cube cube1 = new(xCube1, yCube1, zCube1, widthCube1, heightCube1, depthCube1);
+        Cube cube2 = new(xCube2, yCube2, zCube2, widthCube2, heightCube2, depthCube2);
 
         return GetCubeIntersect(cube1, cube2);
     }

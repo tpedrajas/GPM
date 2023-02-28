@@ -5,29 +5,32 @@ public class Cube : IEquatable<Cube>
 
     #region constuctors / deconstructors / destructors
 
-    public Cube(Vector3 position, Vector3 size)
+    public Cube(float x, float y, float z, float width, float height, float depth)
     {
-        Position = position;
-        Size = size;
-    }
+        X = x;
+        Y = y;
+        Z = z;
 
-    public Cube(float x, float y, float z, float width, float height, float depth) : this(new Vector3(x, y, z), new Vector3(width, height, depth))
-    {
-
-    }
-
-    public Cube(float[] position, float[] size) : this(new Vector3(position[0], position[1], position[2]), new Vector3(size[0], size[1], size[2]))
-    {
-
+        Width = width;
+        Height = height;
+        Depth = depth;
     }
 
     #endregion
 
     #region properties
 
-    public Vector3 Size { get; set; }
+    public float Depth { get; set; }
 
-    public Vector3 Position { get; set; }
+    public float Height { get; set; }
+
+    public float Width { get; set; }
+
+    public float X { get; set; }
+
+    public float Y { get; set; }
+
+    public float Z { get; set; }
 
     #endregion
 
@@ -35,12 +38,14 @@ public class Cube : IEquatable<Cube>
 
     public bool Equals(Cube? other)
     {
-        bool isEqual = other is not null;
+        bool isEqual = false;
 
-        if (isEqual)
+        if (other is not null)
         {
-            isEqual &= Position.Equals(other!.Position);
-            isEqual &= Size.Equals(other!.Size);
+            isEqual = true;
+
+            isEqual &= Equals(X, other.X) && Equals(Y, other.Y) && Equals(Z, other.Z);
+            isEqual &= Equals(Width, other.Width) && Equals(Height, other.Height) && Equals(Depth, other.Depth);
         }
 
         return isEqual;
@@ -58,7 +63,12 @@ public class Cube : IEquatable<Cube>
 
     public override int GetHashCode()
     {
-        return Position.GetHashCode() ^ Size.GetHashCode();
+        int hashCode = 0;
+
+        hashCode ^= X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
+        hashCode ^= Width.GetHashCode() ^ Height.GetHashCode() ^ Depth.GetHashCode();
+
+        return hashCode;
     }
 
     #endregion

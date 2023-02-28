@@ -1,10 +1,13 @@
-﻿namespace GPM.WPF.Model.DTO;
+﻿using System.Text.Json.Serialization;
+
+namespace GPM.WPF.Model.DTO;
 
 public sealed record CubeDTO
 {
 
     #region constructors / deconstructors / destructors
 
+    [JsonConstructor]
     public CubeDTO(float x, float y, float z, float width, float height, float depth)
     {
         X = x;

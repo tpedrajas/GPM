@@ -24,7 +24,6 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
     #region fields
 
-
     private bool _IsCleaning;
 
     #endregion
@@ -64,22 +63,46 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
         _ViewModel.DepthIntersection = null;
     }
 
-    private static CubeDTO? LoadInformationCube(string id)
+    private Cube GetInformationCube1()
     {
-        // The WebAPI project must be executed at first
+        return new(float.Parse(_ViewModel.XPositionCube1), float.Parse(_ViewModel.YPositionCube1), float.Parse(_ViewModel.ZPositionCube1),
+                   float.Parse(_ViewModel.WidthCube1), float.Parse(_ViewModel.HeightCube1), float.Parse(_ViewModel.DepthCube1));
+    }
 
+    private Cube GetInformationCube2()
+    {
+        return new(float.Parse(_ViewModel.XPositionCube2), float.Parse(_ViewModel.YPositionCube2), float.Parse(_ViewModel.ZPositionCube2),
+                   float.Parse(_ViewModel.WidthCube2), float.Parse(_ViewModel.HeightCube2), float.Parse(_ViewModel.DepthCube2));
+    }
+
+    private Cube? LoadInformationCube(string id)
+    {
         using HttpClient client = new();
         client.BaseAddress = new Uri("https://localhost:44390/");
 
-        var responseTask = client.GetAsync($"Cube/GetCube/{id}");
-        responseTask.Wait();
+        Cube? result = null;
 
-        HttpResponseMessage response = responseTask.Result;
-        CubeDTO? result = null;
-
-        if (response.IsSuccessStatusCode)
+        try
         {
-            result = response.Content.ReadFromJsonAsync<CubeDTO?>().Result;
+            var responseTask = client.GetAsync($"Cube/GetCube/{id}");
+            responseTask.Wait();
+
+            HttpResponseMessage response = responseTask.Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var contentTask = response.Content.ReadFromJsonAsync<CubeDTO?>();
+                contentTask.Wait();
+
+                CubeDTO? content = contentTask.Result;
+                IMapper mapper = _ServiceManager.ServiceProvider.GetRequiredService<IMapper>();
+
+                result = mapper.Map<Cube>(content);
+            }
+        }
+        catch
+        {
+            
         }
 
         return result;
@@ -93,10 +116,8 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
     private void OnCalculateIntersectionButtonClick()
     {
-        Cube cube1 = new(Array.ConvertAll(new string[] { _ViewModel.XPositionCube1, _ViewModel.YPositionCube1, _ViewModel.ZPositionCube1 }, float.Parse),
-                         Array.ConvertAll(new string[] { _ViewModel.WidthCube1, _ViewModel.HeightCube1, _ViewModel.DepthCube1 }, float.Parse));
-        Cube cube2 = new(Array.ConvertAll(new string[] { _ViewModel.XPositionCube2, _ViewModel.YPositionCube2, _ViewModel.ZPositionCube2 }, float.Parse),
-                         Array.ConvertAll(new string[] { _ViewModel.WidthCube2, _ViewModel.HeightCube2, _ViewModel.DepthCube2 }, float.Parse));
+        Cube cube1 = GetInformationCube1();
+        Cube cube2 = GetInformationCube2();
 
         Cube? cubeIntersection = CubeIntersectionLogic.GetCubeIntersect(cube1, cube2);
 
@@ -106,12 +127,12 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
         }
         else
         {
-            _ViewModel.XPositionIntersection = cubeIntersection.Position.X;
-            _ViewModel.YPositionIntersection = cubeIntersection.Position.Y;
-            _ViewModel.ZPositionIntersection = cubeIntersection.Position.Z;
-            _ViewModel.WidthIntersection = cubeIntersection.Size.X;
-            _ViewModel.HeightIntersection = cubeIntersection.Size.Y;
-            _ViewModel.DepthIntersection = cubeIntersection.Size.Z;
+            _ViewModel.XPositionIntersection = cubeIntersection.X;
+            _ViewModel.YPositionIntersection = cubeIntersection.Y;
+            _ViewModel.ZPositionIntersection = cubeIntersection.Z;
+            _ViewModel.WidthIntersection = cubeIntersection.Width;
+            _ViewModel.HeightIntersection = cubeIntersection.Height;
+            _ViewModel.DepthIntersection = cubeIntersection.Depth;
         }
     }
 
@@ -160,10 +181,8 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
     private void OnExistsIntersectionValidating()
     {
-        Cube cube1 = new(Array.ConvertAll(new string[] { _ViewModel.XPositionCube1, _ViewModel.YPositionCube1, _ViewModel.ZPositionCube1 }, float.Parse),
-                         Array.ConvertAll(new string[] { _ViewModel.WidthCube1, _ViewModel.HeightCube1, _ViewModel.DepthCube1 }, float.Parse));
-        Cube cube2 = new(Array.ConvertAll(new string[] { _ViewModel.XPositionCube2, _ViewModel.YPositionCube2, _ViewModel.ZPositionCube2 }, float.Parse),
-                         Array.ConvertAll(new string[] { _ViewModel.WidthCube2, _ViewModel.HeightCube2, _ViewModel.DepthCube2 }, float.Parse));
+        Cube cube1 = GetInformationCube1();
+        Cube cube2 = GetInformationCube2();
 
         bool existIntersection = CubeIntersectionLogic.ExistsCubeIntersect(cube1, cube2);
 
@@ -172,39 +191,39 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
     private void OnLoadInformationCube1Click()
     {
-        CubeDTO? cubeDTO = LoadInformationCube(_ViewModel.IdCube1);
+        Cube? cube = LoadInformationCube(_ViewModel.IdCube1);
 
-        if (cubeDTO is null)
+        if (cube is null)
         {
             CleanInformationCube1();
         }
         else
         {
-            _ViewModel.XPositionCube1 = Convert.ToString(cubeDTO.X);
-            _ViewModel.YPositionCube1 = Convert.ToString(cubeDTO.Y);
-            _ViewModel.ZPositionCube1 = Convert.ToString(cubeDTO.Z);
-            _ViewModel.WidthCube1 = Convert.ToString(cubeDTO.Width);
-            _ViewModel.HeightCube1 = Convert.ToString(cubeDTO.Height);
-            _ViewModel.DepthCube1 = Convert.ToString(cubeDTO.Depth);
+            _ViewModel.XPositionCube1 = Convert.ToString(cube.X);
+            _ViewModel.YPositionCube1 = Convert.ToString(cube.Y);
+            _ViewModel.ZPositionCube1 = Convert.ToString(cube.Z);
+            _ViewModel.WidthCube1 = Convert.ToString(cube.Width);
+            _ViewModel.HeightCube1 = Convert.ToString(cube.Height);
+            _ViewModel.DepthCube1 = Convert.ToString(cube.Depth);
         }
     }
 
     private void OnLoadInformationCube2Click()
     {
-        CubeDTO? cubeDTO = LoadInformationCube(_ViewModel.IdCube2);
+        Cube? cube = LoadInformationCube(_ViewModel.IdCube2);
 
-        if (cubeDTO is null)
+        if (cube is null)
         {
             CleanInformationCube2();
         }
         else
         {
-            _ViewModel.XPositionCube2 = Convert.ToString(cubeDTO.X);
-            _ViewModel.YPositionCube2 = Convert.ToString(cubeDTO.Y);
-            _ViewModel.ZPositionCube2 = Convert.ToString(cubeDTO.Z);
-            _ViewModel.WidthCube2 = Convert.ToString(cubeDTO.Width);
-            _ViewModel.HeightCube2 = Convert.ToString(cubeDTO.Height);
-            _ViewModel.DepthCube2 = Convert.ToString(cubeDTO.Depth);
+            _ViewModel.XPositionCube2 = Convert.ToString(cube.X);
+            _ViewModel.YPositionCube2 = Convert.ToString(cube.Y);
+            _ViewModel.ZPositionCube2 = Convert.ToString(cube.Z);
+            _ViewModel.WidthCube2 = Convert.ToString(cube.Width);
+            _ViewModel.HeightCube2 = Convert.ToString(cube.Height);
+            _ViewModel.DepthCube2 = Convert.ToString(cube.Depth);
         }
     }
 
@@ -238,6 +257,33 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
     protected override void OnViewModelLinked(object? sender, EventArgs e)
     {
         _ViewModel.Validate();
+    }
+
+    private static CubeDTO? SaveInformationCube(string id)
+    {
+        using HttpClient client = new();
+        client.BaseAddress = new Uri("https://localhost:44390/");
+
+        CubeDTO? result = null;
+
+        try
+        {
+            var responseTask = client.GetAsync($"Cube/GetCube/{id}");
+            responseTask.Wait();
+
+            HttpResponseMessage response = responseTask.Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                result = response.Content.ReadFromJsonAsync<CubeDTO?>().Result;
+            }
+        }
+        catch
+        {
+
+        }
+
+        return result;
     }
 
     #endregion

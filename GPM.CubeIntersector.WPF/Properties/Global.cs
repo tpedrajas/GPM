@@ -17,6 +17,13 @@ global using GPM.CubeIntersector.WPF.Management;
 
 #endregion
 
+#region usings from Business Logic Layer
+
+global using GPM.WPF.Model;
+global using GPM.WPF.Model.DTO;
+
+#endregion
+
 #region usings from Presentation Layer
 
 global using GPM.CubeIntersector.WPF.Presenter;
@@ -27,6 +34,8 @@ global using GPM.WPF.ViewModel;
 #endregion
 
 #region usings from Support Layer
+
+global using GPM.Product.Abstractions.Profiles;
 
 global using GPM.Product.WPF.Management;
 global using GPM.Product.WPF.Presenter;

@@ -1,6 +1,6 @@
 ﻿namespace GPM.Product.WPF.Management;
 
-public class WPFServiceManager : AbstractServiceManager, IWPFServiceManager
+public class WPFServiceManager : ServiceManager, IWPFServiceManager
 {
 
     #region constructors / deconstructors / destructors
@@ -18,6 +18,8 @@ public class WPFServiceManager : AbstractServiceManager, IWPFServiceManager
     {
         services.AddSingleton<IWPFServiceManager>(this);
         services.AddSingleton<IWPFPresentationManager, WPFPresentationManager>();
+
+        base.ConfigureServices(context, services);
     }
 
     public override void Run()

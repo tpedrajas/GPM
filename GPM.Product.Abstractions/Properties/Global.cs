@@ -8,6 +8,8 @@ global using System.Threading.Tasks;
 
 #region usings from NuGet Packages
 
+global using AutoMapper;
+
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
 

@@ -8,6 +8,8 @@ global using System.Net.Http.Json;
 
 #region usings from NuGet Packages
 
+global using AutoMapper;
+
 global using Microsoft.Extensions.DependencyInjection;
 
 #endregion
