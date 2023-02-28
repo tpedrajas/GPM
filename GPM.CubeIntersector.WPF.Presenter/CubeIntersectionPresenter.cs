@@ -1,4 +1,6 @@
-﻿namespace GPM.CubeIntersector.WPF.Presenter;
+﻿using GPM.WPF.Model.Json;
+
+namespace GPM.CubeIntersector.WPF.Presenter;
 
 public class CubeIntersectionPresenter : MvpvmPresenter<ICubeIntersectionView, ICubeIntersectionViewModel, IMvpvmServiceManager>, ICubeIntersectionPresenter
 {
@@ -109,6 +111,7 @@ public class CubeIntersectionPresenter : MvpvmPresenter<ICubeIntersectionView, I
 
             if (response.IsSuccessStatusCode)
             {
+                //var contentTask = response.Content.ReadFromJsonAsync<CubeDto?>(JsonModelSerializerContext.Default.Options);
                 var contentTask = response.Content.ReadFromJsonAsync<CubeDto?>();
                 contentTask.Wait();
 
@@ -327,6 +330,7 @@ public class CubeIntersectionPresenter : MvpvmPresenter<ICubeIntersectionView, I
             IMapper mapper = _ServiceManager.ServiceProvider.GetRequiredService<IMapper>();
             CubeDto content = mapper.Map<CubeDto>(cube);
 
+            //var postTask = client.PostAsJsonAsync($"Cube/SetCube/{id}", content, JsonModelSerializerContext.Default.CubeDto.Options);
             var postTask = client.PostAsJsonAsync($"Cube/SetCube/{id}", content);
             postTask.Wait();
 
