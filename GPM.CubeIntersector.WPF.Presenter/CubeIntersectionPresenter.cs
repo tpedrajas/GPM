@@ -1,11 +1,11 @@
 ﻿namespace GPM.CubeIntersector.WPF.Presenter;
 
-public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICubeIntersectionViewModel, IWPFServiceManager>, ICubeIntersectionPresenter
+public class CubeIntersectionPresenter : MvpvmPresenter<ICubeIntersectionView, ICubeIntersectionViewModel, IMvpvmServiceManager>, ICubeIntersectionPresenter
 {
 
     #region constructors / deconstructors / destructors
 
-    public CubeIntersectionPresenter(ICubeIntersectionView view, ICubeIntersectionViewModel viewModel, IWPFServiceManager serviceManager) : base(view, viewModel, serviceManager)
+    public CubeIntersectionPresenter(ICubeIntersectionView view, ICubeIntersectionViewModel viewModel, IMvpvmServiceManager serviceManager) : base(view, viewModel, serviceManager)
     {
         _ViewModel.AboutButtonClick += OnAboutButtonClick;
         _ViewModel.CalculateIntersectionButtonClick += OnCalculateIntersectionButtonClick;
@@ -109,13 +109,11 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
             if (response.IsSuccessStatusCode)
             {
-                var contentTask = response.Content.ReadFromJsonAsync<CubeDTO?>();
+                var contentTask = response.Content.ReadFromJsonAsync<CubeDto?>();
                 contentTask.Wait();
 
-                CubeDTO? content = contentTask.Result;
                 IMapper mapper = _ServiceManager.ServiceProvider.GetRequiredService<IMapper>();
-
-                result = mapper.Map<Cube>(content);
+                result = mapper.Map<Cube>(contentTask.Result);
             }
         }
         catch
@@ -128,7 +126,7 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
     private void OnAboutButtonClick()
     {
-        IWPFPresentationManager presentationManager = _ServiceManager.ServiceProvider.GetRequiredService<IWPFPresentationManager>();
+        IMvpvmPresentationManager presentationManager = _ServiceManager.ServiceProvider.GetRequiredService<IMvpvmPresentationManager>();
         presentationManager.LoadPresenter<IAboutPresenter>(true, false);
     }
 
@@ -285,12 +283,14 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
 
     private void OnSaveInformationCube1Click()
     {
-
+        Cube cube = GetInformationCube1();
+        SaveInformationCube(_ViewModel.IdCube1, cube);
     }
 
     private void OnSaveInformationCube2Click()
     {
-
+        Cube cube = GetInformationCube2();
+        SaveInformationCube(_ViewModel.IdCube2, cube);
     }
 
     protected override void OnViewClosed(object? sender, EventArgs e)
@@ -317,31 +317,30 @@ public class CubeIntersectionPresenter : WPFPresenter<ICubeIntersectionView, ICu
         _ViewModel.Validate();
     }
 
-    private static CubeDTO? SaveInformationCube(string id)
+    private void SaveInformationCube(string id, Cube cube)
     {
         using HttpClient client = new();
         client.BaseAddress = new Uri("https://localhost:44390/");
 
-        CubeDTO? result = null;
-
         try
         {
-            var responseTask = client.GetAsync($"Cube/GetCube/{id}");
-            responseTask.Wait();
+            IMapper mapper = _ServiceManager.ServiceProvider.GetRequiredService<IMapper>();
+            CubeDto content = mapper.Map<CubeDto>(cube);
 
-            HttpResponseMessage response = responseTask.Result;
+            var postTask = client.PostAsJsonAsync($"Cube/SetCube/{id}", content);
+            postTask.Wait();
+
+            HttpResponseMessage response = postTask.Result;
 
             if (response.IsSuccessStatusCode)
             {
-                result = response.Content.ReadFromJsonAsync<CubeDTO?>().Result;
+                // Guardar mensaje de log
             }
         }
         catch
         {
 
         }
-
-        return result;
     }
 
     #endregion

@@ -1,6 +1,6 @@
 ﻿namespace GPM.WPF.Model;
 
-public class Cube : IEquatable<Cube>
+public class Cube : MvpvmModel, ICube, IEquatable<Cube>
 {
 
     #region constuctors / deconstructors / destructors

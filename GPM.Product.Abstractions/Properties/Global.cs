@@ -14,11 +14,3 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
 
 #endregion
-
-#region usings from Support Layer
-
-global using GPM.Product.Abstractions.Management;
-global using GPM.Product.Abstractions.Presenter;
-global using GPM.Product.Abstractions.View;
-
-#endregion

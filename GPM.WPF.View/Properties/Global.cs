@@ -6,6 +6,6 @@ global using System.Windows;
 
 #region usings from Support Layer
 
-global using GPM.Product.WPF.View;
+global using GPM.Product.Mvpvm.View;
 
 #endregion

@@ -1,6 +1,6 @@
 ﻿namespace GPM.WPF.ViewModel;
 
-public partial class CubeIntersectionViewModel : WPFViewModel, ICubeIntersectionViewModel
+public partial class CubeIntersectionViewModel : MvpvmViewModel, ICubeIntersectionViewModel
 {
 
     #region delegates

@@ -17,7 +17,7 @@ public partial class App : Application
 
     #region fields
 
-    private static readonly IWPFServiceManager _ServiceManager;
+    private static readonly IMvpvmServiceManager _ServiceManager;
 
     #endregion
 

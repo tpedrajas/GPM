@@ -2,22 +2,24 @@
 
 [ApiController]
 [Route("[controller]")]
-public class CubeController : ControllerBase
+public class CubeController : Controller
 {
 
     #region methods
 
     [HttpGet("GetCube/{id}")]
-    public async Task<CubeDTO?> GetCube(string id)
+    public async Task<CubeDto?> GetCube(string id, IMapper mapper)
     {
-        CubeDTO? result = await Task.Run(() => CubeLogic.GetCube(id)).ConfigureAwait(false);
+        Cube? cube = await Task.Run(() => CubeLogic.GetCube(id)).ConfigureAwait(false);
+        CubeDto? result = mapper.Map<CubeDto?>(cube);
 
         return result;
     }
 
     [HttpPost("SetCube/{id}")]
-    public async void SetCube(string id, [FromBody] CubeDTO cube)
+    public async void SetCube(string id, [FromBody] CubeDto cubeDTO, IMapper mapper)
     {
+        Cube cube = mapper.Map<Cube>(cubeDTO);
         await Task.Run(() => CubeLogic.SetCube(id, cube)).ConfigureAwait(false);
     }
 

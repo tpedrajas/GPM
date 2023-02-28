@@ -1,6 +1,6 @@
 ﻿namespace GPM.WPF.ViewModel;
 
-public interface ICubeIntersectionViewModel : IWPFViewModel
+public interface ICubeIntersectionViewModel : IMvpvmViewModel
 {
 
     #region events

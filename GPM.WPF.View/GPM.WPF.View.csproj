@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GPM.Product.WPF\GPM.Product.WPF.csproj" />
+    <ProjectReference Include="..\GPM.Product.Mvpvm\GPM.Product.Mvpvm.csproj" />
   </ItemGroup>
 
   <ItemGroup>

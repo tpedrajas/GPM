@@ -1,11 +1,11 @@
 ﻿namespace GPM.CubeIntersector.WPF.Presenter;
 
-public class AboutPresenter : WPFPresenter<IAboutView, IAboutViewModel, IWPFServiceManager>, IAboutPresenter
+public class AboutPresenter : MvpvmPresenter<IAboutView, IAboutViewModel, IMvpvmServiceManager>, IAboutPresenter
 {
 
     #region constructors / deconstructors / destructors
 
-    public AboutPresenter(IAboutView view, IAboutViewModel viewModel, IWPFServiceManager serviceManager) : base(view, viewModel, serviceManager)
+    public AboutPresenter(IAboutView view, IAboutViewModel viewModel, IMvpvmServiceManager serviceManager) : base(view, viewModel, serviceManager)
     {
         
     }

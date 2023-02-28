@@ -1,6 +1,6 @@
 ﻿namespace GPM.WPF.ViewModel;
 
-public class AboutViewModel : WPFViewModel, IAboutViewModel
+public class AboutViewModel : MvpvmViewModel, IAboutViewModel
 {
 
 }

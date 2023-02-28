@@ -1,6 +1,6 @@
 ﻿namespace GPM.WPF.View;
 
-public interface ICubeIntersectionView : IWPFView
+public interface ICubeIntersectionView : IMvpvmView
 {
 
 }

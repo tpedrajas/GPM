@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GPM.CubeIntersector.Domain\GPM.CubeIntersector.Domain.csproj" />
-    <ProjectReference Include="..\GPM.WPF.Model\GPM.WPF.Model.csproj" />
   </ItemGroup>
 
 </Project>

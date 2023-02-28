@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GPM.Common\GPM.Common.csproj" />
     <ProjectReference Include="..\GPM.CubeIntersector.Domain\GPM.CubeIntersector.Domain.csproj" />
-    <ProjectReference Include="..\GPM.Product.Common\GPM.Product.Common.csproj" />
   </ItemGroup>
 
 </Project>

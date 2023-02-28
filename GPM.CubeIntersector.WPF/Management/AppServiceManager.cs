@@ -1,6 +1,6 @@
 ﻿namespace GPM.CubeIntersector.WPF.Management;
 
-internal class AppServiceManager : WPFServiceManager
+internal class AppServiceManager : MvpvmServiceManager
 {
 
     #region constructors / deconstructors / destructors
@@ -16,9 +16,11 @@ internal class AppServiceManager : WPFServiceManager
 
     protected override void ConfigureServices(HostBuilderContext context, IServiceCollection services)
     {
+        services.AddAutoMapper(typeof(DomainProfile));
+
         services.AddSingleton<ICubeIntersectionViewModel, CubeIntersectionViewModel>();
         services.AddSingleton<ICubeIntersectionView, CubeIntersectionView>();
-        services.AddSingleton<IWPFMainPresenter, AppMainPresenter>();
+        services.AddSingleton<IMvpvmMainPresenter, AppMainPresenter>();
 
         services.AddTransient<IAboutViewModel, AboutViewModel>();
         services.AddTransient<IAboutView, AboutView>();

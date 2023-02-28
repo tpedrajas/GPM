@@ -3,17 +3,17 @@
 public static class CubeLogic
 {
 
-    public static CubeDTO? GetCube(string id)
+    public static Cube? GetCube(string id)
     {
-        CubeDTO? resultCube;
+        Cube? resultCube;
 
         switch (id)
         {
             case "test1":
-                resultCube = new CubeDTO(0, 1, 2, 3, 4, 5);
+                resultCube = new Cube(0, 1, 2, 3, 4, 5);
                 break;
             case "test2":
-                resultCube = new CubeDTO(6, 7, 8, 9, 0, 1);
+                resultCube = new Cube(6, 7, 8, 9, 0, 1);
                 break;
             default:
                 resultCube = null;
@@ -23,8 +23,9 @@ public static class CubeLogic
         return resultCube;
     }
 
-    public static void SetCube(string id, CubeDTO cube)
+    public static void SetCube(string id, Cube cube)
     {
+        string newId = id;
 
     }
 

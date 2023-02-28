@@ -1,6 +1,6 @@
 ﻿namespace GPM.WPF.View;
 
-public interface IAboutView : IWPFView
+public interface IAboutView : IMvpvmView
 {
 
 }

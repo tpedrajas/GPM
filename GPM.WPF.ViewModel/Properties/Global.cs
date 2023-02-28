@@ -12,10 +12,14 @@ global using CommunityToolkit.Mvvm.Input;
 
 #endregion
 
+#region usings from Common Layer
+
+global using GPM.Common.Validation;
+
+#endregion
+
 #region usings from Support Layer
 
-global using GPM.Product.Common.Validation;
-
-global using GPM.Product.WPF.ViewModel;
+global using GPM.Product.Mvpvm.ViewModel;
 
 #endregion

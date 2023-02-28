@@ -27,13 +27,13 @@ global using GPM.WPF.ViewModel;
 global using GPM.CubeIntersector.Domain;
 
 global using GPM.WPF.Model;
-global using GPM.WPF.Model.DTO;
+global using GPM.WPF.Model.Dto;
 
 #endregion
 
 #region usings from Support Layer
 
-global using GPM.Product.WPF.Management;
-global using GPM.Product.WPF.Presenter;
+global using GPM.Product.Mvpvm.Management;
+global using GPM.Product.Mvpvm.Presenter;
 
 #endregion

@@ -14,8 +14,8 @@ global using GPM.WPF.Model;
 
 #endregion
 
-#region usings from Support Layer
+#region usings from Common Layer
 
-global using GPM.Product.Common.Validation;
+global using GPM.Common.Validation;
 
 #endregion
