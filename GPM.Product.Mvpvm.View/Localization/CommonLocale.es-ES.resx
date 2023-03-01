@@ -138,8 +138,11 @@
   <data name="English" xml:space="preserve">
     <value>Inglés</value>
   </data>
+  <data name="ErrorNonNegativeNumber2DecimalsFormat" xml:space="preserve">
+    <value>Se requiere un número válido no negativo con hasta 2 decimales</value>
+  </data>
   <data name="ErrorNumber2DecimalsFormat" xml:space="preserve">
-    <value>Se requiere un número con 2 decimales</value>
+    <value>Se requiere un número válido con hasta 2 decimales</value>
   </data>
   <data name="Height" xml:space="preserve">
     <value>Alto:</value>

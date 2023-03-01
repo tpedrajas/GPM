@@ -14,12 +14,14 @@
                 <TextBlock Text="!" Foreground="Red" FontSize="18" ToolTip="{x:Static i18n:CommonLocale.ErrorNumber2DecimalsFormat}" />
             </StackPanel>
         </ControlTemplate>
+        <ControlTemplate x:Key="ErrorNonNegativeNumber2DecimalsFormatTemplate">
+            <StackPanel Orientation="Horizontal">
+                <AdornedElementPlaceholder />
+                <TextBlock Text="!" Foreground="Red" FontSize="18" ToolTip="{x:Static i18n:CommonLocale.ErrorNonNegativeNumber2DecimalsFormat}" />
+            </StackPanel>
+        </ControlTemplate>
     </Window.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="112*"/>
-            <ColumnDefinition Width="323*"/>
-        </Grid.ColumnDefinitions>
         <StackPanel HorizontalAlignment="Left" Width="870" Grid.ColumnSpan="2">
             <Menu x:Name="menu" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="870">
                 <MenuItem x:Name="LanguageMenu" Header="{x:Static i18n:CommonLocale.Language}">
@@ -42,11 +44,11 @@
                         <Label Content="{x:Static i18n:CommonLocale.Dimensions}" HorizontalAlignment="Center" FontWeight="Bold" Margin="10" />
                         <WrapPanel HorizontalAlignment="Center">
                             <Label Content="{x:Static i18n:CommonLocale.Width}" Width="120" HorizontalContentAlignment="Right" />
-                            <TextBox Name="WidthCube1Text" Text="{Binding Path=WidthCube1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ErrorNumber2DecimalsFormatTemplate}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
+                            <TextBox Name="WidthCube1Text" Text="{Binding Path=WidthCube1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ErrorNonNegativeNumber2DecimalsFormatTemplate}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                             <Label Content="{x:Static i18n:CommonLocale.Height}" Width="120" HorizontalContentAlignment="Right" />
-                            <TextBox Name="HeightCube1Text" Text="{Binding Path=HeightCube1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ErrorNumber2DecimalsFormatTemplate}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
+                            <TextBox Name="HeightCube1Text" Text="{Binding Path=HeightCube1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ErrorNonNegativeNumber2DecimalsFormatTemplate}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                             <Label Content="{x:Static i18n:CommonLocale.Depth}" Width="120" HorizontalContentAlignment="Right" />
-                            <TextBox Name="DepthCube1Text" Text="{Binding Path=DepthCube1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ErrorNumber2DecimalsFormatTemplate}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
+                            <TextBox Name="DepthCube1Text" Text="{Binding Path=DepthCube1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ErrorNonNegativeNumber2DecimalsFormatTemplate}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                         </WrapPanel>
                     </StackPanel>
                 </GroupBox>
@@ -74,11 +76,11 @@
                         <Label Content="{x:Static i18n:CommonLocale.Dimensions}" HorizontalAlignment="Center" FontWeight="Bold" Margin="10" />
                         <WrapPanel HorizontalAlignment="Center">
                             <Label Content="{x:Static i18n:CommonLocale.Width}" Width="120" HorizontalContentAlignment="Right" />
-                            <TextBox Name="WidthCube2Text" Text="{Binding Path=WidthCube2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ErrorNumber2DecimalsFormatTemplate}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
+                            <TextBox Name="WidthCube2Text" Text="{Binding Path=WidthCube2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ErrorNonNegativeNumber2DecimalsFormatTemplate}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                             <Label Content="{x:Static i18n:CommonLocale.Height}" Width="120" HorizontalContentAlignment="Right" />
-                            <TextBox Name="HeightCube2Text" Text="{Binding Path=HeightCube2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ErrorNumber2DecimalsFormatTemplate}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
+                            <TextBox Name="HeightCube2Text" Text="{Binding Path=HeightCube2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ErrorNonNegativeNumber2DecimalsFormatTemplate}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                             <Label Content="{x:Static i18n:CommonLocale.Depth}" Width="120" HorizontalContentAlignment="Right" />
-                            <TextBox Name="DepthCube2Text" Text="{Binding Path=DepthCube2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ErrorNumber2DecimalsFormatTemplate}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
+                            <TextBox Name="DepthCube2Text" Text="{Binding Path=DepthCube2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Validation.ErrorTemplate="{StaticResource ErrorNonNegativeNumber2DecimalsFormatTemplate}" Width="80" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" />
                         </WrapPanel>
                     </StackPanel>
                 </GroupBox>

@@ -39,6 +39,7 @@ public partial class CubeIntersectionViewModel : MvpvmViewModel, ICubeIntersecti
     [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
+    [Range(0, float.MaxValue)]
     [NumberCulturedFormatted(2)]
     private string _DepthCube1 = string.Empty;
 
@@ -46,6 +47,7 @@ public partial class CubeIntersectionViewModel : MvpvmViewModel, ICubeIntersecti
     [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
+    [Range(0, float.MaxValue)]
     [NumberCulturedFormatted(2)]
     private string _DepthCube2 = string.Empty;
 
@@ -74,6 +76,7 @@ public partial class CubeIntersectionViewModel : MvpvmViewModel, ICubeIntersecti
     [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
+    [Range(0, float.MaxValue)]
     [NumberCulturedFormatted(2)]
     private string _HeightCube1 = string.Empty;
 
@@ -81,6 +84,7 @@ public partial class CubeIntersectionViewModel : MvpvmViewModel, ICubeIntersecti
     [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
+    [Range(0, float.MaxValue)]
     [NumberCulturedFormatted(2)]
     private string _HeightCube2 = string.Empty;
 
@@ -101,6 +105,7 @@ public partial class CubeIntersectionViewModel : MvpvmViewModel, ICubeIntersecti
     [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
+    [Range(0, float.MaxValue)]
     [NumberCulturedFormatted(2)]
     private string _WidthCube1 = string.Empty;
 
@@ -108,6 +113,7 @@ public partial class CubeIntersectionViewModel : MvpvmViewModel, ICubeIntersecti
     [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
     [NotifyDataErrorInfo]
+    [Range(0, float.MaxValue)]
     [NumberCulturedFormatted(2)]
     private string _WidthCube2 = string.Empty;
 

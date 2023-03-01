@@ -126,6 +126,15 @@ namespace GPM.Product.Mvpvm.View.Localization {
         /// <summary>
         ///   Busca una cadena traducida similar a ????.
         /// </summary>
+        public static string ErrorNonNegativeNumber2DecimalsFormat {
+            get {
+                return ResourceManager.GetString("ErrorNonNegativeNumber2DecimalsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ????.
+        /// </summary>
         public static string ErrorNumber2DecimalsFormat {
             get {
                 return ResourceManager.GetString("ErrorNumber2DecimalsFormat", resourceCulture);

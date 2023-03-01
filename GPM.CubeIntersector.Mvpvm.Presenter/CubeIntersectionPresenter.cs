@@ -215,7 +215,7 @@ public class CubeIntersectionPresenter : MvpvmPresenter<ICubeIntersectionView, I
     {
         bool canEnable = false;
 
-        if (_IsCleaning)
+        if (!_IsCleaning)
         {
             canEnable = !string.IsNullOrEmpty(_ViewModel.IdCube2);
 
