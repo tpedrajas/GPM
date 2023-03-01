@@ -3,30 +3,43 @@
 public static class CubeLogic
 {
 
-    public static Cube? GetCube(string id)
+    #region methods
+
+    public static Cube? GetCube(string id, IServiceProvider provider)
     {
         Cube? resultCube;
 
-        switch (id)
+        using (IServiceScope scope = provider.CreateScope())
         {
-            case "test1":
-                resultCube = new Cube(0, 1, 2, 3, 4, 5);
-                break;
-            case "test2":
-                resultCube = new Cube(6, 7, 8, 9, 0, 1);
-                break;
-            default:
-                resultCube = null;
-                break;
+            using (ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>())
+            {
+                IMapper mapper = provider.GetRequiredService<IMapper>();
+
+                CubeEntity? cubeEntity = dbContext.CubeEntities.SingleOrDefault(cube => cube.Id == id);
+                resultCube = mapper.Map<Cube?>(cubeEntity);
+            }
         }
 
         return resultCube;
     }
 
-    public static void SetCube(string id, Cube cube)
+    public static void SetCube(string id, Cube cube, IServiceProvider provider)
     {
-        string newId = id;
+        using (IServiceScope scope = provider.CreateScope())
+        {
+            using (ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>())
+            {
+                IMapper mapper = provider.GetRequiredService<IMapper>();
 
+                CubeEntity cubeEntity = mapper.Map<CubeEntity>(cube);
+                cubeEntity.Id = id;
+
+                dbContext.CubeEntities.Update(cubeEntity);
+                dbContext.SaveChanges();
+            }
+        }
     }
+
+    #endregion
 
 }

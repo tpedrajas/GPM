@@ -10,7 +10,7 @@ global using System.Globalization;
 
 global using GPM.CubeIntersector.Domain;
 
-global using GPM.WPF.Model;
+global using GPM.Product.Mvpvm.Model;
 
 #endregion
 

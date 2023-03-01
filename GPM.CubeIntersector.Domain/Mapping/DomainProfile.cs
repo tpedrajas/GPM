@@ -9,6 +9,10 @@ public class DomainProfile : MvpvmProfile
     {
         CreateMap<CubeDto, Cube>()
             .ReverseMap();
+
+        CreateMap<Cube, CubeEntity>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => string.Empty))
+            .ReverseMap();
     }
 
     #endregion

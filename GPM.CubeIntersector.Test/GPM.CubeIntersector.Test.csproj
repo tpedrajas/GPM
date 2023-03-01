@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GPM.Product.Common\GPM.Product.Common.csproj" />
+    <ProjectReference Include="..\GPM.Common\GPM.Common.csproj" />
     <ProjectReference Include="..\GPM.CubeIntersector.Domain\GPM.CubeIntersector.Domain.csproj" />
   </ItemGroup>
 

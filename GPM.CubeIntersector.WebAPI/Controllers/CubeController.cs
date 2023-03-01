@@ -8,19 +8,23 @@ public class CubeController : Controller
     #region methods
 
     [HttpGet("GetCube/{id}")]
-    public async Task<CubeDto?> GetCube(string id, IMapper mapper)
+    public async Task<CubeDto?> GetCube(string id, IServiceProvider provider)
     {
-        Cube? cube = await Task.Run(() => CubeLogic.GetCube(id)).ConfigureAwait(false);
+        Cube? cube = await Task.Run(() => CubeLogic.GetCube(id, provider)).ConfigureAwait(false);
+
+        IMapper mapper = provider.GetRequiredService<IMapper>();
         CubeDto? result = mapper.Map<CubeDto?>(cube);
 
         return result;
     }
 
     [HttpPost("SetCube/{id}")]
-    public async void SetCube(string id, [FromBody] CubeDto cubeDTO, IMapper mapper)
+    public async void SetCube(string id, [FromBody] CubeDto cubeDTO, IServiceProvider provider)
     {
+        IMapper mapper = provider.GetRequiredService<IMapper>();
         Cube cube = mapper.Map<Cube>(cubeDTO);
-        await Task.Run(() => CubeLogic.SetCube(id, cube)).ConfigureAwait(false);
+
+        await Task.Run(() => CubeLogic.SetCube(id, cube, provider)).ConfigureAwait(false);
     }
 
     #endregion
