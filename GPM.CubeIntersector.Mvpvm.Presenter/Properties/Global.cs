@@ -1,11 +1,9 @@
 ﻿#region usings from .NET Core
 
-global using Microsoft.AspNetCore.Builder;
-global using Microsoft.AspNetCore.Hosting;
-global using Microsoft.AspNetCore.Mvc;
-
-global using System.Text.Json;
-global using System.Threading.Tasks;
+global using System;
+global using System.Linq;
+global using System.Net.Http;
+global using System.Net.Http.Json;
 
 #endregion
 
@@ -14,7 +12,13 @@ global using System.Threading.Tasks;
 global using AutoMapper;
 
 global using Microsoft.Extensions.DependencyInjection;
-global using Microsoft.Extensions.Hosting;
+
+#endregion
+
+#region usings from Presentation Layer
+
+global using GPM.Product.Mvpvm.View;
+global using GPM.Product.Mvpvm.ViewModel;
 
 #endregion
 
@@ -22,9 +26,15 @@ global using Microsoft.Extensions.Hosting;
 
 global using GPM.CubeIntersector.Domain;
 global using GPM.CubeIntersector.Domain.Json;
-global using GPM.CubeIntersector.Domain.Profiles;
 
 global using GPM.Product.Mvpvm.Model;
 global using GPM.Product.Mvpvm.Model.Dto;
+
+#endregion
+
+#region usings from Support Layer
+
+global using GPM.Design.Mvpvm.Management;
+global using GPM.Design.Mvpvm.Presenter;
 
 #endregion

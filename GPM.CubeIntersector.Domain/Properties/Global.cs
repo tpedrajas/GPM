@@ -7,13 +7,13 @@ global using System.Text.Json.Serialization;
 
 #region usings from Business Logic Layer
 
-global using GPM.WPF.Model;
-global using GPM.WPF.Model.Dto;
+global using GPM.Product.Mvpvm.Model;
+global using GPM.Product.Mvpvm.Model.Dto;
 
 #endregion
 
 #region usings from Support Layer
 
-global using GPM.Product.Mvpvm.Mapping;
+global using GPM.Design.Mvpvm.Mapping;
 
 #endregion
