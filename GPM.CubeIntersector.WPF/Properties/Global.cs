@@ -6,6 +6,8 @@ global using System.Windows;
 
 #region usings from NuGet Packages
 
+global using Microsoft.EntityFrameworkCore;
+
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
 
@@ -20,6 +22,12 @@ global using GPM.CubeIntersector.WPF.Management;
 #region usings from Business Logic Layer
 
 global using GPM.CubeIntersector.Domain.Profiles;
+
+#endregion
+
+#region usings from Data Access Layer
+
+global using GPM.Product.Data.Persistence;
 
 #endregion
 

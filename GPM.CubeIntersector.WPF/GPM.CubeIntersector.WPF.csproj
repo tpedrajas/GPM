@@ -20,4 +20,19 @@
     <ProjectReference Include="..\GPM.CubeIntersector.WPF.Presenter\GPM.CubeIntersector.WPF.Presenter.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Properties\App.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>App.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\App.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>App.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
 </Project>

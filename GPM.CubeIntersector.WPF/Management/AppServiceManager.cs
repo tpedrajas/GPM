@@ -17,6 +17,9 @@ internal class AppServiceManager : MvpvmServiceManager
     protected override void ConfigureServices(HostBuilderContext context, IServiceCollection services)
     {
         services.AddAutoMapper(typeof(DomainProfile));
+        /*services.AddDbContext<CubeIntersectorDBContext>(options =>
+            options.UseSqlServer(configuration.GetConnectionString("")),
+            b => b.MigrationsAssembly(typeof(CubeIntersectorDBContext).Assembly.FullName), ServiceLifetime.Transient);*/
 
         services.AddSingleton<ICubeIntersectionViewModel, CubeIntersectionViewModel>();
         services.AddSingleton<ICubeIntersectionView, CubeIntersectionView>();
