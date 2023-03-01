@@ -109,7 +109,7 @@ public class CubeIntersectionPresenter : MvpvmPresenter<ICubeIntersectionView, I
 
             if (response.IsSuccessStatusCode)
             {
-                var contentTask = response.Content.ReadFromJsonAsync(JsonModelSerializerContext.Default.CubeDto);
+                var contentTask = response.Content.ReadFromJsonAsync(JsonDomainSerializerContext.Default.CubeDto);
                 contentTask.Wait();
 
                 IMapper mapper = _ServiceManager.ServiceProvider.GetRequiredService<IMapper>();
@@ -327,7 +327,7 @@ public class CubeIntersectionPresenter : MvpvmPresenter<ICubeIntersectionView, I
             IMapper mapper = _ServiceManager.ServiceProvider.GetRequiredService<IMapper>();
             CubeDto content = mapper.Map<CubeDto>(cube);
 
-            var postTask = client.PostAsJsonAsync($"Cube/SetCube/{id}", content, JsonModelSerializerContext.Default.CubeDto);
+            var postTask = client.PostAsJsonAsync($"Cube/SetCube/{id}", content, JsonDomainSerializerContext.Default.CubeDto);
             postTask.Wait();
 
             HttpResponseMessage response = postTask.Result;

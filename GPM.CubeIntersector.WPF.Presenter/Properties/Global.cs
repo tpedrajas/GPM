@@ -4,7 +4,6 @@ global using System;
 global using System.Linq;
 global using System.Net.Http;
 global using System.Net.Http.Json;
-global using System.Text.Json;
 
 #endregion
 
@@ -26,10 +25,10 @@ global using GPM.WPF.ViewModel;
 #region usings from Business Logic Layer
 
 global using GPM.CubeIntersector.Domain;
+global using GPM.CubeIntersector.Domain.Json;
 
 global using GPM.WPF.Model;
 global using GPM.WPF.Model.Dto;
-global using GPM.WPF.Model.Json;
 
 #endregion
 

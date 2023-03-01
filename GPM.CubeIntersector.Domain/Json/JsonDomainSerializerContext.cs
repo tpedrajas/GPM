@@ -1,8 +1,8 @@
-﻿namespace GPM.WPF.Model.Json;
+﻿namespace GPM.CubeIntersector.Domain.Json;
 
 [JsonSourceGenerationOptions(WriteIndented = true, PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 [JsonSerializable(typeof(CubeDto))]
-public partial class JsonModelSerializerContext : JsonSerializerContext
+public partial class JsonDomainSerializerContext : JsonSerializerContext
 {
 
 }

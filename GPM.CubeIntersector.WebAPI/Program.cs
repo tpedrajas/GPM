@@ -6,7 +6,7 @@ builder.Services.AddControllers()
                 {
                     options.JsonSerializerOptions.WriteIndented = true;
                     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-                    options.JsonSerializerOptions.AddContext<JsonModelSerializerContext>();
+                    options.JsonSerializerOptions.AddContext<JsonDomainSerializerContext>();
                 });
 
 builder.Services.AddAutoMapper(typeof(DomainProfile));

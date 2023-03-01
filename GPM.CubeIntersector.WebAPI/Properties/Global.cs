@@ -21,10 +21,10 @@ global using Microsoft.Extensions.Hosting;
 #region usings from Business Logic Layer
 
 global using GPM.CubeIntersector.Domain;
+global using GPM.CubeIntersector.Domain.Json;
 global using GPM.CubeIntersector.Domain.Profiles;
 
 global using GPM.WPF.Model;
 global using GPM.WPF.Model.Dto;
-global using GPM.WPF.Model.Json;
 
 #endregion
