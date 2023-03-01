@@ -10,7 +10,7 @@ public class CubeController : Controller
     [HttpGet("GetCube/{id}")]
     public async Task<CubeDto?> GetCube(string id, IServiceProvider provider)
     {
-        Cube? cube = await Task.Run(() => CubeLogic.GetCube(id, provider)).ConfigureAwait(false);
+        Cube? cube = await CubeLogic.GetCube(id, provider).ConfigureAwait(false);
 
         IMapper mapper = provider.GetRequiredService<IMapper>();
         CubeDto? result = mapper.Map<CubeDto?>(cube);
@@ -24,7 +24,7 @@ public class CubeController : Controller
         IMapper mapper = provider.GetRequiredService<IMapper>();
         Cube cube = mapper.Map<Cube>(cubeDTO);
 
-        await Task.Run(() => CubeLogic.SetCube(id, cube, provider)).ConfigureAwait(false);
+        await CubeLogic.SetCube(id, cube, provider).ConfigureAwait(false);
     }
 
     #endregion

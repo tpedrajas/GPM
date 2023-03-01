@@ -1,15 +1,17 @@
-﻿namespace GPM.CubeIntersector.Domain;
+﻿using System.Threading.Tasks;
+
+namespace GPM.CubeIntersector.Domain;
 
 public static class CubeLogic
 {
 
     #region methods
 
-    public static Cube? GetCube(string id, IServiceProvider provider)
+    public static async Task<Cube?> GetCube(string id, IServiceProvider provider)
     {
         Cube? resultCube;
 
-        using (IServiceScope scope = provider.CreateScope())
+        await using (AsyncServiceScope scope = provider.CreateAsyncScope())
         {
             using (ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>())
             {
@@ -23,9 +25,9 @@ public static class CubeLogic
         return resultCube;
     }
 
-    public static void SetCube(string id, Cube cube, IServiceProvider provider)
+    public static async Task SetCube(string id, Cube cube, IServiceProvider provider)
     {
-        using (IServiceScope scope = provider.CreateScope())
+        await using (AsyncServiceScope scope = provider.CreateAsyncScope())
         {
             using (ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>())
             {
@@ -34,8 +36,16 @@ public static class CubeLogic
                 CubeEntity cubeEntity = mapper.Map<CubeEntity>(cube);
                 cubeEntity.Id = id;
 
-                dbContext.CubeEntities.Update(cubeEntity);
-                dbContext.SaveChanges();
+                if (!dbContext.CubeEntities.Any(cube => cube.Id == id))
+                {
+                    dbContext.CubeEntities.Add(cubeEntity);
+                }
+                else
+                {
+                    dbContext.CubeEntities.Update(cubeEntity);
+                }
+                
+                await dbContext.SaveChangesAsync().ConfigureAwait(false);
             }
         }
     }
