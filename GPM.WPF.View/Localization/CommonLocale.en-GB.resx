@@ -135,11 +135,17 @@
   <data name="Dimensions" xml:space="preserve">
     <value>Dimensions</value>
   </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
   <data name="ErrorNumber2DecimalsFormat" xml:space="preserve">
     <value>A number with 2 decimals is required</value>
   </data>
   <data name="Height" xml:space="preserve">
     <value>Height:</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
   </data>
   <data name="LoadInformation" xml:space="preserve">
     <value>Load Information</value>
@@ -149,6 +155,9 @@
   </data>
   <data name="SaveInformation" xml:space="preserve">
     <value>Save Information</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>Spanish</value>
   </data>
   <data name="Width" xml:space="preserve">
     <value>Width:</value>

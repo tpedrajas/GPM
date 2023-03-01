@@ -117,6 +117,15 @@ namespace GPM.WPF.View.Localization {
         /// <summary>
         ///   Busca una cadena traducida similar a ????.
         /// </summary>
+        public static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ????.
+        /// </summary>
         public static string ErrorNumber2DecimalsFormat {
             get {
                 return ResourceManager.GetString("ErrorNumber2DecimalsFormat", resourceCulture);
@@ -129,6 +138,15 @@ namespace GPM.WPF.View.Localization {
         public static string Height {
             get {
                 return ResourceManager.GetString("Height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ????.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
             }
         }
         
@@ -156,6 +174,15 @@ namespace GPM.WPF.View.Localization {
         public static string SaveInformation {
             get {
                 return ResourceManager.GetString("SaveInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ????.
+        /// </summary>
+        public static string Spanish {
+            get {
+                return ResourceManager.GetString("Spanish", resourceCulture);
             }
         }
         

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GPM.WPF.View"
         xmlns:i18n="clr-namespace:GPM.WPF.View.Localization"
         mc:Ignorable="d"
-        Title="{x:Static i18n:CubeIntersectionViewLocale.Title}" Height="665" Width="870">
+        Title="{x:Static i18n:CubeIntersectionViewLocale.Title}" Height="680" Width="870">
     <Window.Resources>
         <ControlTemplate x:Key="ErrorNumber2DecimalsFormatTemplate">
             <StackPanel Orientation="Horizontal">
@@ -17,11 +17,16 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="12*"/>
-            <ColumnDefinition Width="378*"/>
-            <ColumnDefinition Width="485*"/>
+            <ColumnDefinition Width="112*"/>
+            <ColumnDefinition Width="323*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel HorizontalAlignment="Left" Width="860" Grid.ColumnSpan="3">
+        <StackPanel HorizontalAlignment="Left" Width="870" Grid.ColumnSpan="2">
+            <Menu x:Name="menu" HorizontalAlignment="Left" Height="auto" VerticalAlignment="Top" Width="870">
+                <MenuItem x:Name="LanguageMenu" Header="{x:Static i18n:CommonLocale.Language}">
+                    <MenuItem x:Name="SpanishMenu" Header="{x:Static i18n:CommonLocale.Spanish}"/>
+                    <MenuItem x:Name="EnglishMenu" Header="{x:Static i18n:CommonLocale.English}"/>
+                </MenuItem>
+            </Menu>
             <WrapPanel>
                 <GroupBox Header="{x:Static i18n:CubeIntersectionViewLocale.InformationCube1}" Margin="10,10,10,0" Width="630">
                     <StackPanel>
@@ -111,7 +116,7 @@
                 </StackPanel>
             </GroupBox>
 
-            <WrapPanel HorizontalAlignment="Right">
+            <WrapPanel HorizontalAlignment="Right" Margin="0,0,15,0">
                 <Button Name="CalculateIntersectionButton" Command="{Binding CalculateIntersectionButtonClickCommand}" IsEnabled="{Binding Path=EnableCalculateIntersectionButton}" Content="{x:Static i18n:CubeIntersectionViewLocale.CalculateIntersection}" HorizontalAlignment="Right" Margin="0,10,10,0" Width="150" Height="30" />
                 <Button Name="CleanDataButton" Command="{Binding CleanDataButtonClickCommand}" Content="{x:Static i18n:CubeIntersectionViewLocale.CleanData}" Margin="0,10,10,0" Width="150" Height="30" />
                 <Button Name="AboutButton" Command="{Binding AboutButtonClickCommand}" Content="{x:Static i18n:CommonLocale.About}" Margin="0,10,10,0" Width="150" Height="30" />
