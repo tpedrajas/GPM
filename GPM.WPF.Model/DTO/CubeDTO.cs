@@ -21,17 +21,17 @@ public sealed record CubeDto
 
     #region properties
 
-    public float Depth { get; set; }
+    public float Depth { get; init; }
 
-    public float Height { get; set; }
+    public float Height { get; init; }
 
-    public float Width { get; set; }
+    public float Width { get; init; }
 
-    public float X { get; set; }
+    public float X { get; init; }
 
-    public float Y { get; set; }
+    public float Y { get; init; }
 
-    public float Z { get; set; }
+    public float Z { get; init; }
 
     #endregion
 

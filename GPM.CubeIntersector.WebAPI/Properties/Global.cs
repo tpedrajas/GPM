@@ -4,7 +4,7 @@ global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Hosting;
 global using Microsoft.AspNetCore.Mvc;
 
-global using System;
+global using System.Text.Json;
 global using System.Threading.Tasks;
 
 #endregion
@@ -25,5 +25,6 @@ global using GPM.CubeIntersector.Domain.Profiles;
 
 global using GPM.WPF.Model;
 global using GPM.WPF.Model.Dto;
+global using GPM.WPF.Model.Json;
 
 #endregion

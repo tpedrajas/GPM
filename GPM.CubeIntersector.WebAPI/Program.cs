@@ -1,10 +1,14 @@
-using GPM.WPF.Model.Json;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.AddContext<JsonModelSerializerContext>());
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.WriteIndented = true;
+                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                    options.JsonSerializerOptions.AddContext<JsonModelSerializerContext>();
+                });
+
 builder.Services.AddAutoMapper(typeof(DomainProfile));
 
 if (builder.Environment.IsDevelopment())
