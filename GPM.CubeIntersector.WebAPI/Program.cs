@@ -26,13 +26,10 @@ WebApplication app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    using (IServiceScope scope = app.Services.CreateScope())
-    {
-        using (ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>())
-        {
-            dbContext.Database.Migrate();
-        }
-    }
+    using IServiceScope scope = app.Services.CreateScope();
+    using ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>();
+    
+    dbContext.Database.Migrate();
 
     app.UseSwagger();
     app.UseSwaggerUI();

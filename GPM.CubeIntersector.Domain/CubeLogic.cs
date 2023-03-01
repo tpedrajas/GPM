@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace GPM.CubeIntersector.Domain;
+﻿namespace GPM.CubeIntersector.Domain;
 
 public static class CubeLogic
 {
@@ -11,43 +9,37 @@ public static class CubeLogic
     {
         Cube? resultCube;
 
-        await using (AsyncServiceScope scope = provider.CreateAsyncScope())
-        {
-            using (ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>())
-            {
-                IMapper mapper = provider.GetRequiredService<IMapper>();
+        await using AsyncServiceScope scope = provider.CreateAsyncScope();
+        await using ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>();
+        
+        IMapper mapper = provider.GetRequiredService<IMapper>();
 
-                CubeEntity? cubeEntity = dbContext.CubeEntities.SingleOrDefault(cube => cube.Id == id);
-                resultCube = mapper.Map<Cube?>(cubeEntity);
-            }
-        }
+        CubeEntity? cubeEntity = dbContext.CubeEntities.SingleOrDefault(cube => cube.Id == id);
+        resultCube = mapper.Map<Cube?>(cubeEntity);
 
         return resultCube;
     }
 
     public static async Task SetCube(string id, Cube cube, IServiceProvider provider)
     {
-        await using (AsyncServiceScope scope = provider.CreateAsyncScope())
+        await using AsyncServiceScope scope = provider.CreateAsyncScope();
+        await using ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>();
+        
+        IMapper mapper = provider.GetRequiredService<IMapper>();
+
+        CubeEntity cubeEntity = mapper.Map<CubeEntity>(cube);
+        cubeEntity.Id = id;
+
+        if (!dbContext.CubeEntities.Any(cube => cube.Id == id))
         {
-            using (ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>())
-            {
-                IMapper mapper = provider.GetRequiredService<IMapper>();
-
-                CubeEntity cubeEntity = mapper.Map<CubeEntity>(cube);
-                cubeEntity.Id = id;
-
-                if (!dbContext.CubeEntities.Any(cube => cube.Id == id))
-                {
-                    dbContext.CubeEntities.Add(cubeEntity);
-                }
-                else
-                {
-                    dbContext.CubeEntities.Update(cubeEntity);
-                }
-                
-                await dbContext.SaveChangesAsync().ConfigureAwait(false);
-            }
+            dbContext.CubeEntities.Add(cubeEntity);
         }
+        else
+        {
+            dbContext.CubeEntities.Update(cubeEntity);
+        }
+                
+        await dbContext.SaveChangesAsync().ConfigureAwait(false);
     }
 
     #endregion
