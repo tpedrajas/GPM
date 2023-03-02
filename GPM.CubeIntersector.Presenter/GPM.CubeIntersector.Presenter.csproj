@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
+    <UseWPF>false</UseWPF>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -15,13 +15,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.3" />
+    <ProjectReference Include="..\GPM.CubeIntersector.Domain\GPM.CubeIntersector.Domain.csproj" />
+    <ProjectReference Include="..\GPM.Product.ViewModel\GPM.Product.ViewModel.csproj" />
+    <ProjectReference Include="..\GPM.Product.View\GPM.Product.View.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\GPM.Common\GPM.Common.csproj" />
-  </ItemGroup>
 </Project>

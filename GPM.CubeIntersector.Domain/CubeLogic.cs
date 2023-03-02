@@ -14,7 +14,7 @@ public static class CubeLogic
         
         IMapper mapper = provider.GetRequiredService<IMapper>();
 
-        CubeEntity? cubeEntity = dbContext.CubeEntities.SingleOrDefault(cube => cube.Id == id);
+        CubeSet? cubeEntity = dbContext.CubeEntities.SingleOrDefault(cube => cube.Id == id);
         resultCube = mapper.Map<Cube?>(cubeEntity);
 
         return resultCube;
@@ -27,7 +27,7 @@ public static class CubeLogic
         
         IMapper mapper = provider.GetRequiredService<IMapper>();
 
-        CubeEntity cubeEntity = mapper.Map<CubeEntity>(cube);
+        CubeSet cubeEntity = mapper.Map<CubeSet>(cube);
         cubeEntity.Id = id;
 
         if (!dbContext.CubeEntities.Any(cube => cube.Id == id))

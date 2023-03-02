@@ -1,3 +1,5 @@
+using GPM.Product.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
