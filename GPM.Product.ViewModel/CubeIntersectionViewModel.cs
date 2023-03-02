@@ -15,6 +15,8 @@ public partial class CubeIntersectionViewModel : ViewModelBase, ICubeIntersectio
 
     public event Func<bool> EnableCalculateIntersectionButtonValidating = delegate { return true; };
 
+    public event Func<bool> EnableEnglishMenuValidating = delegate { return true; };
+
     public event Func<bool> EnableLoadInformationCube1ButtonValidating = delegate { return true; };
 
     public event Func<bool> EnableLoadInformationCube2ButtonValidating = delegate { return true; };
@@ -22,6 +24,8 @@ public partial class CubeIntersectionViewModel : ViewModelBase, ICubeIntersectio
     public event Func<bool> EnableSaveInformationCube1ButtonValidating = delegate { return true; };
 
     public event Func<bool> EnableSaveInformationCube2ButtonValidating = delegate { return true; };
+
+    public event Func<bool> EnableSpanishMenuValidating = delegate { return true; };
 
     public event Action EnglishMenuClick = delegate { };
 
@@ -61,25 +65,10 @@ public partial class CubeIntersectionViewModel : ViewModelBase, ICubeIntersectio
     private float? _DepthIntersection;
 
     [ObservableProperty]
-    private bool _EnableCalculateIntersectionButton;
-
-    [ObservableProperty]
-    private bool _EnableLoadInformationCube1Button;
-
-    [ObservableProperty]
-    private bool _EnableLoadInformationCube2Button;
-
-    [ObservableProperty]
-    private bool _EnableSaveInformationCube1Button;
-
-    [ObservableProperty]
-    private bool _EnableSaveInformationCube2Button;
-
-    [ObservableProperty]
     private bool _EnglishMenuChecked;
 
     [ObservableProperty]
-    private bool _ExistsIntersection;
+    private bool _ExistsIntersectionChecked;
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
@@ -109,6 +98,11 @@ public partial class CubeIntersectionViewModel : ViewModelBase, ICubeIntersectio
     [NotifyCanExecuteChangedFor(nameof(LoadInformationCube2ClickCommand))]
     [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
     private string _IdCube2 = string.Empty;
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SpanishMenuClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(EnglishMenuClickCommand))]
+    private string _SelectedLanguage = string.Empty;
 
     [ObservableProperty]
     private bool _SpanishMenuChecked;
@@ -192,6 +186,11 @@ public partial class CubeIntersectionViewModel : ViewModelBase, ICubeIntersectio
         return EnableCalculateIntersectionButtonValidating.Invoke();
     }
 
+    private bool IsEnabledEnglishMenu()
+    {
+        return EnableEnglishMenuValidating.Invoke();
+    }
+
     private bool IsEnabledLoadInformationCube1Button()
     {
         return EnableLoadInformationCube1ButtonValidating.Invoke();
@@ -210,6 +209,11 @@ public partial class CubeIntersectionViewModel : ViewModelBase, ICubeIntersectio
     private bool IsEnabledSaveInformationCube2Button()
     {
         return EnableSaveInformationCube2ButtonValidating.Invoke();
+    }
+
+    private bool IsEnabledSpanishMenu()
+    {
+        return EnableSpanishMenuValidating.Invoke();
     }
 
     [RelayCommand]
@@ -231,7 +235,7 @@ public partial class CubeIntersectionViewModel : ViewModelBase, ICubeIntersectio
         CleanDataButtonClick.Invoke();
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsEnabledEnglishMenu))]
     private void OnEnglishMenuClick()
     {
         EnglishMenuClick.Invoke();
@@ -261,7 +265,7 @@ public partial class CubeIntersectionViewModel : ViewModelBase, ICubeIntersectio
         SaveInformationCube2Click.Invoke();
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsEnabledSpanishMenu))]
     private void OnSpanishMenuClick()
     {
         SpanishMenuClick.Invoke();

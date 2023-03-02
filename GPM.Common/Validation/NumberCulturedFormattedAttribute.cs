@@ -53,7 +53,7 @@ public class NumberCulturedFormattedAttribute : ValidationAttribute
         {
             numberFormatInfo = Thread.CurrentThread.CurrentCulture.NumberFormat;
 
-            pattern = new($"^({numberFormatInfo.NegativeSign}?([1-9][0-9]*)|0)", 4);
+            pattern = new($"^(({numberFormatInfo.NegativeSign}?([1-9][0-9]*)|0)", 4);
 
             if (_MaxPrecission > 0)
             {
@@ -61,7 +61,7 @@ public class NumberCulturedFormattedAttribute : ValidationAttribute
                 pattern.Append($@"|{numberFormatInfo.NegativeSign}0\{numberFormatInfo.NumberDecimalSeparator}[0-9]{{0,{Convert.ToString(_MaxPrecission - 1)}}}[1-9]");
             }
 
-            pattern.Append('$');
+            pattern.Append(")$");
 
             isValid = Regex.IsMatch(stringValue, pattern.ToString());
         }

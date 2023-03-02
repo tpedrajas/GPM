@@ -11,10 +11,12 @@ public class CubeIntersectionPresenter : PresenterBase<ICubeIntersectionView, IC
         _ViewModel.CalculateIntersectionButtonClick += OnCalculateIntersectionButtonClick;
         _ViewModel.CleanDataButtonClick += OnCleanDataButtonClick;
         _ViewModel.EnableCalculateIntersectionButtonValidating += OnEnableCalculateIntersectionButtonValidating;
+        _ViewModel.EnableEnglishMenuValidating += OnEnableEnglishMenuValidating;
         _ViewModel.EnableLoadInformationCube1ButtonValidating += OnEnableLoadInformationCube1ButtonValidating;
         _ViewModel.EnableLoadInformationCube2ButtonValidating += OnEnableLoadInformationCube2ButtonValidating;
         _ViewModel.EnableSaveInformationCube1ButtonValidating += OnEnableSaveInformationCube1ButtonValidating;
         _ViewModel.EnableSaveInformationCube2ButtonValidating += OnEnableSaveInformationCube2ButtonValidating;
+        _ViewModel.EnableSpanishMenuValidating += OnEnableSpanishMenuValidating;
         _ViewModel.EnglishMenuClick += OnEnglishMenuClick;
         _ViewModel.ExistsIntersectionValidating += OnExistsIntersectionValidating;
         _ViewModel.LoadInformationCube1Click += OnLoadInformationCube1Click;
@@ -49,8 +51,6 @@ public class CubeIntersectionPresenter : PresenterBase<ICubeIntersectionView, IC
                 _ViewModel.WidthCube1 = string.Empty;
                 _ViewModel.HeightCube1 = string.Empty;
                 _ViewModel.DepthCube1 = string.Empty;
-
-                _ViewModel.EnableSaveInformationCube1Button = false;
             }
 
             if (cleanInformationCube2)
@@ -62,11 +62,7 @@ public class CubeIntersectionPresenter : PresenterBase<ICubeIntersectionView, IC
                 _ViewModel.WidthCube2 = string.Empty;
                 _ViewModel.HeightCube2 = string.Empty;
                 _ViewModel.DepthCube2 = string.Empty;
-
-                _ViewModel.EnableSaveInformationCube2Button = false;
             }
-
-            _ViewModel.EnableCalculateIntersectionButton = false;
         }
 
         _ViewModel.XPositionIntersection = null;
@@ -77,7 +73,7 @@ public class CubeIntersectionPresenter : PresenterBase<ICubeIntersectionView, IC
         _ViewModel.HeightIntersection = null;
         _ViewModel.DepthIntersection = null;
 
-        _ViewModel.ExistsIntersection = false;
+        _ViewModel.ExistsIntersectionChecked = false;
         
         _IsCleaning = false;
     }
@@ -165,9 +161,14 @@ public class CubeIntersectionPresenter : PresenterBase<ICubeIntersectionView, IC
         if (!_IsCleaning)
         {
             canEnable = !_ViewModel.HasErrors;
-
-            _ViewModel.EnableCalculateIntersectionButton = canEnable;
         }
+
+        return canEnable;
+    }
+
+    private bool OnEnableEnglishMenuValidating()
+    {
+        bool canEnable = _ViewModel.SelectedLanguage != Language.English;
 
         return canEnable;
     }
@@ -176,16 +177,12 @@ public class CubeIntersectionPresenter : PresenterBase<ICubeIntersectionView, IC
     {
         bool canEnable = !string.IsNullOrEmpty(_ViewModel.IdCube1);
 
-        _ViewModel.EnableLoadInformationCube1Button = canEnable;
-
         return canEnable;
     }
 
     private bool OnEnableLoadInformationCube2ButtonValidating()
     {
         bool canEnable = !string.IsNullOrEmpty(_ViewModel.IdCube2);
-
-        _ViewModel.EnableLoadInformationCube2Button = canEnable;
 
         return canEnable;
     }
@@ -205,8 +202,6 @@ public class CubeIntersectionPresenter : PresenterBase<ICubeIntersectionView, IC
             canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.WidthCube1)).Any();
             canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.HeightCube1)).Any();
             canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.DepthCube1)).Any();
-
-            _ViewModel.EnableSaveInformationCube1Button = canEnable;
         }
 
         return canEnable;
@@ -227,17 +222,22 @@ public class CubeIntersectionPresenter : PresenterBase<ICubeIntersectionView, IC
             canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.WidthCube2)).Any();
             canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.HeightCube2)).Any();
             canEnable &= !_ViewModel.GetErrors(nameof(_ViewModel.DepthCube2)).Any();
-
-            _ViewModel.EnableSaveInformationCube2Button = canEnable;
         }
+
+        return canEnable;
+    }
+
+    private bool OnEnableSpanishMenuValidating()
+    {
+        bool canEnable = _ViewModel.SelectedLanguage != Language.Spanish;
 
         return canEnable;
     }
 
     private void OnEnglishMenuClick()
     {
-        _ViewModel.EnglishMenuChecked = true;
-        _ViewModel.SpanishMenuChecked = false;
+        _ViewModel.SelectedLanguage = Language.English;
+        SetLanguageMenusChecked();
 
         _ServiceManager.Settings[nameof(Language)] = Language.English;
     }
@@ -249,7 +249,7 @@ public class CubeIntersectionPresenter : PresenterBase<ICubeIntersectionView, IC
 
         bool existIntersection = CubeIntersectionLogic.ExistsCubeIntersect(cube1, cube2);
 
-        _ViewModel.ExistsIntersection = existIntersection;
+        _ViewModel.ExistsIntersectionChecked = existIntersection;
     }
 
     private void OnLoadInformationCube1Click()
@@ -304,8 +304,8 @@ public class CubeIntersectionPresenter : PresenterBase<ICubeIntersectionView, IC
 
     private void OnSpanishMenuClick()
     {
-        _ViewModel.EnglishMenuChecked = false;
-        _ViewModel.SpanishMenuChecked = true;
+        _ViewModel.SelectedLanguage = Language.Spanish;
+        SetLanguageMenusChecked();
 
         _ServiceManager.Settings[nameof(Language)] = Language.Spanish;
     }
@@ -316,10 +316,12 @@ public class CubeIntersectionPresenter : PresenterBase<ICubeIntersectionView, IC
         _ViewModel.CalculateIntersectionButtonClick -= OnCalculateIntersectionButtonClick;
         _ViewModel.CleanDataButtonClick -= OnCleanDataButtonClick;
         _ViewModel.EnableCalculateIntersectionButtonValidating -= OnEnableCalculateIntersectionButtonValidating;
+        _ViewModel.EnableEnglishMenuValidating -= OnEnableEnglishMenuValidating;
         _ViewModel.EnableLoadInformationCube1ButtonValidating -= OnEnableLoadInformationCube1ButtonValidating;
         _ViewModel.EnableLoadInformationCube2ButtonValidating -= OnEnableLoadInformationCube2ButtonValidating;
         _ViewModel.EnableSaveInformationCube1ButtonValidating -= OnEnableSaveInformationCube1ButtonValidating;
         _ViewModel.EnableSaveInformationCube2ButtonValidating -= OnEnableSaveInformationCube2ButtonValidating;
+        _ViewModel.EnableSpanishMenuValidating -= OnEnableSpanishMenuValidating;
         _ViewModel.EnglishMenuClick -= OnEnglishMenuClick;
         _ViewModel.ExistsIntersectionValidating -= OnExistsIntersectionValidating;
         _ViewModel.LoadInformationCube1Click -= OnLoadInformationCube1Click;
@@ -335,18 +337,8 @@ public class CubeIntersectionPresenter : PresenterBase<ICubeIntersectionView, IC
     {
         _ViewModel.Validate();
 
-        switch (_ServiceManager.Settings[nameof(Language)])
-        {
-            case Language.English:
-                _ViewModel.EnglishMenuChecked = true;
-                _ViewModel.SpanishMenuChecked = false;
-                break;
-
-            case Language.Spanish:
-                _ViewModel.EnglishMenuChecked = false;
-                _ViewModel.SpanishMenuChecked = true;
-                break;
-        }
+        _ViewModel.SelectedLanguage = _ServiceManager.Settings[nameof(Language)];
+        SetLanguageMenusChecked();
     }
 
     private void SaveInformationCube(string id, Cube cube)
@@ -373,6 +365,12 @@ public class CubeIntersectionPresenter : PresenterBase<ICubeIntersectionView, IC
         {
 
         }
+    }
+
+    private void SetLanguageMenusChecked()
+    {
+        _ViewModel.SpanishMenuChecked = _ViewModel.SelectedLanguage == Language.Spanish;
+        _ViewModel.EnglishMenuChecked = _ViewModel.SelectedLanguage == Language.English;
     }
 
     #endregion

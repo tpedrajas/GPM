@@ -13,6 +13,8 @@ public interface ICubeIntersectionViewModel : IViewModelBase
 
     public event Func<bool> EnableCalculateIntersectionButtonValidating;
 
+    public event Func<bool> EnableEnglishMenuValidating;
+
     public event Func<bool> EnableLoadInformationCube1ButtonValidating;
 
     public event Func<bool> EnableLoadInformationCube2ButtonValidating;
@@ -20,6 +22,8 @@ public interface ICubeIntersectionViewModel : IViewModelBase
     public event Func<bool> EnableSaveInformationCube1ButtonValidating;
 
     public event Func<bool> EnableSaveInformationCube2ButtonValidating;
+
+    public event Func<bool> EnableSpanishMenuValidating;
 
     public event Action EnglishMenuClick;
 
@@ -46,19 +50,9 @@ public interface ICubeIntersectionViewModel : IViewModelBase
 
     public float? DepthIntersection { get; set; }
 
-    public bool EnableCalculateIntersectionButton { get; set; }
-
-    public bool EnableLoadInformationCube1Button { get; set; }
-
-    public bool EnableLoadInformationCube2Button { get; set; }
-
-    public bool EnableSaveInformationCube1Button { get; set; }
-
-    public bool EnableSaveInformationCube2Button { get; set; }
-
     public bool EnglishMenuChecked { get; set; }
 
-    public bool ExistsIntersection { get; set; }
+    public bool ExistsIntersectionChecked { get; set; }
 
     public string HeightCube1 { get; set; }
 
@@ -69,6 +63,8 @@ public interface ICubeIntersectionViewModel : IViewModelBase
     public string IdCube1 { get; set; }
 
     public string IdCube2 { get; set; }
+
+    public string SelectedLanguage { get; set; }
 
     public bool SpanishMenuChecked { get; set; }
 
@@ -95,24 +91,6 @@ public interface ICubeIntersectionViewModel : IViewModelBase
     public string ZPositionCube2 { get; set; }
 
     public float? ZPositionIntersection { get; set; }
-
-    #endregion
-
-    #region commands
-
-    public IRelayCommand AboutButtonClickCommand { get; }
-
-    public IRelayCommand CalculateIntersectionButtonClickCommand { get; }
-
-    public IRelayCommand CleanDataButtonClickCommand { get; }
-
-    public IRelayCommand LoadInformationCube1ClickCommand { get; }
-
-    public IRelayCommand LoadInformationCube2ClickCommand { get; }
-
-    public IRelayCommand SaveInformationCube1ClickCommand { get; }
-
-    public IRelayCommand SaveInformationCube2ClickCommand { get; }
 
     #endregion
 
