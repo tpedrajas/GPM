@@ -1,5 +1,7 @@
 ﻿#region usings from .NET Core
 
+global using System.Globalization;
+global using System.Threading;
 global using System.Windows;
 
 #endregion

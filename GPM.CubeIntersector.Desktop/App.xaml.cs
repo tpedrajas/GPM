@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using System.Threading;
-
-namespace GPM.CubeIntersector.Desktop;
+﻿namespace GPM.CubeIntersector.Desktop;
 
 /// <summary>
 /// Interaction logic for App.xaml
