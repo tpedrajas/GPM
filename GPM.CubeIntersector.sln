@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application Layer", "Applic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation Layer", "Presentation Layer", "{180473F9-193B-4335-8B8F-32FDBC7C31C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPM.CubeIntersector.Presenter", "GPM.CubeIntersector.Presenter\GPM.CubeIntersector.Presenter.csproj", "{6E3E7CB1-C3AF-4719-A1CA-192083478A22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPM.CubeIntersector.Presenters", "GPM.CubeIntersector.Presenters\GPM.CubeIntersector.Presenters.csproj", "{6E3E7CB1-C3AF-4719-A1CA-192083478A22}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPM.Product.ViewModel", "GPM.Product.ViewModel\GPM.Product.ViewModel.csproj", "{73BD9C68-A2D4-45D8-B991-8CCFBADFBB7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPM.Product.ViewModels", "GPM.Product.ViewModels\GPM.Product.ViewModels.csproj", "{73BD9C68-A2D4-45D8-B991-8CCFBADFBB7B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPM.Product.View", "GPM.Product.View\GPM.Product.View.csproj", "{958E9718-2A69-4D18-A45D-380AF09AA626}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPM.Product.Views", "GPM.Product.Views\GPM.Product.Views.csproj", "{958E9718-2A69-4D18-A45D-380AF09AA626}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Support Layer", "Support Layer", "{1D389ED8-2611-4CA3-8004-B1FB48D70967}"
 EndProject
@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test Layer", "Test Layer", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPM.Common", "GPM.Common\GPM.Common.csproj", "{52232E6C-2DAE-4458-8727-E4557DC4BEB6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPM.Product.Model", "GPM.Product.Model\GPM.Product.Model.csproj", "{D3928FE9-0D40-49B0-8A07-E284C61160B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPM.Product.Models", "GPM.Product.Models\GPM.Product.Models.csproj", "{D3928FE9-0D40-49B0-8A07-E284C61160B7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GPM.CubeIntersector.Test", "GPM.CubeIntersector.Test\GPM.CubeIntersector.Test.csproj", "{E2E76403-9444-403D-8C07-1E0653EDCAE8}"
 EndProject

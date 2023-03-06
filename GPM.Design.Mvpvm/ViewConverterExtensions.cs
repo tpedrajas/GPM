@@ -1,11 +1,11 @@
 ﻿namespace GPM.Design.Mvpvm;
 
-public static class ViewConverterExtensions
+internal static class ViewConverterExtensions
 {
 
     #region methods
 
-    public static Window ToWindow(this IViewBase view)
+    internal static Window ToWindow(this IView view)
     {
         return (Window)view;
     }

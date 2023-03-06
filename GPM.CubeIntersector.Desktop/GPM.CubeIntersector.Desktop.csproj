@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GPM.CubeIntersector.Presenter\GPM.CubeIntersector.Presenter.csproj" />
+    <ProjectReference Include="..\GPM.CubeIntersector.Presenters\GPM.CubeIntersector.Presenters.csproj" />
   </ItemGroup>
 
   <ItemGroup>

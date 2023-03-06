@@ -29,7 +29,7 @@ global using GPM.CubeIntersector.Domain.Json;
 global using GPM.CubeIntersector.Domain.Profiles;
 
 global using GPM.Product.Data;
-global using GPM.Product.Model;
-global using GPM.Product.Model.Dto;
+global using GPM.Product.Models;
+global using GPM.Product.Models.Dto;
 
 #endregion

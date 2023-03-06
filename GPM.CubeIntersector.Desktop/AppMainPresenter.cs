@@ -5,7 +5,7 @@ internal sealed class AppMainPresenter : CubeIntersectionPresenter, IMainPresent
 
     #region constructors / deconstructors / destructors
 
-    public AppMainPresenter(ICubeIntersectionView view, ICubeIntersectionViewModel viewModel, IServiceManager serviceManager) : base(view, viewModel, serviceManager)
+    public AppMainPresenter(IServiceProvider services) : base(services)
     {
 
     }

@@ -12,6 +12,6 @@ global using GPM.Common.Validation;
 
 global using GPM.CubeIntersector.Domain;
 
-global using GPM.Product.Model;
+global using GPM.Product.Models;
 
 #endregion

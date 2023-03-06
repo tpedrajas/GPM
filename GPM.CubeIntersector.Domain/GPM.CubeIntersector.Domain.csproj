@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GPM.Product.Data\GPM.Product.Data.csproj" />
-    <ProjectReference Include="..\GPM.Product.Model\GPM.Product.Model.csproj" />
+    <ProjectReference Include="..\GPM.Product.Models\GPM.Product.Models.csproj" />
   </ItemGroup>
 
 </Project>

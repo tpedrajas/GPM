@@ -1,6 +1,6 @@
 ﻿namespace GPM.Design.Mvpvm;
 
-public interface IMainPresenter : IPresenterBase
+public interface IMainPresenter : IPresenter
 {
 
 }

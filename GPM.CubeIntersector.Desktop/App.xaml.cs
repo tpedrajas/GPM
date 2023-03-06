@@ -15,34 +15,29 @@ public partial class App : Application
 
     #endregion
 
-    #region fields
+    #region properties
 
-    private static readonly IServiceManager _ServiceManager = new AppServiceManager();
+    private static IHostInitiator AppHostInitiator { get; } = new AppHostInitiator();
 
     #endregion
 
     #region methods
 
-    protected override async void OnExit(ExitEventArgs e)
+    protected override void OnExit(ExitEventArgs e)
     {
-        AppSettings.Default.Language = _ServiceManager.Settings[nameof(Language)];
-        AppSettings.Default.Save();
-
-        await _ServiceManager.DisposeAsync().ConfigureAwait(false);
+        AppHostInitiator.StopAsync();
 
         base.OnExit(e);
     }
 
-    protected override async void OnStartup(StartupEventArgs e)
+    protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
 
-        _ServiceManager.Settings.Add(nameof(Language), AppSettings.Default.Language);
-
-        CultureInfo culture = CultureInfo.GetCultureInfo(_ServiceManager.Settings[nameof(Language)]);
+        CultureInfo culture = CultureInfo.GetCultureInfo(AppHostInitiator.Settings.Language);
         Thread.CurrentThread.CurrentUICulture = culture;
 
-        await _ServiceManager.Run().ConfigureAwait(false);
+        AppHostInitiator.StartAsync();
     }
 
     #endregion

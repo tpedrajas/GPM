@@ -9,37 +9,54 @@ public static class CubeLogic
     {
         Cube? resultCube;
 
-        await using AsyncServiceScope scope = provider.CreateAsyncScope();
-        await using ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>();
-        
-        IMapper mapper = provider.GetRequiredService<IMapper>();
+        AsyncServiceScope scope = provider.CreateAsyncScope();
+        await using (scope.ConfigureAwait(false))
+        {
+            ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>();
+            await using (dbContext.ConfigureAwait(false))
+            {
+                IMapper mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
 
-        CubeSet? cubeEntity = dbContext.CubeEntities.SingleOrDefault(cube => cube.Id == id);
-        resultCube = mapper.Map<Cube?>(cubeEntity);
+                CubeSet? cubeEntity = dbContext.CubeEntities.SingleOrDefault(cube => cube.Id == id);
+                resultCube = mapper.Map<Cube?>(cubeEntity);
 
-        return resultCube;
+                return resultCube;
+            }
+        }
     }
 
-    public static async Task SetCube(string id, Cube cube, IServiceProvider provider)
+    public static async Task<UpsetOperation> SetCube(string id, Cube cube, IServiceProvider provider)
     {
-        await using AsyncServiceScope scope = provider.CreateAsyncScope();
-        await using ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>();
-        
-        IMapper mapper = provider.GetRequiredService<IMapper>();
+        UpsetOperation operation = UpsetOperation.Error;
 
-        CubeSet cubeEntity = mapper.Map<CubeSet>(cube);
-        cubeEntity.Id = id;
+        AsyncServiceScope scope = provider.CreateAsyncScope();
+        await using (scope.ConfigureAwait(false))
+        {
+            ICubeIntersectorDBContext dbContext = scope.ServiceProvider.GetRequiredService<ICubeIntersectorDBContext>();
+            await using (dbContext.ConfigureAwait(false))
+            {
+                IMapper mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
 
-        if (!dbContext.CubeEntities.Any(cube => cube.Id == id))
-        {
-            dbContext.CubeEntities.Add(cubeEntity);
+                CubeSet cubeEntity = mapper.Map<CubeSet>(cube);
+                cubeEntity.Id = id;
+
+                if (!dbContext.CubeEntities.Any(cube => cube.Id == id))
+                {
+                    dbContext.CubeEntities.Add(cubeEntity);
+                    operation = UpsetOperation.Add;
+                }
+                else
+                {
+                    dbContext.CubeEntities.Update(cubeEntity);
+                    operation = UpsetOperation.Update;
+                }
+
+                using Task<int> saveTask = dbContext.SaveChangesAsync();
+                await saveTask.ConfigureAwait(false);
+
+                return operation;
+            }
         }
-        else
-        {
-            dbContext.CubeEntities.Update(cubeEntity);
-        }
-                
-        await dbContext.SaveChangesAsync().ConfigureAwait(false);
     }
 
     #endregion
