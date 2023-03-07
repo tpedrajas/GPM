@@ -50,7 +50,7 @@
       <LastGenOutput>CubeIntersectionViewLocale.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Localization\Loader\LoaderViewLocale.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LoaderViewLocale.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

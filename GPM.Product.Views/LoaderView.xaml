@@ -4,12 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GPM.Product.Views"
+        xmlns:i18n="clr-namespace:GPM.Product.Views.Localization.Loader"
         mc:Ignorable="d"
-        Title="LoaderView" Height="200" Width="200" WindowStyle="None">
+        Height="120" Width="200" WindowStyle="None" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel>
-            <ProgressBar HorizontalAlignment="Left" Height="20" Margin="25,130,0,0" VerticalAlignment="Top" Width="150" />
-            <DockPanel Height="100" LastChildFill="False"/>
+            <Label Content="{x:Static i18n:LoaderViewLocale.Loading}" Margin="0,50,0,0" HorizontalAlignment="Center" />
+            <ProgressBar Minimum="{Binding Path=MinimumProgressBarValue}" Maximum="{Binding Path=MaximumProgressBarValue}" Value="{Binding Path=ProgressBarValue}" SmallChange="{Binding Path=SmallChangeProgressBarValue}" LargeChange="{Binding Path=LargeChangeProgressBarValue}" HorizontalAlignment="Center" Height="20" Width="150" />
         </StackPanel>
     </Grid>
 </Window>

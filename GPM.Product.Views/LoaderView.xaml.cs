@@ -3,7 +3,7 @@
 /// <summary>
 /// Lógica de interacción para LoaderView.xaml
 /// </summary>
-public sealed partial class LoaderView : Window, IView
+public sealed partial class LoaderView : Window, ILoaderView
 {
 
     #region constructors / deconstructors / destructors

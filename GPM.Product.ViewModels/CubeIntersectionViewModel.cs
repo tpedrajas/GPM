@@ -5,268 +5,265 @@ public sealed partial class CubeIntersectionViewModel : ViewModel, ICubeIntersec
 
     #region events
 
-    public event Action AboutButtonClick = delegate { };
+    public event Action AboutButton_Click = delegate { };
 
-    public event Action CalculateIntersectionButtonClick = delegate { };
+    public event Func<bool> CalculateIntersectionButton_CanExecuteValidating = delegate { return true; };
 
-    public event Action CleanDataButtonClick = delegate { };
+    public event Action CalculateIntersectionButton_Click = delegate { };
 
-    public event Func<bool> EnableCalculateIntersectionButtonValidating = delegate { return true; };
+    public event Action CleanDataButton_Click = delegate { };
 
-    public event Func<bool> EnableEnglishMenuValidating = delegate { return true; };
+    public event Func<bool> EnglishMenuItem_CanExecuteValidating = delegate { return true; };
 
-    public event Func<bool> EnableLoadInformationCube1ButtonValidating = delegate { return true; };
+    public event Action EnglishMenuItem_Click = delegate { };
 
-    public event Func<bool> EnableLoadInformationCube2ButtonValidating = delegate { return true; };
+    public event Func<bool> LoadInformationCube1Button_CanExecuteValidating = delegate { return true; };
 
-    public event Func<bool> EnableSaveInformationCube1ButtonValidating = delegate { return true; };
+    public event Action LoadInformationCube1Button_Click = delegate { };
 
-    public event Func<bool> EnableSaveInformationCube2ButtonValidating = delegate { return true; };
+    public event Func<bool> LoadInformationCube2Button_CanExecuteValidating = delegate { return true; };
 
-    public event Func<bool> EnableSpanishMenuValidating = delegate { return true; };
+    public event Action LoadInformationCube2Button_Click = delegate { };
 
-    public event Action EnglishMenuClick = delegate { };
+    public event Func<bool> SaveInformationCube1Button_CanExecuteValidating = delegate { return true; };
 
-    public event Action ExistsIntersectionValidating = delegate { };
+    public event Action SaveInformationCube1Button_Click = delegate { };
 
-    public event Action LoadInformationCube1Click = delegate { };
+    public event Func<bool> SaveInformationCube2Button_CanExecuteValidating = delegate { return true; };
 
-    public event Action LoadInformationCube2Click = delegate { };
+    public event Action SaveInformationCube2Button_Click = delegate { };
 
-    public event Action SaveInformationCube1Click = delegate { };
+    public event Func<bool> SpanishMenuItem_CanExecuteValidating = delegate { return true; };
 
-    public event Action SaveInformationCube2Click = delegate { };
-
-    public event Action SpanishMenuClick = delegate { };
+    public event Action SpanishMenuItem_Click = delegate { };
 
     #endregion
 
     #region fields
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButton_ClickCommand))]
     [NotifyDataErrorInfo]
     [Range(0, float.MaxValue)]
     [NumberCulturedFormatted(2)]
-    private string _DepthCube1 = string.Empty;
+    private string _DepthCube1TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButton_ClickCommand))]
     [NotifyDataErrorInfo]
     [Range(0, float.MaxValue)]
     [NumberCulturedFormatted(2)]
-    private string _DepthCube2 = string.Empty;
+    private string _DepthCube2TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    private float? _DepthIntersection;
+    private float? _DepthIntersectionTextBox_Text;
 
     [ObservableProperty]
-    private bool _EnglishMenuChecked;
+    private bool _EnglishMenuItem_IsChecked;
 
     [ObservableProperty]
-    private bool _ExistsIntersectionChecked;
+    private bool _ExistsIntersectionCheckBox_IsChecked;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButton_ClickCommand))]
     [NotifyDataErrorInfo]
     [Range(0, float.MaxValue)]
     [NumberCulturedFormatted(2)]
-    private string _HeightCube1 = string.Empty;
+    private string _HeightCube1TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButton_ClickCommand))]
     [NotifyDataErrorInfo]
     [Range(0, float.MaxValue)]
     [NumberCulturedFormatted(2)]
-    private string _HeightCube2 = string.Empty;
+    private string _HeightCube2TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    private float? _HeightIntersection;
+    private float? _HeightIntersectionTextBox_Text;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(LoadInformationCube1ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
-    private string _IdCube1 = string.Empty;
+    [NotifyCanExecuteChangedFor(nameof(LoadInformationCube1Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1Button_ClickCommand))]
+    private string _IdCube1TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(LoadInformationCube2ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
-    private string _IdCube2 = string.Empty;
+    [NotifyCanExecuteChangedFor(nameof(LoadInformationCube2Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2Button_ClickCommand))]
+    private string _IdCube2TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SpanishMenuClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(EnglishMenuClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SpanishMenuItem_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(EnglishMenuItem_ClickCommand))]
     private string _SelectedLanguage = string.Empty;
 
     [ObservableProperty]
-    private bool _SpanishMenuChecked;
+    private bool _SpanishMenuItem_IsChecked;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButton_ClickCommand))]
     [NotifyDataErrorInfo]
     [Range(0, float.MaxValue)]
     [NumberCulturedFormatted(2)]
-    private string _WidthCube1 = string.Empty;
+    private string _WidthCube1TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButton_ClickCommand))]
     [NotifyDataErrorInfo]
     [Range(0, float.MaxValue)]
     [NumberCulturedFormatted(2)]
-    private string _WidthCube2 = string.Empty;
+    private string _WidthCube2TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    private float? _WidthIntersection;
+    private float? _WidthIntersectionTextBox_Text;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButton_ClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string _XPositionCube1 = string.Empty;
+    private string _XPositionCube1TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButton_ClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string _XPositionCube2 = string.Empty;
+    private string _XPositionCube2TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    private float? _XPositionIntersection;
+    private float? _XPositionIntersectionTextBox_Text;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButton_ClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string _YPositionCube1 = string.Empty;
+    private string _YPositionCube1TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButton_ClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string _YPositionCube2 = string.Empty;
+    private string _YPositionCube2TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    private float? _YPositionIntersection;
+    private float? _YPositionIntersectionTextBox_Text;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube1Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButton_ClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string _ZPositionCube1 = string.Empty;
+    private string _ZPositionCube1TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2ClickCommand))]
-    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButtonClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SaveInformationCube2Button_ClickCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateIntersectionButton_ClickCommand))]
     [NotifyDataErrorInfo]
     [NumberCulturedFormatted(2)]
-    private string _ZPositionCube2 = string.Empty;
+    private string _ZPositionCube2TextBox_Text = string.Empty;
 
     [ObservableProperty]
-    private float? _ZPositionIntersection;
+    private float? _ZPositionIntersectionTextBox_Text;
 
     #endregion
 
     #region methods
 
-    private bool IsEnabledCalculateIntersectionButton()
+    private bool OnCalculateIntersectionButton_CanExecuteValidating()
     {
-        return EnableCalculateIntersectionButtonValidating.Invoke();
+        return CalculateIntersectionButton_CanExecuteValidating.Invoke();
     }
 
-    private bool IsEnabledEnglishMenu()
+    private bool OnEnglishMenuItem_CanExecuteValidating()
     {
-        return EnableEnglishMenuValidating.Invoke();
+        return EnglishMenuItem_CanExecuteValidating.Invoke();
     }
 
-    private bool IsEnabledLoadInformationCube1Button()
+    private bool OnLoadInformationCube1Button_CanExecuteValidating()
     {
-        return EnableLoadInformationCube1ButtonValidating.Invoke();
+        return LoadInformationCube1Button_CanExecuteValidating.Invoke();
     }
 
-    private bool IsEnabledLoadInformationCube2Button()
+    private bool OnLoadInformationCube2Button_CanExecuteValidating()
     {
-        return EnableLoadInformationCube2ButtonValidating.Invoke();
+        return LoadInformationCube2Button_CanExecuteValidating.Invoke();
     }
 
-    private bool IsEnabledSaveInformationCube1Button()
+    private bool OnSaveInformationCube1Button_CanExecuteValidating()
     {
-        return EnableSaveInformationCube1ButtonValidating.Invoke();
+        return SaveInformationCube1Button_CanExecuteValidating.Invoke();
     }
 
-    private bool IsEnabledSaveInformationCube2Button()
+    private bool OnSaveInformationCube2Button_CanExecuteValidating()
     {
-        return EnableSaveInformationCube2ButtonValidating.Invoke();
+        return SaveInformationCube2Button_CanExecuteValidating.Invoke();
     }
 
-    private bool IsEnabledSpanishMenu()
+    private bool OnSpanishMenuItem_CanExecuteValidating()
     {
-        return EnableSpanishMenuValidating.Invoke();
-    }
-
-    [RelayCommand]
-    private void OnAboutButtonClick()
-    {
-        AboutButtonClick.Invoke();
-    }
-
-    [RelayCommand(CanExecute = nameof(IsEnabledCalculateIntersectionButton))]
-    private void OnCalculateIntersectionButtonClick()
-    {
-        ExistsIntersectionValidating.Invoke();
-        CalculateIntersectionButtonClick.Invoke();
+        return SpanishMenuItem_CanExecuteValidating.Invoke();
     }
 
     [RelayCommand]
-    private void OnCleanDataButtonClick()
+    private void OnAboutButton_Click()
     {
-        CleanDataButtonClick.Invoke();
+        AboutButton_Click.Invoke();
     }
 
-    [RelayCommand(CanExecute = nameof(IsEnabledEnglishMenu))]
-    private void OnEnglishMenuClick()
+    [RelayCommand(CanExecute = nameof(OnCalculateIntersectionButton_CanExecuteValidating))]
+    private void OnCalculateIntersectionButton_Click()
     {
-        EnglishMenuClick.Invoke();
+        CalculateIntersectionButton_Click.Invoke();
     }
 
-    [RelayCommand(CanExecute = nameof(IsEnabledLoadInformationCube1Button))]
-    private void OnLoadInformationCube1Click()
+    [RelayCommand]
+    private void OnCleanDataButton_Click()
     {
-        LoadInformationCube1Click.Invoke();
+        CleanDataButton_Click.Invoke();
     }
 
-    [RelayCommand(CanExecute = nameof(IsEnabledLoadInformationCube2Button))]
-    private void OnLoadInformationCube2Click()
+    [RelayCommand(CanExecute = nameof(OnEnglishMenuItem_CanExecuteValidating))]
+    private void OnEnglishMenuItem_Click()
     {
-        LoadInformationCube2Click.Invoke();
+        EnglishMenuItem_Click.Invoke();
     }
 
-    [RelayCommand(CanExecute = nameof(IsEnabledSaveInformationCube1Button))]
-    private void OnSaveInformationCube1Click()
+    [RelayCommand(CanExecute = nameof(OnLoadInformationCube1Button_CanExecuteValidating))]
+    private void OnLoadInformationCube1Button_Click()
     {
-        SaveInformationCube1Click.Invoke();
+        LoadInformationCube1Button_Click.Invoke();
     }
 
-    [RelayCommand(CanExecute = nameof(IsEnabledSaveInformationCube2Button))]
-    private void OnSaveInformationCube2Click()
+    [RelayCommand(CanExecute = nameof(OnLoadInformationCube2Button_CanExecuteValidating))]
+    private void OnLoadInformationCube2Button_Click()
     {
-        SaveInformationCube2Click.Invoke();
+        LoadInformationCube2Button_Click.Invoke();
     }
 
-    [RelayCommand(CanExecute = nameof(IsEnabledSpanishMenu))]
-    private void OnSpanishMenuClick()
+    [RelayCommand(CanExecute = nameof(OnSaveInformationCube1Button_CanExecuteValidating))]
+    private void OnSaveInformationCube1Button_Click()
     {
-        SpanishMenuClick.Invoke();
+        SaveInformationCube1Button_Click.Invoke();
+    }
+
+    [RelayCommand(CanExecute = nameof(OnSaveInformationCube2Button_CanExecuteValidating))]
+    private void OnSaveInformationCube2Button_Click()
+    {
+        SaveInformationCube2Button_Click.Invoke();
+    }
+
+    [RelayCommand(CanExecute = nameof(OnSpanishMenuItem_CanExecuteValidating))]
+    private void OnSpanishMenuItem_Click()
+    {
+        SpanishMenuItem_Click.Invoke();
     }
 
     #endregion

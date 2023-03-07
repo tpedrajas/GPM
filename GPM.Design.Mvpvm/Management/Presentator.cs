@@ -8,15 +8,13 @@ internal sealed class Presentator : IPresentator
     public Presentator(IServiceProvider services)
     {
         Services = services;
-
-        LoadPresenter<IMainPresenter>(false, true);
     }
 
     #endregion
 
     #region properties
 
-    IServiceProvider Services { get; init; }
+    private IServiceProvider Services { get; init; }
 
     #endregion
 
@@ -26,8 +24,13 @@ internal sealed class Presentator : IPresentator
     {
         IPresenter presenter = Services.GetRequiredService<PT>();
 
-        Visualizator.InitializeView(presenter.GetView(), isDialog, isMain);
         presenter.Init();
+        Visualizator.ShowView(presenter.GetView(), isDialog, isMain);
+    }
+
+    public void UnloadPresenter(IPresenter presenter)
+    {
+        
     }
 
     #endregion

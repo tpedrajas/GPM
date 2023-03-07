@@ -5,7 +5,7 @@ public interface IPresenter
 
     #region events
 
-    event EventHandler Initialize;
+    event EventHandler Initialized;
 
     #endregion
 

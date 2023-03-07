@@ -1,11 +1,11 @@
 ﻿namespace GPM.Design.Mvpvm.Management;
 
-public class HostInitiator : IHostInitiator
+public class HostKeeper : IHostKeeper
 {
 
     #region constructors / deconstructors / destructors
 
-    protected HostInitiator()
+    protected HostKeeper(ShutdownMode shutdownMode)
     {
         HostApplicationBuilder builder = Host.CreateApplicationBuilder();
 
@@ -13,7 +13,10 @@ public class HostInitiator : IHostInitiator
         Hosting = builder.Build();
 
         Services = Hosting.Services;
-        Settings = Services.GetRequiredService<ISettingsLoader>();
+
+        Presentator = Services.GetRequiredService<IPresentator>();
+        Configurator = Services.GetRequiredService<IConfigurator>();
+        ShutdownMode = shutdownMode;
     }
 
     #endregion
@@ -26,9 +29,13 @@ public class HostInitiator : IHostInitiator
 
     protected bool IsRunning { get; private set; }
 
+    private IPresentator Presentator { get; init; }
+
     public IServiceProvider Services { get; init; }
 
-    public ISettingsLoader Settings { get; init; }
+    public IConfigurator Configurator { get; init; }
+
+    private ShutdownMode ShutdownMode { get; init; }
 
     #endregion
 
@@ -51,7 +58,8 @@ public class HostInitiator : IHostInitiator
         {
             if (disposing)
             {
-                await StopAsync().ConfigureAwait(false);
+                using Task stopTask = StopAsync();
+                await stopTask.ConfigureAwait(false);
             }
 
             Disposed = true;
@@ -64,8 +72,11 @@ public class HostInitiator : IHostInitiator
         {
             IsRunning = true;
 
-            await Hosting.StartAsync(cancellationToken).ConfigureAwait(false);
-            Services.GetRequiredService<IPresentator>();
+            using Task startTask = Hosting.StartAsync(cancellationToken);
+            await startTask.ConfigureAwait(false);
+
+            Application.Current.ShutdownMode = ShutdownMode;
+            Presentator.LoadPresenter<IMainPresenter>(false, true);
         }
     }
 
@@ -74,7 +85,9 @@ public class HostInitiator : IHostInitiator
         if (IsRunning)
         {
             IsRunning = false;
-            await Hosting.StopAsync(cancellationToken).ConfigureAwait(false);
+
+            using Task stopTask = Hosting.StopAsync(cancellationToken);
+            await stopTask.ConfigureAwait(false);
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace GPM.CubeIntersector.Desktop;
 
-internal sealed class AppMainPresenter : CubeIntersectionPresenter, IMainPresenter
+internal sealed class AppMainPresenter : LoaderPresenter, IMainPresenter
 {
 
     #region constructors / deconstructors / destructors

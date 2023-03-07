@@ -1,11 +1,11 @@
 ﻿namespace GPM.CubeIntersector.Desktop.Management;
 
-internal class AppSettingsLoader : SettingsLoader
+internal class AppConfigurator : Configurator
 {
 
     #region constructors / deconstructors / destructors
 
-    public AppSettingsLoader() : base()
+    public AppConfigurator() : base()
     {
         
     }

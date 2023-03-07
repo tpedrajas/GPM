@@ -7,6 +7,8 @@ public interface IPresentator
 
     void LoadPresenter<PT>(bool isDialog, bool isMain = false) where PT : IPresenter;
 
+    void UnloadPresenter(IPresenter presenter);
+
     #endregion;
 
 }

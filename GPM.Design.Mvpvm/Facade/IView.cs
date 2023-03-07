@@ -5,23 +5,29 @@ public interface IView
 
     #region events
 
-    public event EventHandler Closed;
+    event EventHandler Activated;
+
+    event CancelEventHandler Closing;
+
+    event EventHandler Closed;
+
+    event EventHandler Deactivated;
+
+    event RoutedEventHandler Loaded;
 
     #endregion
 
     #region properties
 
-    public object DataContext { get; set; }
-
-    public XmlLanguage Language { get; set; }
+    object DataContext { get; set; }
 
     #endregion
 
     #region methods
 
-    public void Show();
+    void Show();
 
-    public bool? ShowDialog();
+    bool? ShowDialog();
 
     #endregion
 

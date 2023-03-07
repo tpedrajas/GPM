@@ -17,27 +17,29 @@ public partial class App : Application
 
     #region properties
 
-    private static IHostInitiator AppHostInitiator { get; } = new AppHostInitiator();
+    private static IHostKeeper HostKeeper { get; } = new AppHostKeeper(ShutdownMode.OnMainWindowClose);
 
     #endregion
 
     #region methods
 
-    protected override void OnExit(ExitEventArgs e)
+    protected async override void OnExit(ExitEventArgs e)
     {
-        AppHostInitiator.StopAsync();
+        using Task stopTask = HostKeeper.StopAsync();
+        await stopTask.ConfigureAwait(false);
 
         base.OnExit(e);
     }
 
-    protected override void OnStartup(StartupEventArgs e)
+    protected async override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
 
-        CultureInfo culture = CultureInfo.GetCultureInfo(AppHostInitiator.Settings.Language);
+        CultureInfo culture = CultureInfo.GetCultureInfo(HostKeeper.Configurator.Language);
         Thread.CurrentThread.CurrentUICulture = culture;
 
-        AppHostInitiator.StartAsync();
+        using Task startTask = HostKeeper.StartAsync();
+        await startTask.ConfigureAwait(false);
     }
 
     #endregion

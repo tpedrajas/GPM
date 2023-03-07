@@ -1,11 +1,11 @@
 ﻿namespace GPM.Design.Mvpvm.Management;
 
-public abstract class SettingsLoader : ISettingsLoader
+public abstract class Configurator : IConfigurator
 {
 
     #region constructors / deconstructors / destructors
 
-    protected SettingsLoader()
+    protected Configurator()
     {
         
     }

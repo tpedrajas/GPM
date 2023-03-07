@@ -7,13 +7,17 @@ public class Presenter<V, VM> : IPresenter<V, VM> where V : IView where VM : IVi
 
     protected Presenter(IServiceProvider services)
     {
-        Initialize += OnInitialize;
-
-        Services = services;
+        Initialized += OnInitialized;
+    
+        Presentator = services.GetRequiredService<IPresentator>();
         View = services.GetRequiredService<V>();
         ViewModel = services.GetRequiredService<VM>();
 
-        View.Closed += OnViewClosed;
+        View.Activated += OnView_Activated;
+        View.Closing += OnView_Closing;
+        View.Closed += OnView_Closed;
+        View.Deactivated += OnView_Deactivated;
+        View.Loaded += OnView_Loaded;
 
         View.DataContext = ViewModel;
     }
@@ -22,40 +26,13 @@ public class Presenter<V, VM> : IPresenter<V, VM> where V : IView where VM : IVi
 
     #region events
 
-    public event EventHandler Initialize = delegate { };
-
-    #endregion
-
-    #region fields
-
-    private int _MaxInstances = 1;
+    public event EventHandler Initialized = delegate { };
 
     #endregion
 
     #region properties
 
-    public int MaxInstances
-    {
-        get
-        {
-            return _MaxInstances;
-        }
-        protected init
-        {
-            ExceptionHelper.ThrowIfTrue<OverflowException>(value <= 0);
-            _MaxInstances = value;
-        }
-    }
-
-    protected IPresentator Presentator
-    {
-        get
-        {
-            return Services.GetRequiredService<IPresentator>();
-        }
-    }
-
-    private IServiceProvider Services { get; init; }
+    protected IPresentator Presentator { get; init; }
 
     protected V View { get; init; }
 
@@ -77,19 +54,41 @@ public class Presenter<V, VM> : IPresenter<V, VM> where V : IView where VM : IVi
 
     void IPresenter.Init()
     {
-        Initialize.Invoke(this, new EventArgs());
+        Initialized.Invoke(this, new EventArgs());
     }
 
-    protected virtual void OnInitialize(object? sender, EventArgs e)
+    protected virtual void OnInitialized(object? sender, EventArgs e)
+    {
+        Initialized -= OnInitialized;
+    }
+
+    protected virtual void OnView_Activated(object? sender, EventArgs e)
+    {
+
+    }
+
+    protected virtual void OnView_Closing(object? sender, CancelEventArgs e)
+    {
+        View.Closing -= OnView_Closing;
+    }
+
+    protected virtual void OnView_Closed(object? sender, EventArgs e)
+    {
+        View.Activated -= OnView_Activated;
+        View.Closed -= OnView_Closed;
+        View.Deactivated -= OnView_Deactivated;
+
+        Presentator.UnloadPresenter(this);
+    }
+
+    protected virtual void OnView_Deactivated(object? sender, EventArgs e)
     {
         
     }
 
-    protected virtual void OnViewClosed(object? sender, EventArgs e)
+    protected virtual void OnView_Loaded(object? sender, RoutedEventArgs e)
     {
-        Initialize -= OnInitialize;
-
-        View.Closed -= OnViewClosed;
+        View.Loaded -= OnView_Loaded;
     }
 
     #endregion

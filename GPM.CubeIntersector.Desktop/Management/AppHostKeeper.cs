@@ -1,11 +1,11 @@
 ﻿namespace GPM.CubeIntersector.Desktop.Management;
 
-internal class AppHostInitiator : HostInitiator
+internal class AppHostKeeper : HostKeeper
 {
 
     #region constructors / deconstructors / destructors
 
-    public AppHostInitiator() : base()
+    public AppHostKeeper(ShutdownMode shutdownMode) : base(shutdownMode)
     {
 
     }
@@ -18,11 +18,16 @@ internal class AppHostInitiator : HostInitiator
     {
         services.AddAutoMapper(typeof(DomainProfile));
 
-        services.AddSingleton<ISettingsLoader, AppSettingsLoader>();
+        services.AddSingleton<IConfigurator, AppConfigurator>();
+        services.AddSingleton<IMainPresenter, AppMainPresenter>();
+
+        services.AddSingleton<ILoaderViewModel, LoaderViewModel>();
+        services.AddSingleton<ILoaderView, LoaderView>();
+        services.AddSingleton<ILoaderPresenter, LoaderPresenter>();
 
         services.AddSingleton<ICubeIntersectionViewModel, CubeIntersectionViewModel>();
         services.AddSingleton<ICubeIntersectionView, CubeIntersectionView>();
-        services.AddSingleton<IMainPresenter, AppMainPresenter>();
+        services.AddSingleton<ICubeIntersectionPresenter, CubeIntersectionPresenter>();
 
         services.AddTransient<IAboutViewModel, AboutViewModel>();
         services.AddTransient<IAboutView, AboutView>();

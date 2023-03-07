@@ -5,19 +5,19 @@ internal static class Visualizator
 
     #region methods
 
-    internal static void InitializeView(IView view, bool isDialog, bool isMain)
+    internal static void ShowView(IView view, bool isDialog, bool isMain)
     {
+        ShowView(view, isDialog);
+
         if (isMain)
         {
             MakeMainView(view);
         }
-
-        ShowView(view, isDialog);
     }
 
     private static void MakeMainView(IView view)
     {
-        Application.Current.MainWindow = view.ToWindow();
+        Application.Current.MainWindow = (Window)view;
     }
 
     private static void ShowView(IView view, bool isDialog)

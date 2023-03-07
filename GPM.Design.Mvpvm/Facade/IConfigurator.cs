@@ -1,6 +1,6 @@
 ﻿namespace GPM.Design.Mvpvm.Management;
 
-public interface ISettingsLoader
+public interface IConfigurator
 {
 
     #region properties

@@ -5,92 +5,90 @@ public interface ICubeIntersectionViewModel : IViewModel
 
     #region events
 
-    event Action AboutButtonClick;
+    event Action AboutButton_Click;
 
-    event Action CalculateIntersectionButtonClick;
+    event Func<bool> CalculateIntersectionButton_CanExecuteValidating;
 
-    event Action CleanDataButtonClick;
+    event Action CalculateIntersectionButton_Click;
 
-    event Func<bool> EnableCalculateIntersectionButtonValidating;
+    event Action CleanDataButton_Click;
 
-    event Func<bool> EnableEnglishMenuValidating;
+    event Func<bool> EnglishMenuItem_CanExecuteValidating;
 
-    event Func<bool> EnableLoadInformationCube1ButtonValidating;
+    event Action EnglishMenuItem_Click;
 
-    event Func<bool> EnableLoadInformationCube2ButtonValidating;
+    event Func<bool> LoadInformationCube1Button_CanExecuteValidating;
 
-    event Func<bool> EnableSaveInformationCube1ButtonValidating;
+    event Action LoadInformationCube1Button_Click;
 
-    event Func<bool> EnableSaveInformationCube2ButtonValidating;
+    event Func<bool> LoadInformationCube2Button_CanExecuteValidating;
 
-    event Func<bool> EnableSpanishMenuValidating;
+    event Action LoadInformationCube2Button_Click;
 
-    event Action EnglishMenuClick;
+    event Func<bool> SaveInformationCube1Button_CanExecuteValidating;
 
-    event Action ExistsIntersectionValidating;
+    event Action SaveInformationCube1Button_Click;
 
-    event Action LoadInformationCube1Click;
+    event Func<bool> SaveInformationCube2Button_CanExecuteValidating;
 
-    event Action LoadInformationCube2Click;
+    event Action SaveInformationCube2Button_Click;
 
-    event Action SaveInformationCube1Click;
+    event Func<bool> SpanishMenuItem_CanExecuteValidating;
 
-    event Action SaveInformationCube2Click;
-
-    event Action SpanishMenuClick;
+    event Action SpanishMenuItem_Click;
 
     #endregion
 
     #region properties
 
     [MaxLength(10)]
-    string DepthCube1 { get; set; }
+    string DepthCube1TextBox_Text { get; set; }
 
-    string DepthCube2 { get; set; }
+    string DepthCube2TextBox_Text { get; set; }
 
-    float? DepthIntersection { get; set; }
+    float? DepthIntersectionTextBox_Text { get; set; }
 
-    bool EnglishMenuChecked { get; set; }
+    bool EnglishMenuItem_IsChecked { get; set; }
 
-    bool ExistsIntersectionChecked { get; set; }
+    bool ExistsIntersectionCheckBox_IsChecked { get; set; }
 
-    string HeightCube1 { get; set; }
+    string HeightCube1TextBox_Text { get; set; }
 
-    string HeightCube2 { get; set; }
+    string HeightCube2TextBox_Text { get; set; }
 
-    float? HeightIntersection { get; set; }
+    float? HeightIntersectionTextBox_Text { get; set; }
 
-    string IdCube1 { get; set; }
+    string IdCube1TextBox_Text { get; set; }
 
-    string IdCube2 { get; set; }
+    string IdCube2TextBox_Text { get; set; }
 
     string SelectedLanguage { get; set; }
 
-    bool SpanishMenuChecked { get; set; }
+    bool SpanishMenuItem_IsChecked { get; set; }
 
-    string WidthCube1 { get; set; }
+    string WidthCube1TextBox_Text { get; set; }
 
-    string WidthCube2 { get; set; }
+    string WidthCube2TextBox_Text { get; set; }
 
-    float? WidthIntersection { get; set; }
+    float? WidthIntersectionTextBox_Text { get; set; }
 
-    string XPositionCube1 { get; set; }
+    string XPositionCube1TextBox_Text { get; set; }
 
-    string XPositionCube2 { get; set; }
+    string XPositionCube2TextBox_Text { get; set; }
 
-    float? XPositionIntersection { get; set; }
+    float? XPositionIntersectionTextBox_Text { get; set; }
 
-    string YPositionCube1 { get; set; }
+    string YPositionCube1TextBox_Text { get; set; }
 
-    string YPositionCube2 { get; set; }
+    string YPositionCube2TextBox_Text { get; set; }
 
-    float? YPositionIntersection { get; set; }
+    float? YPositionIntersectionTextBox_Text { get; set; }
 
-    string ZPositionCube1 { get; set; }
+    string ZPositionCube1TextBox_Text { get; set; }
 
-    string ZPositionCube2 { get; set; }
+    string ZPositionCube2TextBox_Text { get; set; }
 
-    float? ZPositionIntersection { get; set; }
+    float? ZPositionIntersectionTextBox_Text { get; set; }
 
     #endregion
 

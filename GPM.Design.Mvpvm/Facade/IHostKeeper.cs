@@ -1,11 +1,11 @@
 ﻿namespace GPM.Design.Mvpvm.Management;
 
-public interface IHostInitiator : IDisposable
+public interface IHostKeeper : IDisposable
 {
 
     #region properties
 
-    ISettingsLoader Settings { get; }
+    IConfigurator Configurator { get; }
 
     #endregion
 
