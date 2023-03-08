@@ -1,11 +1,22 @@
 ﻿namespace GPM.Design.Mvpvm.Management;
 
-public abstract class Configurator : IConfigurator
+public interface IConfigurator
+{
+
+    #region properties
+
+    string Language { get; set; }
+
+    #endregion
+
+}
+
+public abstract class AbstractConfigurator : IConfigurator
 {
 
     #region constructors / deconstructors / destructors
 
-    protected Configurator()
+    protected AbstractConfigurator()
     {
         
     }

@@ -23,18 +23,14 @@ public partial class App : Application
 
     #region methods
 
-    protected async override void OnExit(ExitEventArgs e)
+    protected async void OnExitAsync(object? sender, ExitEventArgs e)
     {
         using Task stopTask = HostKeeper.StopAsync();
         await stopTask.ConfigureAwait(false);
-
-        base.OnExit(e);
     }
 
-    protected async override void OnStartup(StartupEventArgs e)
+    protected async void OnStartupAsync(object? sender, StartupEventArgs e)
     {
-        base.OnStartup(e);
-
         CultureInfo culture = CultureInfo.GetCultureInfo(HostKeeper.Configurator.Language);
         Thread.CurrentThread.CurrentUICulture = culture;
 

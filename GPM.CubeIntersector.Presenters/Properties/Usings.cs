@@ -27,6 +27,7 @@ global using GPM.CubeIntersector.Domain.Json;
 global using GPM.CubeIntersector.Domain.Localization;
 
 global using GPM.Design.Mvpvm;
+global using GPM.Design.Mvpvm.Effects;
 global using GPM.Design.Mvpvm.Management;
 
 global using GPM.Product.Data;

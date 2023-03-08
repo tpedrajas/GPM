@@ -1,5 +1,10 @@
 ﻿namespace GPM.Product.Models;
 
+public interface ICube : IModel
+{
+
+}
+
 public sealed class Cube : Model, ICube, IEquatable<Cube>
 {
 

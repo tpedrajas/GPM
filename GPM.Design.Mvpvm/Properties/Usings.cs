@@ -5,10 +5,10 @@ global using System;
 global using System.Collections.Generic;
 global using System.ComponentModel;
 global using System.ComponentModel.DataAnnotations;
+global using System.Diagnostics;
 global using System.Threading;
 global using System.Threading.Tasks;
 global using System.Windows;
-global using System.Windows.Markup;
 
 #endregion
 
@@ -25,8 +25,7 @@ global using Microsoft.Extensions.Hosting;
 
 #region usings from Layers
 
-global using GPM.Common;
-
+global using GPM.Design.Mvpvm.Effects;
 global using GPM.Design.Mvpvm.Management;
 
 #endregion

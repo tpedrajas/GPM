@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GPM.Product.Views"
         xmlns:i18n="clr-namespace:GPM.Product.Views.Localization.CubeIntersection"
         mc:Ignorable="d"
-        Title="{x:Static i18n:CubeIntersectionViewLocale.Title}" Height="680" Width="870" WindowStartupLocation="CenterScreen">
+        Title="{x:Static i18n:CubeIntersectionViewLocale.Title}" Opacity="{Binding Path=Opacity}" Height="680" Width="870" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ControlTemplate x:Key="ErrorNumber2DecimalsFormatTemplate">
             <StackPanel Orientation="Horizontal">

@@ -1,13 +1,38 @@
 ﻿namespace GPM.Design.Mvpvm;
 
-public class Presenter<V, VM> : IPresenter<V, VM> where V : IView where VM : IViewModel
+public interface IPresenter
+{
+
+    #region events
+
+    event EventHandler Presenter_Initialized;
+
+    #endregion
+
+    #region properties
+
+    IView View { get; }
+
+    IViewModel ViewModel { get; }
+
+    #endregion
+
+    #region methods
+
+    void InitializePresenter();
+
+    #endregion
+
+}
+
+public class Presenter<V, VM> : IPresenter where V : IView where VM : IViewModel
 {
 
     #region constructors / deconstructors / destructors
 
     protected Presenter(IServiceProvider services)
     {
-        Initialized += OnInitialized;
+        Presenter_Initialized += OnPresenter_Initialized;
     
         Presentator = services.GetRequiredService<IPresentator>();
         View = services.GetRequiredService<V>();
@@ -26,7 +51,7 @@ public class Presenter<V, VM> : IPresenter<V, VM> where V : IView where VM : IVi
 
     #region events
 
-    public event EventHandler Initialized = delegate { };
+    public event EventHandler Presenter_Initialized = delegate { };
 
     #endregion
 
@@ -36,30 +61,36 @@ public class Presenter<V, VM> : IPresenter<V, VM> where V : IView where VM : IVi
 
     protected V View { get; init; }
 
-    protected VM ViewModel { get; init; }
+    IView IPresenter.View
+    {
+        get
+        {
+            return View;
+        }
+    }
+
+    protected VM ViewModel { get; set; }
+
+    IViewModel IPresenter.ViewModel
+    {
+        get
+        {
+            return ViewModel;
+        }
+    }
 
     #endregion
 
     #region methods
 
-    IView IPresenter.GetView()
+    void IPresenter.InitializePresenter()
     {
-        return View;
+        Presenter_Initialized.Invoke(this, EventArgs.Empty);
     }
 
-    IViewModel IPresenter.GetViewModel()
+    protected virtual void OnPresenter_Initialized(object? sender, EventArgs e)
     {
-        return ViewModel;
-    }
-
-    void IPresenter.Init()
-    {
-        Initialized.Invoke(this, new EventArgs());
-    }
-
-    protected virtual void OnInitialized(object? sender, EventArgs e)
-    {
-        Initialized -= OnInitialized;
+        Presenter_Initialized -= OnPresenter_Initialized;
     }
 
     protected virtual void OnView_Activated(object? sender, EventArgs e)

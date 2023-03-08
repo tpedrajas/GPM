@@ -5,7 +5,7 @@ public static class CubeLogic
 
     #region methods
 
-    public static async Task<Cube?> GetCube(string id, IServiceProvider provider)
+    public static async Task<Cube?> GetCubeAsync(string id, IServiceProvider provider)
     {
         Cube? resultCube;
 
@@ -25,7 +25,7 @@ public static class CubeLogic
         }
     }
 
-    public static async Task<UpsetOperation> SetCube(string id, Cube cube, IServiceProvider provider)
+    public static async Task<UpsetOperation> SetCubeAsync(string id, Cube cube, IServiceProvider provider)
     {
         UpsetOperation operation = UpsetOperation.Error;
 

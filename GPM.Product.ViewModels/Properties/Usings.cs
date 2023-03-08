@@ -2,6 +2,7 @@
 
 global using System;
 global using System.ComponentModel.DataAnnotations;
+global using System.Windows;
 
 #endregion
 
@@ -14,6 +15,7 @@ global using CommunityToolkit.Mvvm.Input;
 
 #region usings from Common Layer
 
+global using GPM.Common;
 global using GPM.Common.Validation;
 
 #endregion
@@ -21,5 +23,6 @@ global using GPM.Common.Validation;
 #region usings from Support Layer
 
 global using GPM.Design.Mvpvm;
+global using GPM.Design.Mvpvm.Effects;
 
 #endregion

@@ -1,5 +1,26 @@
 ﻿namespace GPM.Design.Mvpvm.Management;
 
+public interface IPresentator
+{
+
+    #region events
+
+    event EventHandler Presentator_PresenterLoaded;
+
+    event EventHandler Presentator_PresenterUnloaded;
+
+    #endregion
+
+    #region methods
+
+    void LoadPresenter<PT>(bool isDialog, bool isMain = false) where PT : IPresenter;
+
+    void UnloadPresenter(IPresenter presenter);
+
+    #endregion;
+
+}
+
 internal sealed class Presentator : IPresentator
 {
 
@@ -9,6 +30,14 @@ internal sealed class Presentator : IPresentator
     {
         Services = services;
     }
+
+    #endregion
+
+    #region events
+
+    public event EventHandler Presentator_PresenterLoaded = delegate { };
+
+    public event EventHandler Presentator_PresenterUnloaded = delegate { };
 
     #endregion
 
@@ -24,13 +53,15 @@ internal sealed class Presentator : IPresentator
     {
         IPresenter presenter = Services.GetRequiredService<PT>();
 
-        presenter.Init();
-        Visualizator.ShowView(presenter.GetView(), isDialog, isMain);
+        presenter.InitializePresenter();
+        Visualizator.ShowView(presenter.View, isDialog, isMain);
+
+        Presentator_PresenterLoaded.Invoke(this, EventArgs.Empty);
     }
 
     public void UnloadPresenter(IPresenter presenter)
     {
-        
+        Presentator_PresenterUnloaded.Invoke(this, EventArgs.Empty);
     }
 
     #endregion

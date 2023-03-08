@@ -2,8 +2,6 @@
 
 #nullable disable
 
-using GPM.Product.Data;
-
 namespace GPM.Product.Data.Migrations
 {
     [DbContext(typeof(CubeIntersectorDBContext))]

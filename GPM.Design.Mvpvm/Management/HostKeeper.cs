@@ -1,5 +1,24 @@
 ﻿namespace GPM.Design.Mvpvm.Management;
 
+public interface IHostKeeper : IDisposable
+{
+
+    #region properties
+
+    IConfigurator Configurator { get; }
+
+    #endregion
+
+    #region methods
+
+    Task StartAsync(CancellationToken cancellationToken = default);
+
+    Task StopAsync(CancellationToken cancellationToken = default);
+
+    #endregion
+
+}
+
 public class HostKeeper : IHostKeeper
 {
 
@@ -44,6 +63,8 @@ public class HostKeeper : IHostKeeper
     protected virtual void ConfigureServices(IServiceCollection services)
     {
         services.AddSingleton<IPresentator, Presentator>();
+        services.AddTransient<IFadeIn, FadeIn>();
+        services.AddTransient<IFadeOut, FadeOut>();
     }
 
     public void Dispose()
@@ -52,14 +73,14 @@ public class HostKeeper : IHostKeeper
         GC.SuppressFinalize(this);
     }
 
-    protected virtual async void Dispose(bool disposing)
+    protected virtual void Dispose(bool disposing)
     {
         if (!Disposed)
         {
             if (disposing)
             {
                 using Task stopTask = StopAsync();
-                await stopTask.ConfigureAwait(false);
+                stopTask.Wait();
             }
 
             Disposed = true;

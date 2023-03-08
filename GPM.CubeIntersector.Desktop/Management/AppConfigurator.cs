@@ -1,6 +1,6 @@
 ﻿namespace GPM.CubeIntersector.Desktop.Management;
 
-internal class AppConfigurator : Configurator
+internal class AppConfigurator : AbstractConfigurator
 {
 
     #region constructors / deconstructors / destructors

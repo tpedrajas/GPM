@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:GPM.Product.Views"
         xmlns:i18n="clr-namespace:GPM.Product.Views.Localization.Loader"
         mc:Ignorable="d"
-        Height="120" Width="200" WindowStyle="None" WindowStartupLocation="CenterScreen">
+        Opacity="{Binding Path=Opacity}" AllowsTransparency="True" Background="Transparent" Height="120" Width="200" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" BorderThickness="1,1,1,1">
     <Grid>
+        <Border CornerRadius="10" BorderBrush="Black" BorderThickness="1" Background="White" />
         <StackPanel>
-            <Label Content="{x:Static i18n:LoaderViewLocale.Loading}" Margin="0,50,0,0" HorizontalAlignment="Center" />
-            <ProgressBar Minimum="{Binding Path=MinimumProgressBarValue}" Maximum="{Binding Path=MaximumProgressBarValue}" Value="{Binding Path=ProgressBarValue}" SmallChange="{Binding Path=SmallChangeProgressBarValue}" LargeChange="{Binding Path=LargeChangeProgressBarValue}" HorizontalAlignment="Center" Height="20" Width="150" />
+            <Label Name="LoadingLabel" Content="{x:Static i18n:LoaderViewLocale.Loading}" Visibility="{Binding Path=LoadingLabel_Visibility}" Margin="0,50,0,0" HorizontalAlignment="Center" />
+            <ProgressBar Name="LoadingProgressBar" Minimum="{Binding Path=LoadingProgressBar_Minimum}" Maximum="{Binding Path=LoadingProgressBar_Maximum}" Value="{Binding Path=LoadingProgressBar_Value}" SmallChange="{Binding Path=LoadingProgressBar_SmallChange}" LargeChange="{Binding Path=LoadingProgressBar_LargeChange}" HorizontalAlignment="Center" Height="20" Width="150" />
         </StackPanel>
     </Grid>
 </Window>

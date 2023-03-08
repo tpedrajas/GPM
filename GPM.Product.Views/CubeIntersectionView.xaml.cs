@@ -1,5 +1,10 @@
 ﻿namespace GPM.Product.Views;
 
+public interface ICubeIntersectionView : IView
+{
+
+}
+
 /// <summary>
 /// Interaction logic for CubeIntersectionView.xaml
 /// </summary>
