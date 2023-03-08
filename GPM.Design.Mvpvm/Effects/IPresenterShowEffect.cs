@@ -5,13 +5,18 @@ public interface IPresenterShowEffect : IPresenter
 
     #region events
 
-    event EventHandler ShowEffect_Finalized;
+    event EventHandler ShowEffect_Completed;
 
     #endregion
 
+}
+
+internal interface IPresenterShowEffectHidden : IPresenterHidden
+{
+
     #region methods
 
-    void OnShowEffect_Finalized(object? sender, EventArgs e);
+    void OnVisualShowEffect_Completed(object? sender, EventArgs e);
 
     #endregion
 

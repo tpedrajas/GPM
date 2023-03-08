@@ -1,13 +1,20 @@
-﻿namespace GPM.Design.Mvpvm;
+﻿using GPM.Design.Mvpvm.Extensions;
+
+namespace GPM.Design.Mvpvm;
 
 public interface IPresenter
 {
 
     #region events
 
-    event EventHandler Presenter_Initialized;
+    event EventHandler Initialized;
 
     #endregion
+
+}
+
+internal interface IPresenterHidden
+{
 
     #region properties
 
@@ -19,20 +26,25 @@ public interface IPresenter
 
     #region methods
 
-    void InitializePresenter();
+    void Initialize();
 
     #endregion
 
 }
 
-public class Presenter<V, VM> : IPresenter where V : IView where VM : IViewModel
+public interface IMainPresenter : IPresenter
+{
+
+}
+
+public class Presenter<V, VM> : IPresenter, IPresenterHidden where V : IView where VM : IViewModel
 {
 
     #region constructors / deconstructors / destructors
 
     protected Presenter(IServiceProvider services)
     {
-        Presenter_Initialized += OnPresenter_Initialized;
+        Initialized += OnInitialized;
     
         Presentator = services.GetRequiredService<IPresentator>();
         View = services.GetRequiredService<V>();
@@ -51,7 +63,7 @@ public class Presenter<V, VM> : IPresenter where V : IView where VM : IViewModel
 
     #region events
 
-    public event EventHandler Presenter_Initialized = delegate { };
+    public event EventHandler Initialized = delegate { };
 
     #endregion
 
@@ -61,7 +73,7 @@ public class Presenter<V, VM> : IPresenter where V : IView where VM : IViewModel
 
     protected V View { get; init; }
 
-    IView IPresenter.View
+    IView IPresenterHidden.View
     {
         get
         {
@@ -71,7 +83,7 @@ public class Presenter<V, VM> : IPresenter where V : IView where VM : IViewModel
 
     protected VM ViewModel { get; set; }
 
-    IViewModel IPresenter.ViewModel
+    IViewModel IPresenterHidden.ViewModel
     {
         get
         {
@@ -83,25 +95,23 @@ public class Presenter<V, VM> : IPresenter where V : IView where VM : IViewModel
 
     #region methods
 
-    void IPresenter.InitializePresenter()
+    void IPresenterHidden.Initialize()
     {
-        Presenter_Initialized.Invoke(this, EventArgs.Empty);
+        Initialized.Invoke(this, EventArgs.Empty);
     }
 
-    protected virtual void OnPresenter_Initialized(object? sender, EventArgs e)
+    protected virtual void OnInitialized(object? sender, EventArgs e)
     {
-        Presenter_Initialized -= OnPresenter_Initialized;
+        Initialized -= OnInitialized;
     }
 
     protected virtual void OnView_Activated(object? sender, EventArgs e)
     {
-
+        
     }
 
     protected virtual void OnView_Closing(object? sender, CancelEventArgs e)
     {
-        View.Closing -= OnView_Closing;
-
         Presentator.UnloadPresenter(this);
         e.Cancel = true;
     }
@@ -110,6 +120,7 @@ public class Presenter<V, VM> : IPresenter where V : IView where VM : IViewModel
     {
         View.Activated -= OnView_Activated;
         View.Closed -= OnView_Closed;
+        View.Closing -= OnView_Closing;
         View.Deactivated -= OnView_Deactivated;
     }
 

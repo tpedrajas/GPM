@@ -5,21 +5,21 @@ public interface IViewModel
 
     #region events
 
-    public event CancelEventHandler Validating;
+    event CancelEventHandler Validating;
 
     #endregion
 
     #region properties
 
-    public bool HasErrors { get; }
+    bool HasErrors { get; }
 
     #endregion
 
     #region methods
 
-    public IEnumerable<ValidationResult> GetErrors(string? propertyName = null);
+    IEnumerable<ValidationResult> GetErrors(string? propertyName = null);
 
-    public void Validate();
+    void Validate();
 
     #endregion
 
@@ -38,11 +38,11 @@ public class ViewModel : ObservableValidator, IViewModel
 
     public void Validate()
     {
-        CancelEventArgs cancelEvent = new();
+        CancelEventArgs cancelEventArgs = new();
 
-        Validating.Invoke(this, cancelEvent);
+        Validating.Invoke(this, cancelEventArgs);
 
-        if (!cancelEvent.Cancel)
+        if (!cancelEventArgs.Cancel)
         {
             ValidateAllProperties();
         }

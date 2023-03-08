@@ -5,13 +5,18 @@ public interface IPresenterCloseEffect : IPresenter
 
     #region events
 
-    event EventHandler CloseEffect_Finalized;
+    event EventHandler CloseEffect_Completed;
 
     #endregion
 
+}
+
+internal interface IPresenterCloseEffectHidden : IPresenterHidden
+{
+
     #region methods
 
-    void OnCloseEffect_Finalized(object? sender, EventArgs e);
+    void OnVisualCloseEffect_Completed(object? sender, EventArgs e);
 
     #endregion
 

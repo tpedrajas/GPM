@@ -5,7 +5,7 @@ public interface IEffect
 
     #region events
 
-    event EventHandler Effect_Finalized;
+    event EventHandler Completed;
 
     #endregion
 
@@ -42,22 +42,18 @@ public abstract class AbstractEffect<EVM> : IEffect where EVM : IViewModelEffect
 
     protected AbstractEffect()
     {
-        BackgroundWorker.DoWork += OnBackgroundWorker_DoWork;
-        BackgroundWorker.ProgressChanged += OnBackgroundWorker_ProgressChanged;
-        BackgroundWorker.RunWorkerCompleted += OnBackgroundWorker_RunWorkerCompleted;
+        
     }
 
     #endregion
 
     #region events
 
-    public event EventHandler Effect_Finalized = delegate { };
+    public event EventHandler Completed = delegate { };
 
     #endregion
 
     #region properties
-
-    protected BackgroundWorker BackgroundWorker { get; } = new() { WorkerReportsProgress = true };
 
     public double ChangeValue { get; set; }
 
@@ -101,11 +97,17 @@ public abstract class AbstractEffect<EVM> : IEffect where EVM : IViewModelEffect
         backgroundWorker.ProgressChanged -= OnBackgroundWorker_ProgressChanged;
         backgroundWorker.RunWorkerCompleted -= OnBackgroundWorker_RunWorkerCompleted;
 
-        Effect_Finalized.Invoke(this, EventArgs.Empty);
+        Completed.Invoke(this, EventArgs.Empty);
     }
 
     public void Process()
     {
+        BackgroundWorker BackgroundWorker = new() { WorkerReportsProgress = true };
+
+        BackgroundWorker.DoWork += OnBackgroundWorker_DoWork;
+        BackgroundWorker.ProgressChanged += OnBackgroundWorker_ProgressChanged;
+        BackgroundWorker.RunWorkerCompleted += OnBackgroundWorker_RunWorkerCompleted;
+
         BackgroundWorker.RunWorkerAsync();
     }
 

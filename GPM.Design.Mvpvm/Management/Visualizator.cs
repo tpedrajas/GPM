@@ -1,4 +1,6 @@
-﻿namespace GPM.Design.Mvpvm.Management;
+﻿using GPM.Design.Mvpvm.Extensions;
+
+namespace GPM.Design.Mvpvm.Management;
 
 internal static class Visualizator
 {

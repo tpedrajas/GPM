@@ -15,22 +15,22 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
         Mapper = services.GetRequiredService<IMapper>();
         Configurator = services.GetRequiredService<IConfigurator>();
 
-        ViewModel.AboutButton_Click += OnAboutButton_Click;
-        ViewModel.CalculateIntersectionButton_CanExecuteValidating += OnCalculateIntersectionButton_CanExecuteValidating;
-        ViewModel.CalculateIntersectionButton_Click += OnCalculateIntersectionButton_Click;
-        ViewModel.CleanDataButton_Click += OnCleanDataButton_Click;
-        ViewModel.EnglishMenuItem_CanExecuteValidating += OnEnglishMenuItem_CanExecuteValidating;
-        ViewModel.EnglishMenuItem_Click += OnEnglishMenuItem_Click;
-        ViewModel.LoadInformationCube1Button_CanExecuteValidating += OnLoadInformationCube1Button_CanExecuteValidating;
-        ViewModel.LoadInformationCube1Button_Click += OnLoadInformationCube1Button_Click;
-        ViewModel.LoadInformationCube2Button_CanExecuteValidating += OnLoadInformationCube2Button_CanExecuteValidating;
-        ViewModel.LoadInformationCube2Button_Click += OnLoadInformationCube2Button_Click;
-        ViewModel.SaveInformationCube1Button_CanExecuteValidating += OnSaveInformationCube1Button_CanExecuteValidating;
-        ViewModel.SaveInformationCube1Button_Click += OnSaveInformationCube1Button_Click;
-        ViewModel.SaveInformationCube2Button_CanExecuteValidating += OnSaveInformationCube2Button_CanExecuteValidating;
-        ViewModel.SaveInformationCube2Button_Click += OnSaveInformationCube2Button_Click;
-        ViewModel.SpanishMenuItem_CanExecuteValidating += OnSpanishMenuItem_CanExecuteValidating;
-        ViewModel.SpanishMenuItem_Click += OnSpanishMenuItem_Click;
+        ViewModel.AboutButton_Click += OnViewModel_AboutButton_Click;
+        ViewModel.CalculateIntersectionButton_CanExecuteValidating += OnViewModel_CalculateIntersectionButton_CanExecuteValidating;
+        ViewModel.CalculateIntersectionButton_Click += OnViewModel_CalculateIntersectionButton_Click;
+        ViewModel.CleanDataButton_Click += OnViewModel_CleanDataButton_Click;
+        ViewModel.EnglishMenuItem_CanExecuteValidating += OnViewModel_EnglishMenuItem_CanExecuteValidating;
+        ViewModel.EnglishMenuItem_Click += OnViewModel_EnglishMenuItem_Click;
+        ViewModel.LoadInformationCube1Button_CanExecuteValidating += OnViewModel_LoadInformationCube1Button_CanExecuteValidating;
+        ViewModel.LoadInformationCube1Button_Click += OnViewModel_LoadInformationCube1Button_Click;
+        ViewModel.LoadInformationCube2Button_CanExecuteValidating += OnViewModel_LoadInformationCube2Button_CanExecuteValidating;
+        ViewModel.LoadInformationCube2Button_Click += OnViewModel_LoadInformationCube2Button_Click;
+        ViewModel.SaveInformationCube1Button_CanExecuteValidating += OnViewModel_SaveInformationCube1Button_CanExecuteValidating;
+        ViewModel.SaveInformationCube1Button_Click += OnViewModel_SaveInformationCube1Button_Click;
+        ViewModel.SaveInformationCube2Button_CanExecuteValidating += OnViewModel_SaveInformationCube2Button_CanExecuteValidating;
+        ViewModel.SaveInformationCube2Button_Click += OnViewModel_SaveInformationCube2Button_Click;
+        ViewModel.SpanishMenuItem_CanExecuteValidating += OnViewModel_SpanishMenuItem_CanExecuteValidating;
+        ViewModel.SpanishMenuItem_Click += OnViewModel_SpanishMenuItem_Click;
     }
 
     #endregion
@@ -45,7 +45,7 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
 
     #endregion
 
-    #region methods
+    #region private methods
 
     private void CleanInformation(bool cleanInformationCube1, bool cleanInformationCube2)
     {
@@ -85,7 +85,7 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
         ViewModel.DepthIntersectionTextBox_Text = null;
 
         ViewModel.ExistsIntersectionCheckBox_IsChecked = false;
-        
+
         IsCleaning = false;
     }
 
@@ -108,7 +108,7 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
         try
         {
             using HttpClient client = new() { BaseAddress = new Uri("https://localhost:44390/") };
-            
+
             using Task<HttpResponseMessage> responseTask = client.GetAsync($"Cube/GetCube/{id}");
             using HttpResponseMessage response = await responseTask.ConfigureAwait(false);
 
@@ -133,232 +133,10 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
         }
         catch
         {
-            
+
         }
 
         return result;
-    }
-
-    private void OnAboutButton_Click(object? sender, EventArgs e)
-    {
-        Presentator.LoadPresenter<IAboutPresenter>(true, false);
-    }
-
-    private bool OnCalculateIntersectionButton_CanExecuteValidating(object? sender, EventArgs e)
-    {
-        bool canExecute = false;
-
-        if (!IsCleaning)
-        {
-            canExecute = !ViewModel.HasErrors;
-        }
-
-        return canExecute;
-    }
-
-    private void OnCalculateIntersectionButton_Click(object? sender, EventArgs e)
-    {
-        Cube cube1 = GetInformationCube1();
-        Cube cube2 = GetInformationCube2();
-
-        Cube? cubeIntersection = CubeIntersectionLogic.GetCubeIntersect(cube1, cube2); 
-
-        if (cubeIntersection is null)
-        {
-            CleanInformation(false, false);
-        }
-        else
-        {
-            ViewModel.XPositionIntersectionTextBox_Text = cubeIntersection.X;
-            ViewModel.YPositionIntersectionTextBox_Text = cubeIntersection.Y;
-            ViewModel.ZPositionIntersectionTextBox_Text = cubeIntersection.Z;
-            ViewModel.WidthIntersectionTextBox_Text = cubeIntersection.Width;
-            ViewModel.HeightIntersectionTextBox_Text = cubeIntersection.Height;
-            ViewModel.DepthIntersectionTextBox_Text = cubeIntersection.Depth;
-
-            ViewModel.ExistsIntersectionCheckBox_IsChecked = true;
-        }
-    }
-
-    private void OnCleanDataButton_Click(object? sender, EventArgs e)
-    {
-        CleanInformation(true, true);
-    }
-
-    private bool OnEnglishMenuItem_CanExecuteValidating(object? sender, EventArgs e)
-    {
-        bool canExecute = ViewModel.SelectedLanguage != Language.English;
-
-        return canExecute;
-    }
-
-    private void OnEnglishMenuItem_Click(object? sender, EventArgs e)
-    {
-        ViewModel.SelectedLanguage = Language.English;
-        UpdateLanguageMenuItems();
-
-        Configurator.Language = Language.English;
-    }
-
-    private bool OnLoadInformationCube1Button_CanExecuteValidating(object? sender, EventArgs e)
-    {
-        bool canExecute = !string.IsNullOrEmpty(ViewModel.IdCube1TextBox_Text);
-
-        return canExecute;
-    }
-
-    private void OnLoadInformationCube1Button_Click(object? sender, EventArgs e)
-    {
-        using Task<Cube?> loadTask = LoadInformationCubeAsync(ViewModel.IdCube1TextBox_Text);
-        loadTask.Wait();
-
-        Cube? cube = loadTask.Result;
-
-        if (cube is null)
-        {
-            CleanInformation(true, false);
-        }
-        else
-        {
-            ViewModel.XPositionCube1TextBox_Text = Convert.ToString(cube.X);
-            ViewModel.YPositionCube1TextBox_Text = Convert.ToString(cube.Y);
-            ViewModel.ZPositionCube1TextBox_Text = Convert.ToString(cube.Z);
-            ViewModel.WidthCube1TextBox_Text = Convert.ToString(cube.Width);
-            ViewModel.HeightCube1TextBox_Text = Convert.ToString(cube.Height);
-            ViewModel.DepthCube1TextBox_Text = Convert.ToString(cube.Depth);
-        }
-    }
-
-    private bool OnLoadInformationCube2Button_CanExecuteValidating(object? sender, EventArgs e)
-    {
-        bool canExecute = !string.IsNullOrEmpty(ViewModel.IdCube2TextBox_Text);
-
-        return canExecute;
-    }
-
-    private void OnLoadInformationCube2Button_Click(object? sender, EventArgs e)
-    {
-        using Task<Cube?> loadTask = LoadInformationCubeAsync(ViewModel.IdCube2TextBox_Text);
-        loadTask.Wait();
-
-        Cube? cube = loadTask.Result;
-
-        if (cube is null)
-        {
-            CleanInformation(false, true);
-        }
-        else
-        {
-            ViewModel.XPositionCube2TextBox_Text = Convert.ToString(cube.X);
-            ViewModel.YPositionCube2TextBox_Text = Convert.ToString(cube.Y);
-            ViewModel.ZPositionCube2TextBox_Text = Convert.ToString(cube.Z);
-            ViewModel.WidthCube2TextBox_Text = Convert.ToString(cube.Width);
-            ViewModel.HeightCube2TextBox_Text = Convert.ToString(cube.Height);
-            ViewModel.DepthCube2TextBox_Text = Convert.ToString(cube.Depth);
-        }
-    }
-
-    protected override void OnPresenter_Initialized(object? sender, EventArgs e)
-    {
-        ViewModel.Validate();
-
-        ViewModel.SelectedLanguage = Configurator.Language;
-        UpdateLanguageMenuItems();
-
-        base.OnPresenter_Initialized(sender, e);
-    }
-
-    private bool OnSaveInformationCube1Button_CanExecuteValidating(object? sender, EventArgs e)
-    {
-        bool canExecute = false;
-
-        if (!IsCleaning)
-        {
-            canExecute = !string.IsNullOrEmpty(ViewModel.IdCube1TextBox_Text);
-
-            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.XPositionCube1TextBox_Text)).Any();
-            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.YPositionCube1TextBox_Text)).Any();
-            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.ZPositionCube1TextBox_Text)).Any();
-
-            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.WidthCube1TextBox_Text)).Any();
-            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.HeightCube1TextBox_Text)).Any();
-            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.DepthCube1TextBox_Text)).Any();
-        }
-
-        return canExecute;
-    }
-
-    private void OnSaveInformationCube1Button_Click(object? sender, EventArgs e)
-    {
-        Cube cube = GetInformationCube1();
-
-        using Task<UpsetOperation> saveTask = SaveInformationCubeAsync(ViewModel.IdCube1TextBox_Text, cube);
-        saveTask.Wait();
-    }
-
-    private bool OnSaveInformationCube2Button_CanExecuteValidating(object? sender, EventArgs e)
-    {
-        bool canExecute = false;
-
-        if (!IsCleaning)
-        {
-            canExecute = !string.IsNullOrEmpty(ViewModel.IdCube2TextBox_Text);
-
-            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.XPositionCube2TextBox_Text)).Any();
-            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.YPositionCube2TextBox_Text)).Any();
-            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.ZPositionCube2TextBox_Text)).Any();
-
-            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.WidthCube2TextBox_Text)).Any();
-            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.HeightCube2TextBox_Text)).Any();
-            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.DepthCube2TextBox_Text)).Any();
-        }
-
-        return canExecute;
-    }
-
-    private void OnSaveInformationCube2Button_Click(object? sender, EventArgs e)
-    {
-        Cube cube = GetInformationCube2();
-
-        using Task<UpsetOperation> saveTask = SaveInformationCubeAsync(ViewModel.IdCube2TextBox_Text, cube);
-        saveTask.Wait();
-    }
-
-    private bool OnSpanishMenuItem_CanExecuteValidating(object? sender, EventArgs e)
-    {
-        bool canExecute = ViewModel.SelectedLanguage != Language.Spanish;
-
-        return canExecute;
-    }
-
-    private void OnSpanishMenuItem_Click(object? sender, EventArgs e)
-    {
-        ViewModel.SelectedLanguage = Language.Spanish;
-        UpdateLanguageMenuItems();
-
-        Configurator.Language = Language.Spanish;
-    }
-
-    protected override void OnView_Closed(object? sender, EventArgs e)
-    {
-        ViewModel.AboutButton_Click -= OnAboutButton_Click;
-        ViewModel.CalculateIntersectionButton_CanExecuteValidating -= OnCalculateIntersectionButton_CanExecuteValidating;
-        ViewModel.CalculateIntersectionButton_Click -= OnCalculateIntersectionButton_Click;
-        ViewModel.CleanDataButton_Click -= OnCleanDataButton_Click;
-        ViewModel.EnglishMenuItem_CanExecuteValidating -= OnEnglishMenuItem_CanExecuteValidating;
-        ViewModel.EnglishMenuItem_Click -= OnEnglishMenuItem_Click;
-        ViewModel.LoadInformationCube1Button_CanExecuteValidating -= OnLoadInformationCube1Button_CanExecuteValidating;
-        ViewModel.LoadInformationCube1Button_Click -= OnLoadInformationCube1Button_Click;
-        ViewModel.LoadInformationCube2Button_CanExecuteValidating -= OnLoadInformationCube2Button_CanExecuteValidating;
-        ViewModel.LoadInformationCube2Button_Click -= OnLoadInformationCube2Button_Click;
-        ViewModel.SaveInformationCube1Button_CanExecuteValidating -= OnSaveInformationCube1Button_CanExecuteValidating;
-        ViewModel.SaveInformationCube1Button_Click -= OnSaveInformationCube1Button_Click;
-        ViewModel.SaveInformationCube2Button_CanExecuteValidating -= OnSaveInformationCube2Button_CanExecuteValidating;
-        ViewModel.SaveInformationCube2Button_Click -= OnSaveInformationCube2Button_Click;
-        ViewModel.SpanishMenuItem_CanExecuteValidating -= OnSpanishMenuItem_CanExecuteValidating;
-        ViewModel.SpanishMenuItem_Click -= OnSpanishMenuItem_Click;
-
-        base.OnView_Closed(sender, e);
     }
 
     private async Task<UpsetOperation> SaveInformationCubeAsync(string id, Cube cube)
@@ -382,7 +160,7 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
                     {
                         result = await contentTask.ConfigureAwait(false);
                     }
-                    
+
                     break;
 
                 case HttpStatusCode.InternalServerError:
@@ -402,6 +180,240 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
     {
         ViewModel.SpanishMenuItem_IsChecked = ViewModel.SelectedLanguage == Language.Spanish;
         ViewModel.EnglishMenuItem_IsChecked = ViewModel.SelectedLanguage == Language.English;
+    }
+
+    #endregion
+
+    #region presenter methods
+
+    protected override void OnInitialized(object? sender, EventArgs e)
+    {
+        ViewModel.Validate();
+
+        ViewModel.SelectedLanguage = Configurator.Language;
+        UpdateLanguageMenuItems();
+
+        base.OnInitialized(sender, e);
+    }
+
+    #endregion
+
+    #region view methods
+
+    protected override void OnView_Closed(object? sender, EventArgs e)
+    {
+        ViewModel.AboutButton_Click -= OnViewModel_AboutButton_Click;
+        ViewModel.CalculateIntersectionButton_CanExecuteValidating -= OnViewModel_CalculateIntersectionButton_CanExecuteValidating;
+        ViewModel.CalculateIntersectionButton_Click -= OnViewModel_CalculateIntersectionButton_Click;
+        ViewModel.CleanDataButton_Click -= OnViewModel_CleanDataButton_Click;
+        ViewModel.EnglishMenuItem_CanExecuteValidating -= OnViewModel_EnglishMenuItem_CanExecuteValidating;
+        ViewModel.EnglishMenuItem_Click -= OnViewModel_EnglishMenuItem_Click;
+        ViewModel.LoadInformationCube1Button_CanExecuteValidating -= OnViewModel_LoadInformationCube1Button_CanExecuteValidating;
+        ViewModel.LoadInformationCube1Button_Click -= OnViewModel_LoadInformationCube1Button_Click;
+        ViewModel.LoadInformationCube2Button_CanExecuteValidating -= OnViewModel_LoadInformationCube2Button_CanExecuteValidating;
+        ViewModel.LoadInformationCube2Button_Click -= OnViewModel_LoadInformationCube2Button_Click;
+        ViewModel.SaveInformationCube1Button_CanExecuteValidating -= OnViewModel_SaveInformationCube1Button_CanExecuteValidating;
+        ViewModel.SaveInformationCube1Button_Click -= OnViewModel_SaveInformationCube1Button_Click;
+        ViewModel.SaveInformationCube2Button_CanExecuteValidating -= OnViewModel_SaveInformationCube2Button_CanExecuteValidating;
+        ViewModel.SaveInformationCube2Button_Click -= OnViewModel_SaveInformationCube2Button_Click;
+        ViewModel.SpanishMenuItem_CanExecuteValidating -= OnViewModel_SpanishMenuItem_CanExecuteValidating;
+        ViewModel.SpanishMenuItem_Click -= OnViewModel_SpanishMenuItem_Click;
+
+        base.OnView_Closed(sender, e);
+    }
+
+    #endregion
+
+    #region viewmodel methods
+
+    private void OnViewModel_AboutButton_Click(object? sender, EventArgs e)
+    {
+        Presentator.LoadPresenter<IAboutPresenter>(true, false);
+    }
+
+    private bool OnViewModel_CalculateIntersectionButton_CanExecuteValidating(object? sender, EventArgs e)
+    {
+        bool canExecute = false;
+
+        if (!IsCleaning)
+        {
+            canExecute = !ViewModel.HasErrors;
+        }
+
+        return canExecute;
+    }
+
+    private void OnViewModel_CalculateIntersectionButton_Click(object? sender, EventArgs e)
+    {
+        Cube cube1 = GetInformationCube1();
+        Cube cube2 = GetInformationCube2();
+
+        Cube? cubeIntersection = CubeIntersectionLogic.GetCubeIntersect(cube1, cube2); 
+
+        if (cubeIntersection is null)
+        {
+            CleanInformation(false, false);
+        }
+        else
+        {
+            ViewModel.XPositionIntersectionTextBox_Text = cubeIntersection.X;
+            ViewModel.YPositionIntersectionTextBox_Text = cubeIntersection.Y;
+            ViewModel.ZPositionIntersectionTextBox_Text = cubeIntersection.Z;
+            ViewModel.WidthIntersectionTextBox_Text = cubeIntersection.Width;
+            ViewModel.HeightIntersectionTextBox_Text = cubeIntersection.Height;
+            ViewModel.DepthIntersectionTextBox_Text = cubeIntersection.Depth;
+
+            ViewModel.ExistsIntersectionCheckBox_IsChecked = true;
+        }
+    }
+
+    private void OnViewModel_CleanDataButton_Click(object? sender, EventArgs e)
+    {
+        CleanInformation(true, true);
+    }
+
+    private bool OnViewModel_EnglishMenuItem_CanExecuteValidating(object? sender, EventArgs e)
+    {
+        bool canExecute = ViewModel.SelectedLanguage != Language.English;
+
+        return canExecute;
+    }
+
+    private void OnViewModel_EnglishMenuItem_Click(object? sender, EventArgs e)
+    {
+        ViewModel.SelectedLanguage = Language.English;
+        UpdateLanguageMenuItems();
+
+        Configurator.Language = Language.English;
+    }
+
+    private bool OnViewModel_LoadInformationCube1Button_CanExecuteValidating(object? sender, EventArgs e)
+    {
+        bool canExecute = !string.IsNullOrEmpty(ViewModel.IdCube1TextBox_Text);
+
+        return canExecute;
+    }
+
+    private void OnViewModel_LoadInformationCube1Button_Click(object? sender, EventArgs e)
+    {
+        using Task<Cube?> loadTask = LoadInformationCubeAsync(ViewModel.IdCube1TextBox_Text);
+        loadTask.Wait();
+
+        Cube? cube = loadTask.Result;
+
+        if (cube is null)
+        {
+            CleanInformation(true, false);
+        }
+        else
+        {
+            ViewModel.XPositionCube1TextBox_Text = Convert.ToString(cube.X);
+            ViewModel.YPositionCube1TextBox_Text = Convert.ToString(cube.Y);
+            ViewModel.ZPositionCube1TextBox_Text = Convert.ToString(cube.Z);
+            ViewModel.WidthCube1TextBox_Text = Convert.ToString(cube.Width);
+            ViewModel.HeightCube1TextBox_Text = Convert.ToString(cube.Height);
+            ViewModel.DepthCube1TextBox_Text = Convert.ToString(cube.Depth);
+        }
+    }
+
+    private bool OnViewModel_LoadInformationCube2Button_CanExecuteValidating(object? sender, EventArgs e)
+    {
+        bool canExecute = !string.IsNullOrEmpty(ViewModel.IdCube2TextBox_Text);
+
+        return canExecute;
+    }
+
+    private void OnViewModel_LoadInformationCube2Button_Click(object? sender, EventArgs e)
+    {
+        using Task<Cube?> loadTask = LoadInformationCubeAsync(ViewModel.IdCube2TextBox_Text);
+        loadTask.Wait();
+
+        Cube? cube = loadTask.Result;
+
+        if (cube is null)
+        {
+            CleanInformation(false, true);
+        }
+        else
+        {
+            ViewModel.XPositionCube2TextBox_Text = Convert.ToString(cube.X);
+            ViewModel.YPositionCube2TextBox_Text = Convert.ToString(cube.Y);
+            ViewModel.ZPositionCube2TextBox_Text = Convert.ToString(cube.Z);
+            ViewModel.WidthCube2TextBox_Text = Convert.ToString(cube.Width);
+            ViewModel.HeightCube2TextBox_Text = Convert.ToString(cube.Height);
+            ViewModel.DepthCube2TextBox_Text = Convert.ToString(cube.Depth);
+        }
+    }
+
+    private bool OnViewModel_SaveInformationCube1Button_CanExecuteValidating(object? sender, EventArgs e)
+    {
+        bool canExecute = false;
+
+        if (!IsCleaning)
+        {
+            canExecute = !string.IsNullOrEmpty(ViewModel.IdCube1TextBox_Text);
+
+            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.XPositionCube1TextBox_Text)).Any();
+            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.YPositionCube1TextBox_Text)).Any();
+            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.ZPositionCube1TextBox_Text)).Any();
+
+            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.WidthCube1TextBox_Text)).Any();
+            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.HeightCube1TextBox_Text)).Any();
+            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.DepthCube1TextBox_Text)).Any();
+        }
+
+        return canExecute;
+    }
+
+    private void OnViewModel_SaveInformationCube1Button_Click(object? sender, EventArgs e)
+    {
+        Cube cube = GetInformationCube1();
+
+        using Task<UpsetOperation> saveTask = SaveInformationCubeAsync(ViewModel.IdCube1TextBox_Text, cube);
+        saveTask.Wait();
+    }
+
+    private bool OnViewModel_SaveInformationCube2Button_CanExecuteValidating(object? sender, EventArgs e)
+    {
+        bool canExecute = false;
+
+        if (!IsCleaning)
+        {
+            canExecute = !string.IsNullOrEmpty(ViewModel.IdCube2TextBox_Text);
+
+            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.XPositionCube2TextBox_Text)).Any();
+            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.YPositionCube2TextBox_Text)).Any();
+            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.ZPositionCube2TextBox_Text)).Any();
+
+            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.WidthCube2TextBox_Text)).Any();
+            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.HeightCube2TextBox_Text)).Any();
+            canExecute &= !ViewModel.GetErrors(nameof(ViewModel.DepthCube2TextBox_Text)).Any();
+        }
+
+        return canExecute;
+    }
+
+    private void OnViewModel_SaveInformationCube2Button_Click(object? sender, EventArgs e)
+    {
+        Cube cube = GetInformationCube2();
+
+        using Task<UpsetOperation> saveTask = SaveInformationCubeAsync(ViewModel.IdCube2TextBox_Text, cube);
+        saveTask.Wait();
+    }
+
+    private bool OnViewModel_SpanishMenuItem_CanExecuteValidating(object? sender, EventArgs e)
+    {
+        bool canExecute = ViewModel.SelectedLanguage != Language.Spanish;
+
+        return canExecute;
+    }
+
+    private void OnViewModel_SpanishMenuItem_Click(object? sender, EventArgs e)
+    {
+        ViewModel.SelectedLanguage = Language.Spanish;
+        UpdateLanguageMenuItems();
+
+        Configurator.Language = Language.Spanish;
     }
 
     #endregion

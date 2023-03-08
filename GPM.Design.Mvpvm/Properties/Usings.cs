@@ -26,6 +26,7 @@ global using Microsoft.Extensions.Hosting;
 #region usings from Layers
 
 global using GPM.Design.Mvpvm.Effects;
+global using GPM.Design.Mvpvm.Extensions;
 global using GPM.Design.Mvpvm.Management;
 
 #endregion

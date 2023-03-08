@@ -17,12 +17,7 @@ public class LoaderPresenter : PresenterEffect<ILoaderView, ILoaderViewModel, IF
 
     #endregion
 
-    #region methods
-
-    protected override void OnCloseEffect_Finalized(object? sender, EventArgs e)
-    {
-        
-    }
+    #region private methods
 
     private void OnLoadingProgressBar_BackgroundWorker_DoWork(object? sender, DoWorkEventArgs e)
     {
@@ -55,17 +50,30 @@ public class LoaderPresenter : PresenterEffect<ILoaderView, ILoaderViewModel, IF
         Presentator.LoadPresenter<ICubeIntersectionPresenter>(false, true);
     }
 
-    protected override void OnPresenter_Initialized(object? sender, EventArgs e)
+    #endregion
+
+    #region presenter methods
+
+    protected override void OnInitialized(object? sender, EventArgs e)
     {
         ViewModel.LoadingLabel_Visibility = Visibility.Hidden;
         ViewModel.LoadingProgressBar_LargeChange = 1;
         ViewModel.LoadingProgressBar_Maximum = 100;
         ViewModel.LoadingProgressBar_SmallChange = 0.1;
 
-        base.OnPresenter_Initialized(sender, e);
+        base.OnInitialized(sender, e);
     }
 
-    protected override void OnShowEffect_Finalized(object? sender, EventArgs e)
+    #endregion
+
+    #region presenter effect methods
+
+    protected override void OnCloseEffect_Completed(object? sender, EventArgs e)
+    {
+
+    }
+
+    protected override void OnShowEffect_Completed(object? sender, EventArgs e)
     {
         BackgroundWorker loadingProgressBar_BackgroundWorker = new() { WorkerReportsProgress = true };
 
@@ -78,10 +86,18 @@ public class LoaderPresenter : PresenterEffect<ILoaderView, ILoaderViewModel, IF
         loadingProgressBar_BackgroundWorker.RunWorkerAsync();
     }
 
+    #endregion
+
+    #region view methods
+
     protected override void OnView_Loaded(object? sender, RoutedEventArgs e)
     {
-        
+
     }
+
+    #endregion
+
+    #region viewmodel methods
 
     #endregion
 

@@ -1,26 +1,23 @@
-﻿namespace GPM.Design.Mvpvm;
+﻿namespace GPM.Design.Mvpvm.Extensions;
 
-internal static class ViewPresentatorExtensions
+internal static class ViewExtensions
 {
 
     #region methods
 
     internal static void Close(this IView view)
     {
-        Window window = view.ToWindow();
-        window.Close();
+        view.ToWindow().Close();
     }
 
     internal static void Show(this IView view)
     {
-        Window window = view.ToWindow();
-        window.Show();
+        view.ToWindow().Show();
     }
 
     internal static bool? ShowDialog(this IView view)
     {
-        Window window = view.ToWindow();
-        return window.ShowDialog();
+        return view.ToWindow().ShowDialog();
     }
 
     internal static Window ToWindow(this IView view)
