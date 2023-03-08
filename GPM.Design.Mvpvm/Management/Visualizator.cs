@@ -5,6 +5,11 @@ internal static class Visualizator
 
     #region methods
 
+    internal static void CloseView(IView view)
+    {
+        view.Close();
+    }
+
     internal static void ShowView(IView view, bool isDialog, bool isMain)
     {
         ShowView(view, isDialog);

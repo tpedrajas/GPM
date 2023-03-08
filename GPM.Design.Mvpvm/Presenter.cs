@@ -44,7 +44,7 @@ public class Presenter<V, VM> : IPresenter where V : IView where VM : IViewModel
         View.Deactivated += OnView_Deactivated;
         View.Loaded += OnView_Loaded;
 
-        View.DataContext = ViewModel;
+        this.LinkDataContext();
     }
 
     #endregion
@@ -101,6 +101,9 @@ public class Presenter<V, VM> : IPresenter where V : IView where VM : IViewModel
     protected virtual void OnView_Closing(object? sender, CancelEventArgs e)
     {
         View.Closing -= OnView_Closing;
+
+        Presentator.UnloadPresenter(this);
+        e.Cancel = true;
     }
 
     protected virtual void OnView_Closed(object? sender, EventArgs e)
@@ -108,8 +111,6 @@ public class Presenter<V, VM> : IPresenter where V : IView where VM : IViewModel
         View.Activated -= OnView_Activated;
         View.Closed -= OnView_Closed;
         View.Deactivated -= OnView_Deactivated;
-
-        Presentator.UnloadPresenter(this);
     }
 
     protected virtual void OnView_Deactivated(object? sender, EventArgs e)

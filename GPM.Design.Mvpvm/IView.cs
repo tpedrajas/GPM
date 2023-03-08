@@ -17,18 +17,4 @@ public interface IView
 
     #endregion
 
-    #region properties
-
-    object DataContext { get; set; }
-
-    #endregion
-
-    #region methods
-
-    void Show();
-
-    bool? ShowDialog();
-
-    #endregion
-
 }
