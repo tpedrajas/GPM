@@ -186,14 +186,14 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
 
     #region presenter methods
 
-    protected override void OnInitialized(object? sender, EventArgs e)
+    protected override void OnInitializing(object? sender, EventArgs e)
     {
         ViewModel.Validate();
 
         ViewModel.SelectedLanguage = Configurator.Language;
         UpdateLanguageMenuItems();
 
-        base.OnInitialized(sender, e);
+        base.OnInitializing(sender, e);
     }
 
     #endregion
@@ -228,7 +228,7 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
 
     private void OnViewModel_AboutButton_Click(object? sender, EventArgs e)
     {
-        Presentator.LoadPresenter<IAboutPresenter>(true, false);
+        PresenterProcessor.LoadPresenter<IAboutPresenter>(true, false);
     }
 
     private bool OnViewModel_CalculateIntersectionButton_CanExecuteValidating(object? sender, EventArgs e)

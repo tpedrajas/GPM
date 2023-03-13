@@ -1,20 +1,14 @@
 ﻿namespace GPM.Design.Mvpvm.Effects;
 
-public interface IFadeIn : IShowEffect
-{
-
-}
-
-public sealed class FadeIn : AbstractEffect<IViewModelOpacityEffect>, IFadeIn
+public sealed class FadeOutEffectBehavior : AbstractEffectBehavior<IViewModelOpacityEffect>, IFadeOutEffectBehavior
 {
 
     #region constructors / deconstructors / destructors
 
-    public FadeIn() : base()
+    public FadeOutEffectBehavior() : base()
     {
         ChangeValue = 1;
         Duration = 5000;
-        EffectType = EffectType.ShowEffect;
         Maximum = 100;
         Minimum = 0;
     }
@@ -38,7 +32,8 @@ public sealed class FadeIn : AbstractEffect<IViewModelOpacityEffect>, IFadeIn
 
         for (int i = minimum + 1; i <= maximum; i += changeValue)
         {
-            backgroundWorker.ReportProgress(i);
+            backgroundWorker.ReportProgress(maximum - i);
+
             Thread.Sleep((iterationDuration * i) - (int)stopWatch.ElapsedMilliseconds);
         }
 

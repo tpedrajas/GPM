@@ -15,7 +15,6 @@ global using CommunityToolkit.Mvvm.Input;
 
 #region usings from Common Layer
 
-global using GPM.Common;
 global using GPM.Common.Validation;
 
 #endregion

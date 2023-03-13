@@ -1,4 +1,4 @@
-﻿namespace GPM.Common;
+﻿namespace GPM.Design.Mvpvm;
 
 #region delegates
 

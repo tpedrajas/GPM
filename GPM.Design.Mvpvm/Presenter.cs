@@ -1,137 +1,180 @@
-﻿using GPM.Design.Mvpvm.Extensions;
+﻿namespace GPM.Design.Mvpvm;
 
-namespace GPM.Design.Mvpvm;
-
-public interface IPresenter
-{
-
-    #region events
-
-    event EventHandler Initialized;
-
-    #endregion
-
-}
-
-internal interface IPresenterHidden
-{
-
-    #region properties
-
-    IView View { get; }
-
-    IViewModel ViewModel { get; }
-
-    #endregion
-
-    #region methods
-
-    void Initialize();
-
-    #endregion
-
-}
-
-public interface IMainPresenter : IPresenter
-{
-
-}
-
-public class Presenter<V, VM> : IPresenter, IPresenterHidden where V : IView where VM : IViewModel
+public class Presenter<TView, TViewModel> : IPresenter, IPresenterHidden where TView : IView where TViewModel : IViewModel
 {
 
     #region constructors / deconstructors / destructors
 
-    protected Presenter(IServiceProvider services)
+    public Presenter(IServiceProvider services)
     {
-        Initialized += OnInitialized;
-    
-        Presentator = services.GetRequiredService<IPresentator>();
-        View = services.GetRequiredService<V>();
-        ViewModel = services.GetRequiredService<VM>();
+        Initializing += OnInitializing;
 
-        View.Activated += OnView_Activated;
-        View.Closing += OnView_Closing;
-        View.Closed += OnView_Closed;
-        View.Deactivated += OnView_Deactivated;
-        View.Loaded += OnView_Loaded;
+        PresenterProcessor = services.GetRequiredService<IPresenterProcessorBehavior>();
+        View = services.GetRequiredService<TView>();
+        ViewModel = services.GetRequiredService<TViewModel>();
+        ViewModelProcessor = services.GetRequiredService<IViewModelProcessorBehavior>();
+        ViewProcessor = services.GetRequiredService<IViewProcessorBehavior>();
 
-        this.LinkDataContext();
+        View.SetDataContext(ViewModel);
+
+        Behaviors = new Dictionary<Type, IBehavior>()
+        {
+            { typeof(INotificationCentralizerBehavior), services.GetRequiredService<INotificationCentralizerBehavior>() }
+        };
+
+        TryAddBehavior(PresenterProcessor);
+        TryAddBehavior(ViewProcessor);
+        TryAddBehavior(ViewModelProcessor);
     }
 
     #endregion
 
     #region events
 
-    public event EventHandler Initialized = delegate { };
+    public event EventHandler Initializing = delegate { };
+
+    public event EventHandler View_Activated = delegate { };
+
+    public event EventHandler View_Closed = delegate { };
+
+    public event CancelEventHandler View_Closing = delegate { };
+
+    public event EventHandler View_Deactivated = delegate { };
+
+    public event RoutedEventHandler View_Loaded = delegate { };
+
+    public event CancelEventHandler ViewModel_Validating = delegate { };
 
     #endregion
 
     #region properties
 
-    protected IPresentator Presentator { get; init; }
+    protected Dictionary<Type, IBehavior> Behaviors { get; init; }
 
-    protected V View { get; init; }
+    protected IPresenterProcessorBehavior PresenterProcessor { get; init; }
 
-    IView IPresenterHidden.View
-    {
-        get
-        {
-            return View;
-        }
-    }
+    private TView View { get; init; }
 
-    protected VM ViewModel { get; set; }
+    protected TViewModel ViewModel { get; init; }
 
-    IViewModel IPresenterHidden.ViewModel
-    {
-        get
-        {
-            return ViewModel;
-        }
-    }
+    private IViewModelProcessorBehavior ViewModelProcessor { get; init; }
+
+    private IViewProcessorBehavior ViewProcessor { get; init; }
 
     #endregion
 
     #region methods
 
-    void IPresenterHidden.Initialize()
+    protected virtual void OnInitializing(object? sender, EventArgs e)
     {
-        Initialized.Invoke(this, EventArgs.Empty);
-    }
+        View.Activated += View_Activated;
+        View.Closed += View_Closed;
+        View.Closing += View_Closing;
+        View.Deactivated += View_Deactivated;
+        View.Loaded += View_Loaded;
 
-    protected virtual void OnInitialized(object? sender, EventArgs e)
-    {
-        Initialized -= OnInitialized;
+        ViewModel.Validating += ViewModel_Validating;
     }
 
     protected virtual void OnView_Activated(object? sender, EventArgs e)
     {
-        
-    }
-
-    protected virtual void OnView_Closing(object? sender, CancelEventArgs e)
-    {
-        Presentator.UnloadPresenter(this);
-        e.Cancel = true;
+        View_Activated(sender, e);
     }
 
     protected virtual void OnView_Closed(object? sender, EventArgs e)
     {
-        View.Activated -= OnView_Activated;
-        View.Closed -= OnView_Closed;
-        View.Closing -= OnView_Closing;
-        View.Deactivated -= OnView_Deactivated;
+        View.Activated -= View_Activated;
+        View.Closed -= View_Closed;
+        View.Closing -= View_Closing;
+        View.Deactivated -= View_Deactivated;
+        View.Loaded -= View_Loaded;
+
+        ViewModel.Validating -= ViewModel_Validating;
+
+        View_Closed(sender, e);
+    }
+
+    protected virtual void OnView_Closing(object? sender, CancelEventArgs e)
+    {
+        if (!e.Cancel)
+        {
+            View_Closing(sender, e);
+        }
     }
 
     protected virtual void OnView_Deactivated(object? sender, EventArgs e)
     {
-        
+        View_Deactivated(sender, e);
     }
 
     protected virtual void OnView_Loaded(object? sender, RoutedEventArgs e)
     {
-        View.Loaded -= OnView_Loaded;
+        View_Loaded(sender, e);
+    }
+
+    protected virtual void OnViewModel_Validating(object? sender, CancelEventArgs e)
+    {
+        if (!e.Cancel)
+        {
+            ViewModel_Validating(sender, e);
+        }
+    }
+
+    protected bool TryAddBehavior<TBehavior>(TBehavior behavior) where TBehavior : IBehavior
+    {
+        bool isAdded = false;
+        behavior.Alias ??= typeof(TBehavior).Name;
+
+        if (!Behaviors.Any(pair => Equals(pair.Key, typeof(TBehavior)) && string.Equals(pair.Value.Alias, behavior.Alias)))
+        {
+            INotificationCentralizerBehavior centralizer = (INotificationCentralizerBehavior)Behaviors[typeof(INotificationCentralizerBehavior)];
+            centralizer.CreateBehaviorChannels(behavior);
+
+            Behaviors.Add(typeof(TBehavior), behavior);
+            isAdded = true;
+        }
+
+        return isAdded;
+    }
+
+    #endregion
+
+    #region IPresenterHidden methods
+
+    Dictionary<Type, IBehavior> IPresenterHidden.GetBehaviors()
+    {
+        return Behaviors;
+    }
+
+    IView IPresenterHidden.GetView()
+    {
+        return View;
+    }
+
+    IViewModel IPresenterHidden.GetViewModel()
+    {
+        return ViewModel;
+    }
+
+    void IPresenterHidden.Initialize(bool isDialog, bool isMain)
+    {
+        foreach (IBehavior behavior in Behaviors.Values)
+        {
+            behavior.Configure(this);
+        }
+
+        Initializing(this, EventArgs.Empty);
+
+        IViewProcessorBehavior viewProcessor = (IViewProcessorBehavior)Behaviors[typeof(IViewProcessorBehavior)];
+        viewProcessor.ShowView(this, isDialog, isMain);
+    }
+
+    void IPresenterHidden.Unload()
+    {
+        foreach (IBehavior behavior in Behaviors.Values)
+        {
+            behavior.Unload(this);
+        }
     }
 
     #endregion

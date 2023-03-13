@@ -17,7 +17,7 @@ public static class CubeLogic
             {
                 IMapper mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
 
-                CubeSet? cubeEntity = dbContext.CubeEntities.SingleOrDefault(cube => cube.Id == id);
+                var cubeEntity = dbContext.CubeEntities.SingleOrDefault(cube => cube.Id == id);
                 resultCube = mapper.Map<Cube?>(cubeEntity);
 
                 return resultCube;

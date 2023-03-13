@@ -1,20 +1,14 @@
 ﻿namespace GPM.Design.Mvpvm.Effects;
 
-public interface IFadeOut : ICloseEffect
-{
-
-}
-
-public sealed class FadeOut : AbstractEffect<IViewModelOpacityEffect>, IFadeOut
+public sealed class FadeInEffectBehavior : AbstractEffectBehavior<IViewModelOpacityEffect>, IFadeInEffectBehavior
 {
 
     #region constructors / deconstructors / destructors
 
-    public FadeOut() : base()
+    public FadeInEffectBehavior() : base()
     {
         ChangeValue = 1;
         Duration = 5000;
-        EffectType = EffectType.CloseEffect;
         Maximum = 100;
         Minimum = 0;
     }
@@ -38,9 +32,8 @@ public sealed class FadeOut : AbstractEffect<IViewModelOpacityEffect>, IFadeOut
 
         for (int i = minimum + 1; i <= maximum; i += changeValue)
         {
-            backgroundWorker.ReportProgress(maximum - i);
-
-            Thread.Sleep((iterationDuration * i) - (int)stopWatch.ElapsedMilliseconds);
+            backgroundWorker.ReportProgress(i);
+            Thread.Sleep(Math.Max((iterationDuration * i) - (int)stopWatch.ElapsedMilliseconds, 0));
         }
 
         stopWatch.Stop();

@@ -1,19 +1,30 @@
 ﻿namespace GPM.CubeIntersector.Presenters;
 
-public interface ILoaderPresenter : IPresenterShowEffect, IPresenterCloseEffect
+public interface ILoaderPresenter : IPresenter
 {
 
 }
 
-public class LoaderPresenter : PresenterEffect<ILoaderView, ILoaderViewModel, IFadeIn, IFadeOut>, ILoaderPresenter
+public class LoaderPresenter : Presenter<ILoaderView, ILoaderViewModel>, ILoaderPresenter
 {
 
     #region constructors / deconstructors / destructors
 
     public LoaderPresenter(IServiceProvider services) : base(services)
     {
-        
+        FadeInEffectBehavior = services.GetRequiredService<IFadeInEffectBehavior>();
+        FadeInEffectBehavior.WaitToComplete = true;
+        FadeInEffectBehavior.Processed += OnShowEffect_Processed;
+
+        FadeInEffectBehavior.TryAddSubscribedChannel((nameof(IViewProcessorBehavior), IViewProcessorBehavior.VIEW_LOADED_EVENT));
+        TryAddBehavior(FadeInEffectBehavior);
     }
+
+    #endregion
+
+    #region properties
+
+    IFadeInEffectBehavior FadeInEffectBehavior { get; init; }
 
     #endregion
 
@@ -47,33 +58,33 @@ public class LoaderPresenter : PresenterEffect<ILoaderView, ILoaderViewModel, IF
         loadingProgressBar_BackgroundWorker.ProgressChanged -= OnLoadingProgressBar_BackgroundWorker_ProgressChanged;
         loadingProgressBar_BackgroundWorker.RunWorkerCompleted -= OnLoadingProgressBar_BackgroundWorker_RunWorkerCompleted;
 
-        Presentator.LoadPresenter<ICubeIntersectionPresenter>(false, true);
+        PresenterProcessor.LoadPresenter<ICubeIntersectionPresenter>(false, true);
     }
 
     #endregion
 
     #region presenter methods
 
-    protected override void OnInitialized(object? sender, EventArgs e)
+    protected override void OnInitializing(object? sender, EventArgs e)
     {
         ViewModel.LoadingLabel_Visibility = Visibility.Hidden;
         ViewModel.LoadingProgressBar_LargeChange = 1;
         ViewModel.LoadingProgressBar_Maximum = 100;
         ViewModel.LoadingProgressBar_SmallChange = 0.1;
 
-        base.OnInitialized(sender, e);
+        base.OnInitializing(sender, e);
     }
 
     #endregion
 
-    #region presenter effect methods
+    #region effect methods
 
-    protected override void OnCloseEffect_Completed(object? sender, EventArgs e)
+    private void OnCloseEffect_Processed(object? sender, EventArgs e)
     {
 
     }
 
-    protected override void OnShowEffect_Completed(object? sender, EventArgs e)
+    private void OnShowEffect_Processed(object? sender, EventArgs e)
     {
         BackgroundWorker loadingProgressBar_BackgroundWorker = new() { WorkerReportsProgress = true };
 
@@ -85,19 +96,6 @@ public class LoaderPresenter : PresenterEffect<ILoaderView, ILoaderViewModel, IF
 
         loadingProgressBar_BackgroundWorker.RunWorkerAsync();
     }
-
-    #endregion
-
-    #region view methods
-
-    protected override void OnView_Loaded(object? sender, RoutedEventArgs e)
-    {
-
-    }
-
-    #endregion
-
-    #region viewmodel methods
 
     #endregion
 

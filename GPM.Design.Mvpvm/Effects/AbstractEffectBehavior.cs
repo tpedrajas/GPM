@@ -1,55 +1,20 @@
 ﻿namespace GPM.Design.Mvpvm.Effects;
 
-public interface IEffect
-{
-
-    #region events
-
-    event EventHandler Completed;
-
-    #endregion
-
-    #region properties
-
-    double ChangeValue { get; set; }
-
-    int Duration { get; set; }
-
-    EffectType EffectType { get; set; }
-
-    double Maximum { get; set; }
-
-    double Minimum { get; set; }
-
-    double Value { get; set; }
-
-    IViewModelEffect ViewModel { get; set; }
-
-    #endregion
-
-    #region methods
-
-    public void Process();
-
-    #endregion
-
-}
-
-public abstract class AbstractEffect<EVM> : IEffect where EVM : IViewModelEffect
+public abstract class AbstractEffectBehavior<TViewModel> : ObserverBehavior, IEffectBehavior where TViewModel : IViewModelEffect
 {
 
     #region constructors / deconstructors / destructors
 
-    protected AbstractEffect()
+    protected AbstractEffectBehavior()
     {
-        
+        Processed += OnProcessed;
     }
 
     #endregion
 
     #region events
 
-    public event EventHandler Completed = delegate { };
+    public event EventHandler Processed = delegate { };
 
     #endregion
 
@@ -59,27 +24,15 @@ public abstract class AbstractEffect<EVM> : IEffect where EVM : IViewModelEffect
 
     public int Duration { get; set; }
 
-    public EffectType EffectType { get; set; }
-
     public double Maximum { get; set; }
 
     public double Minimum { get; set; }
 
     public double Value { get; set; }
 
-    public required EVM ViewModel { get; set; }
+    public required TViewModel ViewModel { get; set; }
 
-    IViewModelEffect IEffect.ViewModel
-    {
-        get
-        {
-            return ViewModel;
-        }
-        set
-        {
-            ViewModel = (EVM)value;
-        }
-    }
+    public bool WaitToComplete { get; set; }
 
     #endregion
 
@@ -97,7 +50,21 @@ public abstract class AbstractEffect<EVM> : IEffect where EVM : IViewModelEffect
         backgroundWorker.ProgressChanged -= OnBackgroundWorker_ProgressChanged;
         backgroundWorker.RunWorkerCompleted -= OnBackgroundWorker_RunWorkerCompleted;
 
-        Completed.Invoke(this, EventArgs.Empty);
+        Processed.Invoke(this, EventArgs.Empty);
+    }
+
+    protected override void OnConfiguring(object? sender, BehaviorConfiguringEventArgs e)
+    {
+        base.OnConfiguring(sender, e);
+
+        ViewModel = (TViewModel)e.Presenter.GetViewModel();
+    }
+
+    public override void OnNext(IChannelNotificatorBehavior notificator)
+    {
+        base.OnNext(notificator);
+
+        Process();
     }
 
     public void Process()
@@ -109,6 +76,11 @@ public abstract class AbstractEffect<EVM> : IEffect where EVM : IViewModelEffect
         BackgroundWorker.RunWorkerCompleted += OnBackgroundWorker_RunWorkerCompleted;
 
         BackgroundWorker.RunWorkerAsync();
+    }
+
+    protected void OnProcessed(object? sender, EventArgs e)
+    {
+        
     }
 
     #endregion

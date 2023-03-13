@@ -1,24 +1,5 @@
 ﻿namespace GPM.Design.Mvpvm.Management;
 
-public interface IHostKeeper : IDisposable
-{
-
-    #region properties
-
-    IConfigurator Configurator { get; }
-
-    #endregion
-
-    #region methods
-
-    Task StartAsync(CancellationToken cancellationToken = default);
-
-    Task StopAsync(CancellationToken cancellationToken = default);
-
-    #endregion
-
-}
-
 public class HostKeeper : IHostKeeper
 {
 
@@ -33,7 +14,7 @@ public class HostKeeper : IHostKeeper
 
         Services = Hosting.Services;
 
-        Presentator = Services.GetRequiredService<IPresentator>();
+        PresenterProcessor = Services.GetRequiredService<IPresenterProcessorBehavior>();
         Configurator = Services.GetRequiredService<IConfigurator>();
         ShutdownMode = shutdownMode;
     }
@@ -48,7 +29,7 @@ public class HostKeeper : IHostKeeper
 
     protected bool IsRunning { get; private set; }
 
-    private IPresentator Presentator { get; init; }
+    private IPresenterProcessorBehavior PresenterProcessor { get; init; }
 
     public IServiceProvider Services { get; init; }
 
@@ -62,9 +43,15 @@ public class HostKeeper : IHostKeeper
 
     protected virtual void ConfigureServices(IServiceCollection services)
     {
-        services.AddSingleton<IPresentator, Presentator>();
-        services.AddTransient<IFadeIn, FadeIn>();
-        services.AddTransient<IFadeOut, FadeOut>();
+        services.AddTransient<INotificationCentralizerBehavior, NotificationCentralizerBehavior>();
+        services.AddTransient<IChannelNotificatorBehavior, ChannelNotificatorBehavior>();
+
+        services.AddSingleton<IPresenterProcessorBehavior, PresenterProcessorBehavior>();
+        services.AddTransient<IViewProcessorBehavior, ViewProcessorBehavior>();
+        services.AddTransient<IViewModelProcessorBehavior, ViewModelProcessorBehavior>();
+
+        services.AddTransient<IFadeInEffectBehavior, FadeInEffectBehavior>();
+        services.AddTransient<IFadeOutEffectBehavior, FadeOutEffectBehavior>();
     }
 
     public void Dispose()
@@ -97,7 +84,7 @@ public class HostKeeper : IHostKeeper
             await startTask.ConfigureAwait(false);
 
             Application.Current.ShutdownMode = ShutdownMode;
-            Presentator.LoadPresenter<IMainPresenter>(false, true);
+            PresenterProcessor.LoadPresenter<IMainPresenter>(false, true);
         }
     }
 

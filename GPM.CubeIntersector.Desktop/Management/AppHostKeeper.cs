@@ -32,7 +32,7 @@ internal class AppHostKeeper : HostKeeper
         services.AddTransient<IAboutViewModel, AboutViewModel>();
         services.AddTransient<IAboutView, AboutView>();
         services.AddTransient<IAboutPresenter, AboutPresenter>();
-
+        
         base.ConfigureServices(services);
     }
 
