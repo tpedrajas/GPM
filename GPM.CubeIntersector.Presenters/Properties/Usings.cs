@@ -22,20 +22,26 @@ global using Microsoft.Extensions.DependencyInjection;
 
 #region usings from Layers
 
-global using GPM.CubeIntersector.Domain;
+global using GPM.CubeIntersector.Domain.Desktop;
+global using GPM.CubeIntersector.Domain.Desktop.Localization;
 global using GPM.CubeIntersector.Domain.Json;
-global using GPM.CubeIntersector.Domain.Localization;
 
 global using GPM.Design.Mvpvm;
-global using GPM.Design.Mvpvm.Behaviors;
-global using GPM.Design.Mvpvm.Effects;
-global using GPM.Design.Mvpvm.Management;
 
-global using GPM.Product.Data;
+global using GPM.Facade.Common;
+
+global using GPM.Facade.CubeIntersector.Presenters;
+
+global using GPM.Facade.Design.Mvpvm.Behaviors;
+global using GPM.Facade.Design.Mvpvm.Effects;
+global using GPM.Facade.Design.Mvpvm.Management;
+
+global using GPM.Facade.Product.Data;
+global using GPM.Facade.Product.Models;
+global using GPM.Facade.Product.Models.Dto;
+global using GPM.Facade.Product.Views;
+global using GPM.Facade.Product.ViewModels;
 
 global using GPM.Product.Models;
-global using GPM.Product.Models.Dto;
-global using GPM.Product.Views;
-global using GPM.Product.ViewModels;
 
 #endregion

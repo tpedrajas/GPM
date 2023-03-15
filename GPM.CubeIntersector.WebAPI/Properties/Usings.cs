@@ -24,12 +24,15 @@ global using Microsoft.Extensions.Hosting;
 
 #region usings from Layers
 
-global using GPM.CubeIntersector.Domain;
 global using GPM.CubeIntersector.Domain.Json;
 global using GPM.CubeIntersector.Domain.Profiles;
+global using GPM.CubeIntersector.Domain.WebAPI;
+
+global using GPM.Facade.Product.Data;
+global using GPM.Facade.Product.Models;
+global using GPM.Facade.Product.Models.Dto;
 
 global using GPM.Product.Data;
 global using GPM.Product.Models;
-global using GPM.Product.Models.Dto;
 
 #endregion

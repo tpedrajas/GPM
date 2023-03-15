@@ -32,11 +32,16 @@ public abstract class AbstractEffectBehavior<TViewModel> : ObserverBehavior, IEf
 
     public required TViewModel ViewModel { get; set; }
 
-    public bool WaitToComplete { get; set; }
-
     #endregion
 
     #region methods
+
+    public override IParameterizedService Fill(object parameter, params object[] parameters)
+    {
+        ViewModel = (TViewModel)parameters[1];
+
+        return base.Fill(parameter, parameters);
+    }
 
     protected abstract void OnBackgroundWorker_DoWork(object? sender, DoWorkEventArgs e);
 
@@ -51,13 +56,6 @@ public abstract class AbstractEffectBehavior<TViewModel> : ObserverBehavior, IEf
         backgroundWorker.RunWorkerCompleted -= OnBackgroundWorker_RunWorkerCompleted;
 
         Processed.Invoke(this, EventArgs.Empty);
-    }
-
-    protected override void OnConfiguring(object? sender, BehaviorConfiguringEventArgs e)
-    {
-        base.OnConfiguring(sender, e);
-
-        ViewModel = (TViewModel)e.Presenter.GetViewModel();
     }
 
     public override void OnNext(IChannelNotificatorBehavior notificator)

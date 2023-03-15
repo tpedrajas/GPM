@@ -10,7 +10,7 @@ global using System.Globalization;
 
 global using GPM.Common.Validation;
 
-global using GPM.CubeIntersector.Domain;
+global using GPM.CubeIntersector.Domain.Desktop;
 
 global using GPM.Product.Models;
 

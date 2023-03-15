@@ -3,12 +3,9 @@
 internal sealed class ViewProcessorBehavior : Behavior, IViewProcessorBehavior, IViewProcessorBehaviorHidden
 {
 
-    #region constructors / deconstructors / destructors
+    #region properties
 
-    public ViewProcessorBehavior() : base()
-    {
-
-    }
+    internal required IView View { get; set; }
 
     #endregion
 
@@ -28,64 +25,64 @@ internal sealed class ViewProcessorBehavior : Behavior, IViewProcessorBehavior, 
 
     #region methods
 
-    void IViewProcessorBehaviorHidden.CloseView(IPresenter presenter)
+    void IViewProcessorBehaviorHidden.CloseView()
     {
-        IView view = presenter.GetView();
-        view.Close();
+        View.Close();
     }
 
-    private static void MakeMainView(IView view)
+    public override IParameterizedService Fill(object parameter, params object[] parameters)
     {
-        view.MakeMainView();
+        View = (IView)parameters[1];
+
+        return base.Fill(parameter, parameters);
     }
 
-    protected override void OnConfiguring(object? sender, BehaviorConfiguringEventArgs e)
+    private void MakeMainView()
+    {
+        View.MakeMainView();
+    }
+
+    protected override void OnConfiguring(object? sender, EventArgs e)
     {
         base.OnConfiguring(sender, e);
 
-        IView view = e.Presenter.GetView();
-
-        view.Activated += OnView_Activated;
-        view.Closing += OnView_Closing;
-        view.Closed += OnView_Closed;
-        view.Deactivated += OnView_Deactivated;
-        view.Loaded += OnView_Loaded;
+        View.Activated += OnView_Activated;
+        View.Closing += OnView_Closing;
+        View.Closed += OnView_Closed;
+        View.Deactivated += OnView_Deactivated;
+        View.Loaded += OnView_Loaded;
     }
 
-    protected override void OnUnloading(object? sender, BehaviorUnloadingEventArgs e)
+    protected override void OnUnloading(object? sender, EventArgs e)
     {
         base.OnUnloading(sender, e);
 
-        IView view = e.Presenter.GetView();
-
-        view.Activated -= OnView_Activated;
-        view.Closed -= OnView_Closed;
-        view.Closing -= OnView_Closing;
-        view.Deactivated -= OnView_Deactivated;
-        view.Loaded -= OnView_Loaded;
+        View.Activated -= OnView_Activated;
+        View.Closed -= OnView_Closed;
+        View.Closing -= OnView_Closing;
+        View.Deactivated -= OnView_Deactivated;
+        View.Loaded -= OnView_Loaded;
     }
 
-    void IViewProcessorBehaviorHidden.ShowView(IPresenter presenter, bool isDialog, bool isMain)
+    void IViewProcessorBehaviorHidden.ShowView(bool isDialog, bool isMain)
     {
-        IView view = presenter.GetView();
-
-        ShowView(view, isDialog);
+        ShowView(isDialog);
 
         if (isMain)
         {
-            MakeMainView(view);
+            MakeMainView();
         }
     }
 
-    private static void ShowView(IView view, bool isDialog)
+    private void ShowView(bool isDialog)
     {
         if (isDialog)
         {
-            view.ShowDialog();
+            View.ShowDialog();
         }
         else
         {
-            view.Show();
+            View.Show();
         }
     }
 
@@ -113,7 +110,10 @@ internal sealed class ViewProcessorBehavior : Behavior, IViewProcessorBehavior, 
         {
             Notify((nameof(IViewProcessorBehavior), IViewProcessorBehavior.VIEW_CLOSING_EVENT), true);
 
-            View_Closing(sender, e);
+            if (!e.Cancel)
+            {
+                View_Closing(sender, e);
+            }
         }
     }
 

@@ -3,7 +3,6 @@
 global using System;
 global using System.Collections.Generic;
 global using System.ComponentModel;
-global using System.ComponentModel.DataAnnotations;
 global using System.Diagnostics;
 global using System.Linq;
 global using System.Reflection;
@@ -29,5 +28,12 @@ global using Microsoft.Extensions.Hosting;
 
 global using GPM.Design.Mvpvm.Behaviors;
 global using GPM.Design.Mvpvm.Effects;
+
+global using GPM.Facade.Common;
+
+global using GPM.Facade.Design.Mvpvm;
+global using GPM.Facade.Design.Mvpvm.Behaviors;
+global using GPM.Facade.Design.Mvpvm.Effects;
+global using GPM.Facade.Design.Mvpvm.Management;
 
 #endregion

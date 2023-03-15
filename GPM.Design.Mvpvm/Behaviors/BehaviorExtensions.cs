@@ -5,10 +5,10 @@ internal static class BehaviorExtensions
 
     #region extension methods
 
-    internal static void Configure(this IBehavior behavior, IPresenter presenter)
+    internal static void Configure(this IBehavior behavior)
     {
         IBehaviorHidden behaviorHidden = behavior.ToBehabiorHidden();
-        behaviorHidden.Configure(presenter);
+        behaviorHidden.Configure();
     }
 
     private static IBehaviorHidden ToBehabiorHidden(this IBehavior behavior)
@@ -16,10 +16,10 @@ internal static class BehaviorExtensions
         return (IBehaviorHidden)behavior;
     }
 
-    internal static void Unload(this IBehavior behavior, IPresenter presenter)
+    internal static void Unload(this IBehavior behavior)
     {
         IBehaviorHidden behaviorHidden = behavior.ToBehabiorHidden();
-        behaviorHidden.Unload(presenter);
+        behaviorHidden.Unload();
     }
 
     #endregion

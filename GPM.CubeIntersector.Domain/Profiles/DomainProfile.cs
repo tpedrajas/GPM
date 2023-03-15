@@ -7,12 +7,14 @@ public class DomainProfile : ProfileBase
 
     public DomainProfile()
     {
-        CreateMap<CubeDto, Cube>()
-            .ReverseMap();
+        CreateMap<ICube, CubeDto>();
 
-        CreateMap<Cube, CubeSet>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => string.Empty))
-            .ReverseMap();
+        CreateMap<CubeDto, Cube>();
+
+        CreateMap<ICube, CubeSet>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => string.Empty));
+
+        CreateMap<CubeSet, Cube>();
     }
 
     #endregion

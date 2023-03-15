@@ -1,10 +1,5 @@
 ﻿namespace GPM.Product.Views;
 
-public interface IAboutView : IView
-{
-
-}
-
 /// <summary>
 /// Lógica de interacción para AboutView.xaml
 /// </summary>

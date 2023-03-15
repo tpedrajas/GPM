@@ -6,6 +6,6 @@ global using System.Windows;
 
 #region usings from Layers
 
-global using GPM.Design.Mvpvm;
+global using GPM.Facade.Product.Views;
 
 #endregion

@@ -23,9 +23,18 @@ global using GPM.CubeIntersector.Domain.Profiles;
 
 global using GPM.CubeIntersector.Presenters;
 
-global using GPM.Design.Mvpvm;
 global using GPM.Design.Mvpvm.Management;
 
+global using GPM.Facade.CubeIntersector.Presenters;
+
+global using GPM.Facade.Design.Mvpvm;
+global using GPM.Facade.Design.Mvpvm.Management;
+
+global using GPM.Facade.Product.Models;
+global using GPM.Facade.Product.Views;
+global using GPM.Facade.Product.ViewModels;
+
+global using GPM.Product.Models;
 global using GPM.Product.Views;
 global using GPM.Product.ViewModels;
 

@@ -22,6 +22,8 @@ global using GPM.Common.Validation;
 #region usings from Support Layer
 
 global using GPM.Design.Mvpvm;
-global using GPM.Design.Mvpvm.Effects;
+global using GPM.Facade.Design.Mvpvm;
+
+global using GPM.Facade.Product.ViewModels;
 
 #endregion

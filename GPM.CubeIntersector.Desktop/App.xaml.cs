@@ -6,15 +6,6 @@
 public partial class App : Application
 {
 
-    #region constructors / deconstructors / destructors
-
-    public App()
-    {
-        
-    }
-
-    #endregion
-
     #region properties
 
     private static IHostKeeper HostKeeper { get; } = new AppHostKeeper(ShutdownMode.OnMainWindowClose);

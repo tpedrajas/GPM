@@ -1,10 +1,5 @@
 ﻿namespace GPM.CubeIntersector.Presenters;
 
-public interface ICubeIntersectionPresenter : IPresenter
-{
-
-}
-
 public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeIntersectionViewModel>, ICubeIntersectionPresenter
 {
 
@@ -12,8 +7,9 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
 
     public CubeIntersectionPresenter(IServiceProvider services) : base(services)
     {
-        Mapper = services.GetRequiredService<IMapper>();
-        Configurator = services.GetRequiredService<IConfigurator>();
+        Services = services;
+        Mapper = Services.GetRequiredService<IMapper>();
+        Configurator = Services.GetRequiredService<IConfigurator>();
 
         ViewModel.AboutButton_Click += OnViewModel_AboutButton_Click;
         ViewModel.CalculateIntersectionButton_CanExecuteValidating += OnViewModel_CalculateIntersectionButton_CanExecuteValidating;
@@ -42,6 +38,8 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
     private IMapper Mapper { get; init; }
 
     private IConfigurator Configurator { get; init; }
+
+    private IServiceProvider Services { get; init; }
 
     #endregion
 
@@ -89,21 +87,23 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
         IsCleaning = false;
     }
 
-    private Cube GetInformationCube1()
+    private ICube GetInformationCube1()
     {
-        return new(float.Parse(ViewModel.XPositionCube1TextBox_Text), float.Parse(ViewModel.YPositionCube1TextBox_Text), float.Parse(ViewModel.ZPositionCube1TextBox_Text),
-                   float.Parse(ViewModel.WidthCube1TextBox_Text), float.Parse(ViewModel.HeightCube1TextBox_Text), float.Parse(ViewModel.DepthCube1TextBox_Text));
+        ICube cube = Services.GetRequiredService<ICube>(float.Parse(ViewModel.XPositionCube1TextBox_Text), float.Parse(ViewModel.YPositionCube1TextBox_Text), float.Parse(ViewModel.ZPositionCube1TextBox_Text),
+                                                        float.Parse(ViewModel.WidthCube1TextBox_Text), float.Parse(ViewModel.HeightCube1TextBox_Text), float.Parse(ViewModel.DepthCube1TextBox_Text));
+        return cube;
     }
 
-    private Cube GetInformationCube2()
+    private ICube GetInformationCube2()
     {
-        return new(float.Parse(ViewModel.XPositionCube2TextBox_Text), float.Parse(ViewModel.YPositionCube2TextBox_Text), float.Parse(ViewModel.ZPositionCube2TextBox_Text),
-                   float.Parse(ViewModel.WidthCube2TextBox_Text), float.Parse(ViewModel.HeightCube2TextBox_Text), float.Parse(ViewModel.DepthCube2TextBox_Text));
+        ICube cube = Services.GetRequiredService<ICube>(float.Parse(ViewModel.XPositionCube2TextBox_Text), float.Parse(ViewModel.YPositionCube2TextBox_Text), float.Parse(ViewModel.ZPositionCube2TextBox_Text),
+                                                        float.Parse(ViewModel.WidthCube2TextBox_Text), float.Parse(ViewModel.HeightCube2TextBox_Text), float.Parse(ViewModel.DepthCube2TextBox_Text));
+        return cube;
     }
 
-    private async Task<Cube?> LoadInformationCubeAsync(string id)
+    private async Task<ICube?> LoadInformationCubeAsync(string id)
     {
-        Cube? result = default;
+        ICube? result = default;
 
         try
         {
@@ -139,7 +139,7 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
         return result;
     }
 
-    private async Task<UpsetOperation> SaveInformationCubeAsync(string id, Cube cube)
+    private async Task<UpsetOperation> SaveInformationCubeAsync(string id, ICube cube)
     {
         UpsetOperation result = UpsetOperation.Error;
 
@@ -245,10 +245,10 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
 
     private void OnViewModel_CalculateIntersectionButton_Click(object? sender, EventArgs e)
     {
-        Cube cube1 = GetInformationCube1();
-        Cube cube2 = GetInformationCube2();
+        ICube cube1 = GetInformationCube1();
+        ICube cube2 = GetInformationCube2();
 
-        Cube? cubeIntersection = CubeIntersectionLogic.GetCubeIntersect(cube1, cube2); 
+        ICube? cubeIntersection = CubeIntersectionLogic.GetCubeIntersect(Services, cube1, cube2); 
 
         if (cubeIntersection is null)
         {
@@ -296,10 +296,10 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
 
     private void OnViewModel_LoadInformationCube1Button_Click(object? sender, EventArgs e)
     {
-        using Task<Cube?> loadTask = LoadInformationCubeAsync(ViewModel.IdCube1TextBox_Text);
+        using Task<ICube?> loadTask = LoadInformationCubeAsync(ViewModel.IdCube1TextBox_Text);
         loadTask.Wait();
 
-        Cube? cube = loadTask.Result;
+        ICube? cube = loadTask.Result;
 
         if (cube is null)
         {
@@ -325,10 +325,10 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
 
     private void OnViewModel_LoadInformationCube2Button_Click(object? sender, EventArgs e)
     {
-        using Task<Cube?> loadTask = LoadInformationCubeAsync(ViewModel.IdCube2TextBox_Text);
+        using Task<ICube?> loadTask = LoadInformationCubeAsync(ViewModel.IdCube2TextBox_Text);
         loadTask.Wait();
 
-        Cube? cube = loadTask.Result;
+        ICube? cube = loadTask.Result;
 
         if (cube is null)
         {
@@ -367,7 +367,7 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
 
     private void OnViewModel_SaveInformationCube1Button_Click(object? sender, EventArgs e)
     {
-        Cube cube = GetInformationCube1();
+        ICube cube = GetInformationCube1();
 
         using Task<UpsetOperation> saveTask = SaveInformationCubeAsync(ViewModel.IdCube1TextBox_Text, cube);
         saveTask.Wait();
@@ -395,7 +395,7 @@ public class CubeIntersectionPresenter : Presenter<ICubeIntersectionView, ICubeI
 
     private void OnViewModel_SaveInformationCube2Button_Click(object? sender, EventArgs e)
     {
-        Cube cube = GetInformationCube2();
+        ICube cube = GetInformationCube2();
 
         using Task<UpsetOperation> saveTask = SaveInformationCubeAsync(ViewModel.IdCube2TextBox_Text, cube);
         saveTask.Wait();

@@ -5,7 +5,7 @@ public class ViewModel : ObservableValidator, IViewModel
 
     #region events
 
-    public event CancelEventHandler Validating = (object? sender, CancelEventArgs e) => { };
+    public event CancelEventHandler Validating = delegate { };
 
     #endregion
 

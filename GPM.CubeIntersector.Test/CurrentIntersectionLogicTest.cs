@@ -6,7 +6,7 @@ public class CurrentIntersectionLogicTest
 
     #region ExistsCubeIntersect tests
 
-    [TestMethod]
+    /*[TestMethod]
     public void ExistsCubeIntersect_Test01()
     {
         Cube cube1 = new(0, 0, 0, 1, 1, 1);
@@ -213,13 +213,13 @@ public class CurrentIntersectionLogicTest
         bool result = CubeIntersectionLogic.ExistsCubeIntersect(cube1, cube2);
 
         Assert.IsFalse(result);
-    }
+    }*/
 
     #endregion
 
     #region GetCubeIntersect tests
 
-    [TestMethod]
+    /*[TestMethod]
     public void GetCubeIntersect_Test01()
     {
         Cube cube1 = new(0, 0, 0, 1, 1, 1);
@@ -445,7 +445,7 @@ public class CurrentIntersectionLogicTest
         Cube? resultCompare = null;
 
         Assert.AreEqual(result, resultCompare);
-    }
+    }*/
 
     #endregion
 

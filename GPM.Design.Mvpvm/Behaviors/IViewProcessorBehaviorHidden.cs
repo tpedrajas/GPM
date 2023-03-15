@@ -5,9 +5,9 @@ internal interface IViewProcessorBehaviorHidden : IBehaviorHidden
 
     #region methods
 
-    void CloseView(IPresenter presenter);
+    void CloseView();
 
-    void ShowView(IPresenter presenter, bool isDialog, bool isMain);
+    void ShowView(bool isDialog, bool isMain);
 
     #endregion
 

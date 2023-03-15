@@ -3,15 +3,6 @@
 internal sealed class ChannelNotificatorBehavior : ObservableBehavior, IChannelNotificatorBehavior, IChannelNotificatorBehaviorHidden
 {
 
-    #region constructors / deconstructors / destructors
-
-    public ChannelNotificatorBehavior() : base()
-    {
-
-    }
-
-    #endregion
-
     #region fields
 
     private object[] _Data = Array.Empty<object>();

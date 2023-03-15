@@ -15,21 +15,29 @@ public class Behavior : IBehavior, IBehaviorHidden
 
     #region events
 
-    protected event BehaviorConfiguringEventHandler Configuring = delegate { };
+    protected event EventHandler Configuring = delegate { };
 
-    protected event BehaviorUnloadingEventHandler Unloading = delegate { };
+    protected event EventHandler Unloading = delegate { };
 
     #endregion
 
     #region properties 
 
-    public required string Alias { get; set; }
+    public string Alias { get; set; } = string.Empty;
 
     protected Dictionary<Type, IBehavior> Behaviors { get; private set; } = new();
 
     #endregion
 
     #region methods
+
+    public virtual IParameterizedService Fill(object parameter, params object[] parameters)
+    {
+        Alias = (string)parameter;
+        Behaviors = (Dictionary<Type, IBehavior>)parameters[0];
+
+        return this;
+    }
 
     public void Notify((string TransmitterAlias, string EventName) channel, params object[] data)
     {
@@ -40,12 +48,12 @@ public class Behavior : IBehavior, IBehaviorHidden
         }
     }
 
-    protected virtual void OnConfiguring(object? sender, BehaviorConfiguringEventArgs e)
+    protected virtual void OnConfiguring(object? sender, EventArgs e)
     {
-        Behaviors = e.Presenter.GetBehaviors();
+        
     }
 
-    protected virtual void OnUnloading(object? sender, BehaviorUnloadingEventArgs e)
+    protected virtual void OnUnloading(object? sender, EventArgs e)
     {
 
     }
@@ -54,14 +62,14 @@ public class Behavior : IBehavior, IBehaviorHidden
 
     #region IBehaviorHidden methods
 
-    void IBehaviorHidden.Configure(IPresenter presenter)
+    void IBehaviorHidden.Configure()
     {
-        Configuring(this, new BehaviorConfiguringEventArgs() { Presenter = presenter });
+        Configuring(this, EventArgs.Empty);
     }
 
-    void IBehaviorHidden.Unload(IPresenter presenter)
+    void IBehaviorHidden.Unload()
     {
-        Unloading(this, new BehaviorUnloadingEventArgs() { Presenter = presenter });
+        Unloading(this, EventArgs.Empty);
     }
 
     #endregion

@@ -15,9 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GPM.CubeIntersector.Domain\GPM.CubeIntersector.Domain.csproj" />
-    <ProjectReference Include="..\GPM.Product.ViewModels\GPM.Product.ViewModels.csproj" />
-    <ProjectReference Include="..\GPM.Product.Views\GPM.Product.Views.csproj" />
+    <ProjectReference Include="..\GPM.CubeIntersector.Domain.Desktop\GPM.CubeIntersector.Domain.Desktop.csproj" />
+    <ProjectReference Include="..\GPM.Facade.CubeIntersector.Presenters\GPM.Facade.CubeIntersector.Presenters.csproj" />
+    <ProjectReference Include="..\GPM.Facade.Product.ViewModels\GPM.Facade.Product.ViewModels.csproj" />
+    <ProjectReference Include="..\GPM.Facade.Product.Views\GPM.Facade.Product.Views.csproj" />
   </ItemGroup>
 
 </Project>

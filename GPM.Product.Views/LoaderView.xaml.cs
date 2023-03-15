@@ -1,10 +1,5 @@
 ﻿namespace GPM.Product.Views;
 
-public interface ILoaderView : IView
-{
-
-}
-
 /// <summary>
 /// Lógica de interacción para LoaderView.xaml
 /// </summary>

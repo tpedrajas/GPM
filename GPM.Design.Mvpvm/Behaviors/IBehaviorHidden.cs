@@ -5,9 +5,9 @@ internal interface IBehaviorHidden
 
     #region methods
 
-    void Configure(IPresenter presenter);
+    void Configure();
 
-    void Unload(IPresenter presenter);
+    void Unload();
 
     #endregion
 

@@ -3,15 +3,6 @@
 internal class AppConfigurator : AbstractConfigurator
 {
 
-    #region constructors / deconstructors / destructors
-
-    public AppConfigurator() : base()
-    {
-        
-    }
-
-    #endregion
-
     #region properties
 
     public override string Language

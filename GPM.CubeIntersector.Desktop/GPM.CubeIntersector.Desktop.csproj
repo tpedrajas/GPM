@@ -26,6 +26,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GPM.CubeIntersector.Presenters\GPM.CubeIntersector.Presenters.csproj" />
+    <ProjectReference Include="..\GPM.Product.ViewModels\GPM.Product.ViewModels.csproj" />
+    <ProjectReference Include="..\GPM.Product.Views\GPM.Product.Views.csproj" />
   </ItemGroup>
 
   <ItemGroup>

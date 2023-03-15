@@ -15,13 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\GPM.Common\GPM.Common.csproj" />
+    <ProjectReference Include="..\GPM.Facade.Design.Mvpvm\GPM.Facade.Design.Mvpvm.csproj" />
   </ItemGroup>
 </Project>

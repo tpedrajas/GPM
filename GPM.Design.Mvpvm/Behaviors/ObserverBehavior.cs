@@ -20,7 +20,7 @@ public class ObserverBehavior : Behavior, IObserverBehavior
 
     #region methods
 
-    protected override void OnConfiguring(object? sender, BehaviorConfiguringEventArgs e)
+    protected override void OnConfiguring(object? sender, EventArgs e)
     {
         base.OnConfiguring(sender, e);
 

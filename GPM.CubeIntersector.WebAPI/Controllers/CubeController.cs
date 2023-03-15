@@ -8,16 +8,16 @@ public class CubeController : Controller
     #region methods
 
     [HttpGet("GetCube/{id}")]
-    public async Task<IActionResult> GetCubeAsync(string id, IServiceProvider provider)
+    public async Task<IActionResult> GetCubeAsync(IServiceProvider services, string id)
     {
         IActionResult result;
 
         try
         {
-            using Task<Cube?> getTask = CubeLogic.GetCubeAsync(id, provider);
+            using Task<ICube?> getTask = CubeLogic.GetCubeAsync(services, id);
 
-            IMapper mapper = provider.GetRequiredService<IMapper>();
-            Cube? cube = await getTask.ConfigureAwait(false);
+            IMapper mapper = services.GetRequiredService<IMapper>();
+            ICube? cube = await getTask.ConfigureAwait(false);
 
             if (cube is not null)
             {
@@ -38,17 +38,17 @@ public class CubeController : Controller
     }
 
     [HttpPost("SetCube/{id}")]
-    public async Task<IActionResult> SetCubeAsync(string id, [FromBody] CubeDto cubeDTO, IServiceProvider provider)
+    public async Task<IActionResult> SetCubeAsync(IServiceProvider services, string id, [FromBody] CubeDto cubeDTO)
     {
         IActionResult result;
         UpsetOperation operation = UpsetOperation.Error;
 
         try
         {
-            IMapper mapper = provider.GetRequiredService<IMapper>();
-            Cube cube = mapper.Map<Cube>(cubeDTO);
+            IMapper mapper = services.GetRequiredService<IMapper>();
+            ICube cube = mapper.Map<Cube>(cubeDTO);
 
-            using Task<UpsetOperation> setTask = CubeLogic.SetCubeAsync(id, cube, provider);
+            using Task<UpsetOperation> setTask = CubeLogic.SetCubeAsync(services, id, cube);
             operation = await setTask.ConfigureAwait(false);
 
             result = Ok(operation);

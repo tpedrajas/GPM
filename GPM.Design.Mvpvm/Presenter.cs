@@ -9,18 +9,17 @@ public class Presenter<TView, TViewModel> : IPresenter, IPresenterHidden where T
     {
         Initializing += OnInitializing;
 
-        PresenterProcessor = services.GetRequiredService<IPresenterProcessorBehavior>();
+        var centralizer = services.GetRequiredService<INotificationCentralizerBehavior>(nameof(INotificationCentralizerBehavior), Behaviors);
+        Behaviors.Add(typeof(INotificationCentralizerBehavior), centralizer);
+
         View = services.GetRequiredService<TView>();
         ViewModel = services.GetRequiredService<TViewModel>();
-        ViewModelProcessor = services.GetRequiredService<IViewModelProcessorBehavior>();
-        ViewProcessor = services.GetRequiredService<IViewProcessorBehavior>();
+
+        PresenterProcessor = services.GetRequiredService<IPresenterProcessorBehavior>(nameof(IPresenterProcessorBehavior), Behaviors);
+        ViewProcessor = services.GetRequiredService<IViewProcessorBehavior>(nameof(IViewProcessorBehavior), Behaviors, View);
+        ViewModelProcessor = services.GetRequiredService<IViewModelProcessorBehavior>(nameof(IViewModelProcessorBehavior), Behaviors, ViewModel);
 
         View.SetDataContext(ViewModel);
-
-        Behaviors = new Dictionary<Type, IBehavior>()
-        {
-            { typeof(INotificationCentralizerBehavior), services.GetRequiredService<INotificationCentralizerBehavior>() }
-        };
 
         TryAddBehavior(PresenterProcessor);
         TryAddBehavior(ViewProcessor);
@@ -49,7 +48,7 @@ public class Presenter<TView, TViewModel> : IPresenter, IPresenterHidden where T
 
     #region properties
 
-    protected Dictionary<Type, IBehavior> Behaviors { get; init; }
+    protected Dictionary<Type, IBehavior> Behaviors { get; } = new();
 
     protected IPresenterProcessorBehavior PresenterProcessor { get; init; }
 
@@ -123,7 +122,6 @@ public class Presenter<TView, TViewModel> : IPresenter, IPresenterHidden where T
     protected bool TryAddBehavior<TBehavior>(TBehavior behavior) where TBehavior : IBehavior
     {
         bool isAdded = false;
-        behavior.Alias ??= typeof(TBehavior).Name;
 
         if (!Behaviors.Any(pair => Equals(pair.Key, typeof(TBehavior)) && string.Equals(pair.Value.Alias, behavior.Alias)))
         {
@@ -160,20 +158,20 @@ public class Presenter<TView, TViewModel> : IPresenter, IPresenterHidden where T
     {
         foreach (IBehavior behavior in Behaviors.Values)
         {
-            behavior.Configure(this);
+            behavior.Configure();
         }
 
         Initializing(this, EventArgs.Empty);
 
         IViewProcessorBehavior viewProcessor = (IViewProcessorBehavior)Behaviors[typeof(IViewProcessorBehavior)];
-        viewProcessor.ShowView(this, isDialog, isMain);
+        viewProcessor.ShowView(isDialog, isMain);
     }
 
     void IPresenterHidden.Unload()
     {
         foreach (IBehavior behavior in Behaviors.Values)
         {
-            behavior.Unload(this);
+            behavior.Unload();
         }
     }
 

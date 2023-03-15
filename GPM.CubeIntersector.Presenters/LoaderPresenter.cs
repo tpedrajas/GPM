@@ -1,10 +1,5 @@
 ﻿namespace GPM.CubeIntersector.Presenters;
 
-public interface ILoaderPresenter : IPresenter
-{
-
-}
-
 public class LoaderPresenter : Presenter<ILoaderView, ILoaderViewModel>, ILoaderPresenter
 {
 
@@ -12,8 +7,7 @@ public class LoaderPresenter : Presenter<ILoaderView, ILoaderViewModel>, ILoader
 
     public LoaderPresenter(IServiceProvider services) : base(services)
     {
-        FadeInEffectBehavior = services.GetRequiredService<IFadeInEffectBehavior>();
-        FadeInEffectBehavior.WaitToComplete = true;
+        FadeInEffectBehavior = services.GetRequiredService<IFadeInEffectBehavior>(nameof(IFadeInEffectBehavior), Behaviors, ViewModel);
         FadeInEffectBehavior.Processed += OnShowEffect_Processed;
 
         FadeInEffectBehavior.TryAddSubscribedChannel((nameof(IViewProcessorBehavior), IViewProcessorBehavior.VIEW_LOADED_EVENT));

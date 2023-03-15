@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GPM.Design.Mvpvm\GPM.Design.Mvpvm.csproj" />
+    <ProjectReference Include="..\GPM.Facade.Product.ViewModels\GPM.Facade.Product.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

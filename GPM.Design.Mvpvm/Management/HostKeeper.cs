@@ -45,6 +45,7 @@ public class HostKeeper : IHostKeeper
     {
         services.AddTransient<INotificationCentralizerBehavior, NotificationCentralizerBehavior>();
         services.AddTransient<IChannelNotificatorBehavior, ChannelNotificatorBehavior>();
+        services.AddTransient<IChannelNotification, ChannelNotification>();
 
         services.AddSingleton<IPresenterProcessorBehavior, PresenterProcessorBehavior>();
         services.AddTransient<IViewProcessorBehavior, ViewProcessorBehavior>();

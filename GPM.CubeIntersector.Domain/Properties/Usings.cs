@@ -1,17 +1,6 @@
 ﻿#region usings from .NET Core
 
-global using System;
-global using System.Linq;
 global using System.Text.Json.Serialization;
-global using System.Threading.Tasks;
-
-#endregion
-
-#region usings from NuGet Packages
-
-global using AutoMapper;
-
-global using Microsoft.Extensions.DependencyInjection;
 
 #endregion
 
@@ -19,9 +8,11 @@ global using Microsoft.Extensions.DependencyInjection;
 
 global using GPM.Design.Mvpvm.Profiles;
 
-global using GPM.Product.Data;
-global using GPM.Product.Data.Entities;
+global using GPM.Facade.Product.Data;
+global using GPM.Facade.Product.Data.Entities;
+global using GPM.Facade.Product.Models;
+global using GPM.Facade.Product.Models.Dto;
+
 global using GPM.Product.Models;
-global using GPM.Product.Models.Dto;
 
 #endregion

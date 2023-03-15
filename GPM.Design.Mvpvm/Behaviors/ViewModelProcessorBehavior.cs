@@ -3,12 +3,9 @@
 internal sealed class ViewModelProcessorBehavior : Behavior, IViewModelProcessorBehavior
 {
 
-    #region constructors / deconstructors / destructors
+    #region properties
 
-    public ViewModelProcessorBehavior() : base()
-    {
-        
-    }
+    internal required IViewModel ViewModel { get; set; }
 
     #endregion
 
@@ -20,22 +17,25 @@ internal sealed class ViewModelProcessorBehavior : Behavior, IViewModelProcessor
 
     #region methods
 
-    protected override void OnConfiguring(object? sender, BehaviorConfiguringEventArgs e)
+    public override IParameterizedService Fill(object parameter, params object[] parameters)
+    {
+        ViewModel = (IViewModel)parameters[1];
+
+        return base.Fill(parameter, parameters);
+    }
+
+    protected override void OnConfiguring(object? sender, EventArgs e)
     {
         base.OnConfiguring(sender, e);
 
-        IViewModel viewModel = e.Presenter.GetViewModel();
-
-        viewModel.Validating += OnViewModel_Validating;
+        ViewModel.Validating += OnViewModel_Validating;
     }
 
-    protected override void OnUnloading(object? sender, BehaviorUnloadingEventArgs e)
+    protected override void OnUnloading(object? sender, EventArgs e)
     {
         base.OnUnloading(sender, e);
 
-        IViewModel viewModel = e.Presenter.GetViewModel();
-
-        viewModel.Validating -= OnViewModel_Validating;
+        ViewModel.Validating -= OnViewModel_Validating;
     }
 
     #endregion

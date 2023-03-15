@@ -1,27 +1,7 @@
 ﻿namespace GPM.Product.Models;
 
-public interface ICube : IModel
-{
-
-}
-
 public sealed class Cube : Model, ICube, IEquatable<Cube>
 {
-
-    #region constuctors / deconstructors / destructors
-
-    public Cube(float x, float y, float z, float width, float height, float depth)
-    {
-        X = x;
-        Y = y;
-        Z = z;
-
-        Width = width;
-        Height = height;
-        Depth = depth;
-    }
-
-    #endregion
 
     #region properties
 
@@ -64,6 +44,18 @@ public sealed class Cube : Model, ICube, IEquatable<Cube>
             Cube value => Equals(value),
             _ => false
         };
+    }
+
+    public IParameterizedService Fill(object parameter, params object[] parameters)
+    {
+        X = (float)parameter;
+        Y = (float)parameters[0];
+        Z = (float)parameters[1];
+        Width = (float)parameters[2];
+        Height = (float)parameters[3];
+        Width = (float)parameters[4];
+
+        return this;
     }
 
     public override int GetHashCode()

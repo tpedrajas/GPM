@@ -54,11 +54,6 @@ internal class ObservableBehavior : Behavior, IObservableBehavior
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    protected override void OnConfiguring(object? sender, BehaviorConfiguringEventArgs e)
-    {
-        base.OnConfiguring(sender, e);
-    }
-
     protected virtual void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
 
